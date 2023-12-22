@@ -1,0 +1,36 @@
+{
+  "name": "vue-repetiteur",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "axios": "^1.5.1",
+    "bootstrap": "^5.3.0-alpha1",
+    "kkiapay": "^2.0.24",
+    "swiper": "^11.0.5",
+    "tailwind": "^4.0.0",
+    "vue": "^3.3.4",
+    "vue-carousel": "^0.18.0",
+    "vue-router": "^4.2.4",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.10",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "@vue/test-utils": "^2.4.1",
+    "autoprefixer": "^10.4.16",
+    "jsdom": "^22.1.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.4"
+  }
+}
