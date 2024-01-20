@@ -8,17 +8,21 @@ import { createRouter, createWebHistory } from 'vue-router'
  import Login from '@/views/public/Connexion/Login.vue';
  import ForgotPassword from '@/views/public/Auth/ForgotPassword.vue';
  import Partenaire from '@/views/public/ecole/partenaire.vue';
+ import Librairie from '@/views/public/librairie/Librairie.vue';
  import DetailsRepetiteur from '@/views/public/repetiteur/DétailsRepetiteur.vue';
 //import { HomeView, Register,Login, AboutView ,PublicLayout } from '../views/public';
 import  AdminLayout from '@/views/admin/AdminLayout.vue';
 import Dashboard from '@/views/admin/Dashboard.vue';
-import Payements from '@/views/admin/payement/View.vue';
 import Repetiteur from '@/views/admin/repetiteur/View.vue';
 import Profil from '@/views/admin/repetiteur/Profile.vue';
+import Payements from '@/views/admin/payement/View.vue';
+import Messages from '@/views/admin/message/Messages.vue';
+import Message from '@/views/admin/message/Message.vue';
 import RepetiteurCreate from '@/views/admin/repetiteur/Create.vue';
 import Epreuves from '@/views/admin/Epreuves/Create.vue';
 import Epreuve from '@/views/admin/Epreuves/View.vue';
 import Demande from '@/views/admin/Dashboard/View.vue';
+import Appreciation from '@/views/admin/Dashboard/Appreciation.vue';
 import EnfantsCreate from '@/views/admin/Dashboard/Create.vue';
 import DashLayout from '@/layouts/DashLayout.vue';
 import CommandeDash from '@/views/CommandeDash.vue';
@@ -51,6 +55,8 @@ const router = createRouter({
         },
         {path: '/partenaires', name: 'partenaire',component: Partenaire
         },
+        {path: '/librairie', name: 'librairie',component: Librairie
+        },
         {path: '/details/:id', name: 'details',component: DetailsRepetiteur
       },
         { path:'/:pathMatch(.*)*', redirect:'/'
@@ -78,11 +84,17 @@ const router = createRouter({
     },
     { path: 'epreuve',name: 'epreuve',component: Epreuve 
   },
+  { path: 'messages',name: 'messages',component: Messages 
+},
+{ path: 'message',name: 'message',component: Message 
+},
         { path: 'demande',name: 'demande',component: Demande 
       },
+      { path: 'appreciation',name: 'appreciation',component: Appreciation 
+    },
       { path: 'demande/create',name: 'enfantsCreate',component: EnfantsCreate 
     },
-    { path:'/:pathMatch(.*)*', redirect:'/admin/dashboard'
+    { path:'/:pathMatch(.*)*', redirect:'/'
 
     },
 

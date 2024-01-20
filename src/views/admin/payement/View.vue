@@ -8,7 +8,24 @@
                    
                     
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif">Liste de vos payements</h3><br>
+<div class=" flex items-center ">
+    
+    <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif px-3">Mes paiements</h3> 
+    <!-- <button   type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+       
+    </button> -->
+    
+
+
+   
+
+</div>
+      
+    
+    <br>
     <!-- <div class="flex justify-end">
         <button  type="button" class="inline-flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg class="w-[14px] h-[14px] text-white dark:text-white mt-1 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 1v16M1 9h16" />
@@ -18,19 +35,20 @@
         <thead class="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
+                N°
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Echéance
+                    </th>
+               
+                <th scope="col" class="px-6 py-3">
+                    Mois  et Année
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Nom et Prénoms
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Prix
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Mois
-                </th>
-                <th scope="col" class="px-6 py-3">
-                Annee
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Date
+                    Montant Payer
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Status
@@ -43,20 +61,21 @@
         <tbody v-if="this.payement.length > 0">
             <tr class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700" v-for="(matier,index) in this.payement" :key="index">
                 <td class="px-6 py-4">
+                    {{ index +1 }}  
+                </td>
+                <td class="px-6 py-4">
+                    {{formatDate(matier.date) }} 
+                </td>
+                <td class="px-6 py-4">
+                    {{ matier.mois }}  {{ matier.annee }} 
+                </td>
+                <td class="px-6 py-4">
                     {{ matier.demande.enfants.fname }}  {{ matier.demande.enfants.lname }}
                 </td>
                 <td class="px-6 py-4">
                     {{ matier.demande.tarification.prix }} FCFA
                 </td>
-                <td class="px-6 py-4">
-                    {{ matier.mois }} 
-                </td>
-                <td class="px-6 py-4">
-                    {{ matier.annee }} 
-                </td>
-                <td class="px-6 py-4">
-                    {{ matier.date }} 
-                </td>
+                
                 <td class="px-6 py-4">
                      <span v-if="matier.status === 'Payer'" class="text-green-500">Payer</span>
                     <span v-else-if="matier.status === 'Impayer'" class="text-red-500">Impayer</span>
@@ -64,9 +83,12 @@
                 </td>
                 
 
-                <td class="px-6 py-4">
+                <td class="px-6 py-4" v-if="matier.status === 'Impayer'">
                     <button @click="open( matier.demande.tarification.prix ,matier.id)"  wire:loading.attr="disabled"
                         class="font-medium text-blue-600 dark:text-red-500 hover:underline">payer</button>
+                </td>
+                <td v-else>
+                    Déjà Payer
                 </td>
             </tr>
            
@@ -86,7 +108,7 @@
             </div>
             <footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
                 <div class="container mx-auto text-center">
-                  <p class="text-gray-600">&copy; 2023 Digitalis Sarl. Tous droits réservés.
+                  <p class="text-gray-600">&copy; 2023 Digitalis. Tous droits réservés.
                    
                   </p>
                 </div>
@@ -164,6 +186,26 @@ this.getPayements();
                 console.log(res)
             });
         },
+       // formatDate(dateTimeString) {
+      //  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      //  const date = new Date(dateTimeString);
+      //  return date.toLocaleDateString('en-US', options);
+   // },
+    formatDate(dateTimeString) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const date = new Date(dateTimeString);
+
+    // Récupérer les composants de la date
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0, donc ajout de 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Construire la date dans le format YYYY-MM-DD
+    const formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+},
+
 
         open(prix,demande_id) {
             this.demandId=demande_id
@@ -181,6 +223,7 @@ this.getPayements();
         this.reference= response.transactionId
         const dataToSend = {
             reference:this.reference,
+            status:"Payer",
 };
 const token = localStorage.getItem('token');
            

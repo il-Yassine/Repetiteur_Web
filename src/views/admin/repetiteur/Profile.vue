@@ -1,14 +1,16 @@
 
 <template>
     
-    <div class="container w-full mx-auto my-auto" enctype="multipart/form-data">
-        <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif">Modifier votre profil</h3>
+    <div 
+    v-for="(repetiteur, index) in repetiteurs"
+            :key="index"
+    class="container w-full mx-auto my-auto" enctype="multipart/form-data">
+        <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif">{{ repetiteur.user.name }}</h3>
         <div class="w-full max px-4 bg-white border border-gray-200 rounded-lg shadow sm:p-12 md:p-12 dark:bg-gray-800 dark:border-gray-700">
            <div>
-            <form v-for="(repet, index) in repetiteurs"
-            :key="index"
+            <form 
             
-            class="space-y-6" action="#" method="post"  @submit.prevent="updateRepetiteur" enctype="multipart/form-data">
+            class="space-y-6" action="#" method="post"  @submit.prevent="updateRepetiteur(repetiteur.id)" enctype="multipart/form-data">
                 <ul class="bg-blue-100 border-t border-border-blue-500 text-blue-700 px-4 py-3" role="alert" v-if="Object.keys(this.errorList).length > 0">
                     <li class="mb-0 ms-3" >
                     {{ this.errorList }}
@@ -27,12 +29,20 @@
             </div> -->
             <div class="flex-1">
               <label for="phone" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Téléphone</label>
-              <input type="number"  v-model="repet.phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre numéro de téléphone" required>
+              <input type="number"  v-model="repetiteur.phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre numéro de téléphone" required>
           </div>
           <div class="flex-1">
-            <label for="adresse" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Adresse</label>
-            <input type="text" name="adresse"  v-model="repet.adresse" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre adresse" required>
+            <label for="adresse" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Commune</label>
+            <input type="text" name="adresse"  v-model="repetiteur.commune.name" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre adresse" required>
         </div>
+        <div class="flex-1">
+          <label for="adresse" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Détails Adresse</label>
+          <input type="text" name="adresse"  v-model="repetiteur.adresse" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre adresse" required>
+      </div>
+      <div class="flex-1">
+        <label for="adresse" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Matricule</label>
+        <input type="text" name="adresse"  v-model="repetiteur.matricule" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre adresse" required>
+    </div>
   
              </div>
   
@@ -63,13 +73,13 @@
             <div class="flex space-x-4">
               <div class="flex-1">
                 <label class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Photo de profil</label>
-                <input ref="profil_imageUrl" @change="onFileChange"  class="block w-full text-2xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
+                <a :href="repetiteur.profil_imageUrl" target="blank" class="text-xl">Voir la photo</a>
   
               </div>
             
               <div class="flex-1">
                 <label class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Importer votre diplome en format pdf</label>
-                <input type="file"  @change="handleFileUpload" accept=".pdf"  class="block w-full  text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" >
+                <a :href="repetiteur.diplome_imageUrl" target="blank" class="text-xl">Voir le diplome</a>
   
               </div>
                 
@@ -78,12 +88,12 @@
             <div class="flex space-x-4">
               <div class="flex-1">
                 <label class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Importer votre casier judiciaire en format pdf</label>
-                <input type="file"  @change="casierJudicaires" accept=".pdf"  class="block w-full  text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" >
+                <a :href="repetiteur.profil_imageUrl" target="blank" class="text-xl">Voir votre casier judiciaire</a>
               </div>  
               
             <div class="flex-1">
             <label class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Importer l'attestation de résidence en format pdf</label>
-            <input type="file"  @change="attestationResidences" accept=".pdf"  class="block w-full  text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" >
+            <a :href="repetiteur.attestationResidence" target="blank" class="text-xl">Voir attestation de residence</a>
   
             </div>
             </div>
@@ -91,12 +101,12 @@
              
               <div class="flex-1">
                 <label class="block mb-2  text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Importer votre pièces d'identité en format pdf</label>
-                <input type="file"  @change="identites" accept=".pdf"  class="block w-full  text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" >
+                <a :href="repetiteur.identite" target="blank" class="text-xl">Voir votre pièces d'identite</a>
   
               </div>
               <div class="flex-1">
                 <label for="description" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Description</label>
-                <input type="text" name="description"  v-model="repet.description" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder=" Un description de sois pour attirer les parents" required>
+                <input type="text" name="description"  v-model="repetiteur.description" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder=" Un description de sois pour attirer les parents" required>
             </div>
             </div>
             
@@ -105,37 +115,37 @@
            
               <div class="flex-1">
                   <label for="ecole" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Ecole</label>
-                  <input type="text" name="ecole"  v-model="repet.ecole" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer l'ecole ou vous enseignez" required>
+                  <input type="text" name="ecole"  v-model="repetiteur.ecole" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer l'ecole ou vous enseignez" required>
               </div>
               <div class="flex-1">
                 <label for="heureDisponibilite" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Heure de Disponibilité</label>
-                <input type="text" name="heureDisponibilite"  v-model="repet.heureDisponibilite" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder=" EX: Mercredi 14h à 18 et Samedi 14h à 18h" required>
+                <input type="text" name="heureDisponibilite"  v-model="repetiteur.heureDisponibilite" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder=" EX: Mercredi 14h à 18 et Samedi 14h à 18h" required>
             </div>
                </div>
                <div class="flex space-x-4">
                 <div class="flex-1">
                   <label for="grade" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Grade</label>
-                  <input type="text" name="grade"  v-model="repet.grade" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre grade" required>
+                  <input type="text" name="grade"  v-model="repetiteur.grade" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre grade" required>
               </div>
              
             <div class="flex-1">
               <label for="dateLieuNaissance" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Date et lieu de naissance</label>
-              <input type="text" name="dateLieuNaissance"  v-model="repet.dateLieuNaissance" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder=" EX: 20/10/1990/Cotonou" required>
+              <input type="text" name="dateLieuNaissance"  v-model="repetiteur.dateLieuNaissance" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder=" EX: 20/10/1990/Cotonou" required>
           </div>
           <div class="flex-1">
             <label for="situationMatrimoniale" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Situation matrimoniale</label>
-            <input type="text" name="situationMatrimoniale"  v-model="repet.situationMatrimoniale" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre situation matrimoniale" required>
+            <input type="text" name="situationMatrimoniale"  v-model="repetiteur.situationMatrimoniale" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre situation matrimoniale" required>
         </div>
                </div>
                 <div class="flex space-x-4">
                   <div class="flex-1">
                     <label for="ecole" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Niveau d'etude</label>
-                    <input type="text" name="ecole"  v-model="repet.niveauEtude" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre niveau d'etude" required>
+                    <input type="text" name="ecole"  v-model="repetiteur.niveauEtude" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre niveau d'etude" required>
                 </div>
                
               <div class="flex-1">
                 <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Sexe</label>
-                <select id="countries" v-model="repet.sexe" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <select id="countries" v-model="repetiteur.sexe" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                  <option selected >Choisir votre sexe</option>
                 <option value="Homme" required>Homme</option>
                 <option value="Femme">Femme</option>
@@ -144,7 +154,7 @@
                </div > 
                <div class="flex-1">
                 <label for="experience" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Expérience</label>
-                <input type="text"  v-model="repet.experience" name="experience" id="experience" placeholder="Entrer votre expérience professionnel" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                <input type="text"  v-model="repetiteur.experience" name="experience" id="experience" placeholder="Entrer votre expérience professionnel" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
             </div>
                 </div>
             
@@ -180,7 +190,7 @@
                 identite:'',
                 casierJudicaire:'',
                 attestationResidence:'',
-                repet:{
+                repetiteur:{
                   phone:'',
                 adresse:'',
                 description:'',
@@ -441,30 +451,31 @@
         },
 
     
-            updateRepetiteur(){
+            updateRepetiteur(repetiteur){
                 var mythis= this;
                 const token = localStorage.getItem('token');
                 const user_id= this.user_id
                 console.log(user_id);
+                console.log(repetiteur);
                 const dataToSend = {
     
-                    phone:this.repet.phone,
-                    adresse:this.repet.adresse,
+                    phone:this.repetiteur.phone,
+                    adresse:this.repetiteur.adresse,
                     // classe:this.model.classe,
                     diplome_imageUrl:this.diplome_imageUrl,
                     identite:this.identite,
                     casierJudiciaire:this.casierJudicaire,
                     attestationResidence:this.attestationResidence,
                     profil_imageUrl:this.profil_imageUrl,
-                    sexe:this.repet.sexe,
-                    grade:this.repet.grade,
-                    ecole:this.repet.ecole,
-                    heureDisponibilite:this.repet.heureDisponibilite,
-                    description:this.repet.description,
-                    dateLieuNaissance:this.repet.dateLieuNaissance,
-                    situationMatrimoniale:this.repet.situationMatrimoniale,
-                    niveauEtude:this.repet.niveauEtude,
-                    experience:this.repet.experience,
+                    sexe:this.repetiteur.sexe,
+                    grade:this.repetiteur.grade,
+                    ecole:this.repetiteur.ecole,
+                    heureDisponibilite:this.repetiteur.heureDisponibilite,
+                    description:this.repetiteur.description,
+                    dateLieuNaissance:this.repetiteur.dateLieuNaissance,
+                    situationMatrimoniale:this.repetiteur.situationMatrimoniale,
+                    niveauEtude:this.repetiteur.niveauEtude,
+                    experience:this.repetiteur.experience,
                     // matiere_id:this.model.matiere_id,
                     user_id:user_id,
                     };
@@ -474,7 +485,7 @@
           }
                 };
     console.log(dataToSend);
-                axios.put('http://127.0.0.1:8000/api/repetiteurs/'+this.repetiteurs_id, dataToSend,config )
+                axios.put('http://127.0.0.1:8000/api/repetiteurs/'+ repetiteur, dataToSend,config )
     .then(response => {
       // Gérer la réponse de la requête POST
       console.log(response)

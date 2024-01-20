@@ -4,13 +4,13 @@
     <div class="flex h-screen">
   
 
-      <div class="w-1/7 shadow-2xl bg-gray-800 text-white" v-if="$route.name !== 'dashboard' && $route.name !== 'repetiteurCreate' && $route.name !== 'epreuve' && $route.name !== 'profile'">
+      <div class="w-1/7 shadow-2xl bg-gray-800 text-white" v-if="$route.name !== 'dashboard' && $route.name !== 'repetiteurCreate' && $route.name !== 'epreuve' && $route.name !== 'profile' && $route.name !== 'message'">
         
 
             <img src="../../assets/Repetiteur.png" alt="Logo" class="h-24 mt-1 mx-5" />
 
-        <div class="p-4 text-2xl font-bold">Dashboard</div>
-            <h4 class="px-4 py-2 hover:bg-gray-600 text-xl">{{ name }}</h4>
+        <!-- <div class="p-4 text-2xl font-bold">Dashboard</div>
+            <h4 class="px-4 py-2 hover:bg-gray-600 text-xl">{{ name }}</h4> -->
        
 
         <ul class="py-4 text-lg" >
@@ -18,8 +18,10 @@
             <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white hover:text-gray-300" active-class="text-green-600" to="/admin/repetiteur">Répétiteur</router-link></li> -->
           
            <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/admin/demande">Demande</router-link></li>
-           <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white hover:text-gray-300" active-class="text-green-600" to="/admin/payements">Payements</router-link></li>
-           <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white hover:text-gray-300" active-class="text-green-600" to="/admin/epreuves">Epreuves</router-link></li>
+           <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white hover:text-gray-300" active-class="text-green-600" to="/admin/payements">Paiements</router-link></li>
+           <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white hover:text-gray-300" active-class="text-green-600" to="/admin/epreuves">Bibliothèque</router-link></li>
+           <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white hover:text-gray-300" active-class="text-green-600" to="/admin/messages">Nous écrire</router-link></li>
+           <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white hover:text-gray-300" active-class="text-green-600" to="/admin/appreciation">Appréciation</router-link></li>
            <!-- <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/livreurDash">Livreurs</router-link></li>
             <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/livraisonDash">Livraisons</router-link></li>
            <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/reservationDash">Reservations</router-link></li>
@@ -31,22 +33,25 @@
       </div>
       <div v-else class="w-1/7 shadow-2xl bg-gray-800 text-white" >
 
-          <img src="../../assets/Repetiteur.png" alt="Logo" class="h-24 mt-1 mx-5" />
+           <img src="../../assets/Repetiteur.png" alt="Logo" class="h-24 mt-1 mx-5" />
 
-        <div class="p-4 text-2xl font-bold">Dashboard</div>
-        <p  class="px-4 py-2 hover:bg-gray-600 text-center text-lg "> {{ name }}</p>
+       <!-- <div class="p-4 text-2xl font-bold">Dashboard</div>
+        <p  class="px-4 py-2 hover:bg-gray-600 text-center text-lg "> {{ name }}</p> -->
         <ul class="py-4 text-lg">
           <!-- ... Autres éléments du menu ... -->
+          <li class="px-4 py-2 hover:bg-gray-600">
+            <router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/admin/profil">Profils</router-link>
+          </li>
           <li class="px-4 py-2 hover:bg-gray-600">
               <router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/admin/dashboard">Dashboard</router-link>
           </li>
           <li class="px-4 py-2 hover:bg-gray-600">
-            <router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/admin/epreuve">Epreuves</router-link>
-           
+            <router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/admin/epreuve">Bibliothèque</router-link>
         </li>
         <li class="px-4 py-2 hover:bg-gray-600">
-          <router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/admin/profil">Profils</router-link>
+          <router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/admin/message">Nous écrire</router-link>
         </li>
+       
         <li @click="logout" class="px-4 py-2 hover:bg-gray-600">
           <a href="#">Deconnexion</a>
       </li>

@@ -6,18 +6,17 @@
             <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif">Formulaire de demande de répétiteur pour un enfant</h3>
             <div class="w-full max px-4 bg-neutral border border-gray-200 rounded-lg shadow sm:p-12 md:p-12 dark:bg-gray-800 dark:border-gray-700">
                 
-                <form class="space-y-6" action="#" @submit.prevent="ajout" enctype="multipart/form-data">
+                <form class="space-y-6" action="POST" @submit.prevent="saveDemande" enctype="multipart/form-data">
                     <ul class="bg-green-300 border-t border-border-blue-500 text-blue-700 px-4 py-3" role="alert" v-if="Object.keys(this.errorList).length > 0">
                         <li class="mb-0 ms-3" >
                         {{ this.errorList }}
-                    
-                       
+
                         </li>
                     </ul>
                   
                     <div class="flex space-x-4">
                         <div class="flex-1">
-                            <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Enfants</label>
+                            <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Information concernant l'enfant</label>
                         <select id="countries" v-model="enfants_id"  class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <!-- <option selected  >Selectionner votre enfants</option> -->
             
@@ -64,32 +63,50 @@
     
                     </div>
                     <div class="flex space-x-4">
-    
                         <div class="flex-1">
+                            <label for="phone"  class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Matricule du répétiteur</label>
+                           <input type="text" @input="getRepetiteur"  v-model="matricule" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
+                            <div  v-if="matricule.length > 0 && repetiteurs.length > 0"> 
+                            <h2></h2>
+                           
+                            <ul class="py-4" v-for="(result, index) in repetiteurs" >
+                
+                             <li  :key="index" class="px-4 py-2 text-lg"><span>{{ result.repetiteur.user.name }},</span> </li>
+                             <li  class="px-4 py-2 text-lg"><span>{{ result.repetiteur.adresse }}</span> </li>
+                            
+                             
+                
+                          </ul>
+                        </div>
+                        <div v-else-if="matricule.length > 0" class="text-lg">
+                          Ce matricule n'exite pas
+                      </div>
+                        <div v-else>
+                          
+                        </div>
+                       </div>
+    
+                        <!-- <div class="flex-1">
                             <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Répétiteur</label>
                             <select  id="countries" v-model="repetiteur_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             <option selected  >Choisir un répétiteur</option>
-                                
+
                             <option v-for="(repetiteur,index) in this.repetiteurs" :key="index" :value="repetiteur.repetiteur.id" >{{ repetiteur.repetiteur.user.name }} </option>
-    
+
                             </select>
-                        </div>
+                        </div> -->
                         <div class="flex-1">
-                             <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Informations Complementaires</label>
+                        <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Informations Complementaires</label>
                             <input type="text"  v-model="adresse" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                         </div>
-                        
+
                     </div>
-                    
-                    
-    
-                   
-                   
+
                     <div class="flex justify-end">
-                        <button type="submit" @click="saveDemande" class=" text-white bg-green-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                        <button type="submit" class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
                     </div>
-                   
-                    
+
+
                 </form>
             </div>
         </div>
@@ -113,10 +130,12 @@ export default {
             parents_id:'',
             enfants_id:'',
             classe_id:'',
+            matricule:'',
             tarification_id:'',
             classe:[],
             classes:[],
             repetit:[],
+          
             matiere:[],
             prixe:[],
             matiere_id:'',
@@ -140,7 +159,7 @@ export default {
     mounted(){
         this.getUsers();
         this.getMatiere();
-        this.getRepetiteurs();
+        
       this.$nextTick(() => {
     this.getParents();
     this.getEnfants();
@@ -164,10 +183,8 @@ export default {
      axios.get('http://127.0.0.1:8000/api/profile',config)
     .then(response => {
       this.user_id = response.data.id;
-      localStorage.setItem('user_id',response.data.id)
-      this.$store.commit('setUserId',this.user_id)
-      //userIds=this.userId;
       console.log(response.data.id);
+      console.log( this.user_id);
     })
     .catch(error => {
       if (error.response === 401) {
@@ -182,6 +199,8 @@ export default {
         },
         getParents(){
             const token = localStorage.getItem('token');
+            console.log('test');
+            console.log(this.user_id);
             
             axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
                 this.parents=res.data.data.filter(parent => parent.user.id === this.user_id)
@@ -194,6 +213,7 @@ export default {
         },
        
         getEnfants(){
+            console.log(this.parents_id);
             axios.get('http://127.0.0.1:8000/api/enfants').then(res=>{
                 this.enfants=res.data.data.filter(result =>
                 // result.status ==='Terminer' &&
@@ -221,15 +241,7 @@ export default {
             });
             this.getPrix();
         },
-        getClasse(){
-            const token = localStorage.getItem('token');
-            axios.get('http://127.0.0.1:8000/api/tarifications').then(res=>{
-                this.classe= res.data.data
-                console.log(this.classe)
-                console.log(res)
-            });
-            this.getPrix();
-        },
+       
         getMatiere(){
             const token = localStorage.getItem('token');
             axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
@@ -304,19 +316,29 @@ getRepetiteurs(){
         getRepetiteur(){
             console.log(this.matiere_id);
             console.log(this.classe_id);
+            console.log(this.matricule);
             
             axios.get('http://127.0.0.1:8000/api/repetiteurmcs').then(res=>{
                 this.repetiteurs = res.data.data.filter(result =>
                 result.matiere.id === this.matiere_id &&
                    result.classe.id === this.classe_id &&
-                   result.repetiteur.status === 'Terminer'
-
+                   result.repetiteur.traitementDossiers === 'Terminer'&&
+                   result.repetiteur.matricule === this.matricule
+                    
                     );
+                    if (this.repetiteurs.length >0) {
+                        this.repetiteur_id= this.repetiteurs[0].repetiteur.id
+                        
+                    }
+                    console.log( this.repetiteur_id);
+                    
+                    console.log(res.data.data);
                     console.log(res.data.data);
                    // console.log(this.model.matiere_id);
                 console.log(this.repetiteurs)
                 console.log(res)
             });
+           
         },
         saveDemande(){
             var mythis= this;
@@ -325,7 +347,7 @@ getRepetiteurs(){
             const dataToSend = {
 
 
-// adresse:this.adresse,
+ description:this.adresse,
 tarification_id:this.tarification_id,
 repetiteur_id:this.repetiteur_id,
 enfants_id:this.enfants_id,

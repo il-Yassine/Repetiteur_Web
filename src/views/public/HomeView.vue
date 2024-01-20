@@ -23,74 +23,33 @@
   @mouseover="pauseScrollAnimation"
   @mouseout="resumeScrollAnimation"
   >
-    <div class="mx-5 bg-trensparent py-3 absolute top-1/2 transform translate-y-1/3">
-      <div>
-        <div class="card-container">
-          <div class="card-wrapper flex items-center justify-center " ref="cardWrapper">
+    <div class=" bg-white   absolute top-3/4 transform translate-y-1/4">
+      <div class="">
+        <div class="card-container ">
+           <div class="card-wrapper flex items-center justify-center " ref="cardWrapper">
            
             <card-component v-for="(card, index) in apeResults" :key="index"
              :imageSrc="card.profil_imageUrl"
              :title="card.user.name"
-             :description="card.adresse"
+             :description="card.commune.name"
              class="card-slider text-center "
               />
            
-          </div>
+          </div> 
       </div>
       </div>
       
 
     </div>
   </section>
-
-  <section id="clients" class="bg-white py-3">
+  <hr class="separator">
+  <section id="clients" class="bg-white py-4">
     <div class="swiper-container mx-auto" data-aos="fade-up">
   
       <div class="clients-slider swiper" data-aos="fade-up" data-aos-delay="100">
         <div class="swiper-wrapper flex items-center justify-center"> <!-- Utilisez justify-center pour aligner les logos au centre -->
   
           <!-- Utilisez une classe pour les styles communs des logos -->
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/amazon.svg" class="mx-auto h-12 w-12" alt="Amazon">
-          </div>
-  
-          <!-- Répétez le même format pour les autres logos -->
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/microsoft.svg" class="mx-auto h-12 w-12" alt="Microsoft">
-          </div>
-  
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/netflix.svg" class="mx-auto h-12 w-12" alt="Netflix">
-          </div>
-  
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/sony.svg" class="mx-auto h-12 w-12" alt="Sony">
-          </div>
-  
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/verizon.svg" class="mx-auto h-12 w-12" alt="Verizon">
-          </div>
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/amazon.svg" class="mx-auto h-12 w-12" alt="Amazon">
-          </div>
-  
-          <!-- Répétez le même format pour les autres logos -->
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/microsoft.svg" class="mx-auto h-12 w-12" alt="Microsoft">
-          </div>
-  
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/netflix.svg" class="mx-auto h-12 w-12" alt="Netflix">
-          </div>
-  
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/sony.svg" class="mx-auto h-12 w-12" alt="Sony">
-          </div>
-  
-          <div class="swiper-slide px-3">
-            <img src="../../assets/img/brands/verizon.svg" class="mx-auto h-12 w-12" alt="Verizon">
-          </div>
-
           <div class="swiper-slide px-3">
             <img src="../../assets/img/brands/amazon.svg" class="mx-auto h-12 w-12" alt="Amazon">
           </div>
@@ -141,63 +100,110 @@
   <section id="repetiteur" class="flex">
     
     <!-- Deux tiers à gauche -->
-    <div class="w-2/3 p-2  ">
+    <div class="w-3/4 p-2  ">
       <!-- Votre contenu pour la partie gauche ici -->
       <div class="bg-gray-50 mb-4 custom-height">
         <div class="flex  py-2">
           <div class="block w-full  items-center">
+            
 
             <form >
 
               <div class="flex items-center">
 
-                <label for="default-search" class=" text-2xl px-3">Filtres</label>
+                <label for="default-search" class=" text-2xl px-3">Filtre par :</label>
 
 
               </div>
             </form>
+            
+              
            <div>
+            
             <form  @submit.prevent="search" >
 
               <div class="flex items-center py-5">
+                
 
-
-                  <input type="search"  v-model="searchQuery" @input="search" id="default-search" class="flex-grow p-4 mx-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required>
+                  <!-- <input type="search"  v-model="searchQuery" @input="search" id="default-search" class="flex-grow p-4 mx-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required> -->
 
               </div>
             </form>
            </div>
            <div class="flex space-x-4 mx-2">
+            <!-- <div  class=" flex-1">
+              <div>
+                <label for="fruits" class="block text-lg font-medium text-gray-700">Choisissez une commune :</label>
+                <select v-model="selectedFruit" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                  <option value="" disabled>Sélectionnez une commune</option>
+                  <option v-for="fruit in repetiteur" :key="fruit.id" :value="fruit.user.name">{{ fruit.user.name }}</option>
+                </select>
+              </div>
+            
+              <div class="mt-4" v-if="selectedFruit">
+                <p class="text-lg font-semibold">Vous avez sélectionné : {{ selectedFruit }}</p>
+              </div>
+            </div> -->
             <div  class="flex-1">
               <form  @submit.prevent="search">
 
-                <div class="flex items-center">
+                <div class="">
   
-                  <label for="default-search" class=" text-2xl px-1"> Par Ville</label>
+                  <label for="default-search" class="text-2xl px-1"> Commune</label>
                     <input type="search"   v-model="searchQueryVille" @input="searchVille" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required>
-  
+                    <select v-model="searchQueryVill" @input="searchVill" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                      <option value="">Sélectionnez une commune</option>
+                      <option v-for="fruit in commune" :key="fruit.id" :value="fruit.name">{{ fruit.name }}</option>
+                    </select>
                 </div>
               </form>
             </div>
            <div class="flex-1">
             <form  @submit.prevent="search">
 
-              <div class="flex items-center">
+              <div class="">
 
-                <label for="default-search" class=" text-2xl px-1">Par Cycle</label>
-                  <input type="search"   v-model="searchQueryCyle" @input="searchCycle" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required>
-
+                <label for="default-search" class=" text-2xl px-1"> Cycle</label>
+                  <!-- <input type="search"   v-model="searchQueryCyle" @input="searchCycle" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required> -->
+                  <select v-model="searchQueryCyle" @input="searchCycle" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                  <option value="">Sélectionnez un cycle</option>
+                  <!-- <option v-for="fruit in repetiteur" :key="fruit.id" :value="fruit.cycle">{{ fruit.cycle }}</option> -->
+                  <option value="Primaires">Primaires</option>
+                    <option value="Secondaires">Secondaires</option>
+                    <option value="Universitaires">Universitaires</option>
+                </select>
               </div>
             </form>
            </div>
            <div class="flex-1">
             <form  @submit.prevent="search">
 
-              <div class="flex items-center">
+              <div class="">
 
-                <label for="default-search" class=" text-2xl px-1">Par Matiere</label>
-                  <input type="search"   v-model="searchQueryMatiere" @input="search" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required>
+                <label for="default-search" class=" text-2xl px-1">Matière</label>
+                  <!-- <input type="search"   v-model="searchQueryMatiere" @input="searchMatiere" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required> -->
+                  <select v-model="searchQueryMatiere" @input="searchMatiere" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="" >Sélectionnez une matiere</option>
+                    <option v-for="fruit in matiere" :key="fruit.id" :value="fruit.name">{{ fruit.name }}</option>
+                  </select>
+              </div>
+            </form>
+           </div>
 
+           <div class="flex-1">
+            <form  @submit.prevent="search">
+
+              <div class="">
+
+                <label for="default-search" class=" text-2xl px-1">Disponibilité</label>
+                  <!-- <input type="search"   v-model="searchQueryCyle" @input="searchCycle" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required> -->
+                  <select v-model="searchQueryDispo" @input="searchetats" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                  <!-- <option value="" disabled></option> -->
+                  <!-- <option v-for="fruit in repetiteur" :key="fruit.id" :value="fruit.cycle">{{ fruit.cycle }}</option> -->
+                  <option value="">Tous</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Non disponible"> Non disponible</option>
+                </select>
               </div>
             </form>
            </div>
@@ -214,10 +220,10 @@
                 :key="index"
                 :imageSrc="card.profil_imageUrl"
                 :imageAlt="card.imageAlt"
-                :title="card.user.name"
-                :Soustitre="card.adresse"
-                :Surtitre="card.cycle +'/'+ card.grade"
-                :description="card.niveauEtude"
+                :title=" card.matricule +'/'+ card.user.name" 
+                :Surtitre="card.commune.name"
+                :description="card.cycle +'/'+ card.status"
+                :descriptio="card.evaluation +'/'+ card.etats"
                 :productId="card.id"
 
                 class="w-1/4 mb-2 text-center "
@@ -274,12 +280,13 @@
     </div>
 
     <!-- Un tiers à droite -->
-    <div class="w-1/3 p-2">
+    <div class="w-1/4 p-2">
       <!-- Votre contenu pour la partie droite ici -->
       <div class="bg-blue-200 mb-4 custom-height">
-        <RepetiteurCard v-for="(card, index) in publicite.slice(-5)" :key="index"
+        <RepetiteurCard v-for="(card, index) in publicite.slice(-6)" :key="index"
         :image-src="card.publiciteUrl"
         :card-title="card.titre"
+        
       />
 
 
@@ -287,16 +294,14 @@
       
     </div>
   </section>
-  
 
-  
   <!-- <section id="clients" class="bg-gray-100 py-16">
     <div class="container mx-auto" data-aos="fade-up">
       <div class="section-header text-center mb-8">
         <h2 class="text-3xl font-semibold">Clients</h2>
         <p class="text-gray-600">Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
       </div>
-  
+
       <div class="clients-slider swiper" data-aos="fade-up" data-aos-delay="100">
         <div class="swiper-wrapper flex items-center">
           <div class="swiper-slide">
@@ -309,15 +314,13 @@
             <img src="../../assets/img/brands/netflix.svg" class="mx-auto" alt="">
           </div>
           <div class="flex space-x-4">
-           
+
             <img src="../../assets/img/brands/sony.svg" alt="Partenaire 1" class="h-12 w-12">
-    
-           
+
             <img src="../../assets/img/brands/verizon.svg" alt="Partenaire 2" class="h-12 w-12">
-    
-            
+
             <img src="../../assets/img/brands/amazon.svg" alt="Partenaire 3" class="h-12 w-12">
-    
+
         </div>
         </div>
         <div class="swiper-pagination"></div>
@@ -331,7 +334,7 @@
 
     <!-- <div class="flex justify-center">
       <div class="block w-1/3  items-center">
-        <form  @submit.prevent="search">   
+        <form  @submit.prevent="search">
           <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div class="relative">
 
@@ -348,7 +351,7 @@
       <!-- <h2>Résultats de la recherche :</h2> -->
       <!-- <ul>
         <li v-for="(result, index) in searchResults" :key="index">
-          {{ result.fname }} 
+          {{ result.fname }}
         </li>
       </ul> -->
       <!-- <div class="cards-container  overflow-x-hidden flex space-x-4 p-4">
@@ -882,7 +885,7 @@
     <h2
       class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
     >
-      Témoignages
+     Quelques Témoignages
     </h2>
     <p class="text-xl text-white">
       L'entreprise elle-même est une entreprise très prospère. lâche sage
@@ -1168,27 +1171,27 @@
 <footer class="bg-green-600 text-white py-6">
   <div class="container mx-auto">
     <div class="flex flex-col md:flex-row justify-between ml-12">
-      <!-- Section de contact -->
+      
       <div class="md:w-1/3">
         <h2 class="text-2xl font-semibold mb-4">Contactez-nous</h2>
-        <!-- <p>Siège: IITA, Maison SPERO COSSI </p> -->
+        
         <p class="text-lg">Abomey-Calavi, Code Postal</p>
         <p class="text-lg">Email : contact01.digitalis@gmail.com</p>
         <p class="text-lg">Téléphone : +229 97825820</p>
       </div>
 
-      <!-- Liens rapides -->
+      
       <div class="md:w-1/3 mt-4 md:mt-0">
         <h2 class="text-2xl font-semibold mb-4">Liens rapides</h2>
         <ul>
-          <li><a href="/" class="hover:text-gray-400 ">Accueil</a></li>
+          <li><a href="/" class="hover:text-gray-400 text-lg ">Accueil</a></li>
           <li><a href="/#repetiteur" class="hover:text-gray-400 text-lg">Rechercher un répétiteur</a></li>
           <li><a href="/login" class="hover:text-gray-400 text-lg">Faire une demande</a></li>
           <li><a href="/login" class="hover:text-gray-400 text-lg">Connexion</a></li>
         </ul>
       </div>
 
-      <!-- Réseaux sociaux -->
+  
       <div class="md:w-1/3 mt-4 md:mt-0">
         <h2 class="text-2xl font-semibold mb-4">Suivez-nous</h2>
         <ul class="flex space-x-4 lg:ml-1 mt-6 ml-28">
@@ -1202,22 +1205,24 @@
         </svg></a></li>
         </ul>
         <h2 class="text-xl font-semibold mt-2">Notre site</h2>
-        <a href="https://digitalis-benin.com/" class=" text-white hover:text-gray-400 text-lg">digitalis-benin.com</a>
+        <a href="https://digitalis-benin.com/" target="blank" class=" text-white hover:text-gray-400 text-lg">digitalis-benin.com</a>
       </div>
     </div>
   </div>
  
 </footer>
- <div class="bg-gray-700 h-6"> <h2 class="text-lg text-white text-center font-semibold ">Copyright@ 2023 dévolopper par Digitalis
-</h2></div>
+  <div class="bg-gray-700 h-6"> <h2 class="text-lg text-white text-center font-semibold ">Copyright@ 2023 dévolopper par Digitalis
+</h2></div> 
 
 </template>
 
 <script>
+
 import Card from '@/components/card/Card.vue';
 import RepetiteurCard from '@/components/card/RepetiteurCard.vue';
 import CardComponent  from '@/components/card/Cards.vue';
-import axios from 'axios'
+import axios from 'axios';
+
 export default {
   props: {
     currentPage: {
@@ -1240,6 +1245,7 @@ export default {
      
       items: ['Slide 1', 'Slide 2', 'Slide 3'],
       animationFrameId: null,
+      selectedFruit: '',
       isHovered: false,
       images: [
         {
@@ -1297,17 +1303,27 @@ export default {
         // Add more cards as needed
       ],
       apiData: [],
+      rep: [],
+      repet: [],
+      repete: [],
       loading: true,
       searchQuery: '',
+      searchQueryDispo: '',
       searchQueryVille: '',
+      searchQueryVill: '',
       searchQueryCyle: '',
       searchQueryMatiere: '',
       searchResults: [],
       repetiteur: [],
+      repetiteurs: [],
       apeResults: [],
       aceResults: [],
+      repetFiltered: [],
       autresResults: [],
+      commune: [],
+      repetiteurmatiereClasse: [],
       publicite: [],
+      matiere: [],
       currentPage: 1,
       itemsPerPage: 20,
       totalPages: 5,
@@ -1324,20 +1340,26 @@ export default {
       this.apiData = response.data; // Assurez-vous que la structure de votre réponse correspond à ce que vous attendez
       console.log( this.apiData.data);
       this.apeResults = response.data.data.filter(results =>
-                  results.grade ==='APE' &&
-                  results.status ==='Terminer' 
+                  results.evaluation ==='Evaluer' &&
+                  results.traitementDossiers ==='Terminer' 
 
                  );
+                 this.repete = response.data.data.filter(results =>
+                  
+                  results.traitementDossiers ==='Terminer' 
+
+                 );
+                 console.log(this.repete);
                  console.log( this.apeResults);
                  this.aceResults = response.data.data.filter(resultes =>
                  resultes.grade ==='ACE' &&
-                 resultes.status ==='Terminer' 
+                 resultes.traitementDossiers ==='Terminer' 
                 //  result.matiere_id.matiere.name.includes(this.searchQuery)
                  );
                  console.log( this.aceResults);
                  this.autresResults = response.data.data.filter(resultees =>
                  resultees.grade ==='Autres' &&
-                 resultees.status ==='Terminer' 
+                 resultees.traitementDossiers ==='Terminer' 
                  
                 //  result.matiere_id.matiere.name.includes(this.searchQuery)
                  );
@@ -1367,6 +1389,7 @@ export default {
   });
 
   return filteredData;
+ 
 },
 
     // Calcule les cartes à afficher en fonction de la page actuelle
@@ -1402,23 +1425,18 @@ export default {
 },
 
   },
-  watch: {
-    isBlinking(newVal) {
-      if (newVal) {
-        // Démarrez l'animation de clignotement si isBlinking est vrai
-        this.startBlinkAnimation();
-      } else {
-        // Arrêtez l'animation de clignotement si isBlinking est faux
-        this.stopBlinkAnimation();
-      }
-    },
-  },
+
   mounted(){
       //  console.log('I am here')
       this.search();
+      this.getmatiere();
+      this.getCommune();
       this.searchVille();
+      this.searchVill();
       this.search();
       this.getPublicité();
+      this.getrepetiteur();
+      this.getrepetiteurMatiere();
      // this.startCarousel();
    // this.scrollAnimation();
     console.log(this.currentPage, this.totalPages);
@@ -1429,6 +1447,14 @@ export default {
     toggleBlink() {
       this.isBlinking = !this.isBlinking; // Inverse la valeur de isBlinking
     },
+    getCommune(){
+        axios.get('http://127.0.0.1:8000/api/communes').then(res=>{
+                this.commune=res.data.data
+                console.log(this.commune)
+               
+            });
+          
+          },
     getPublicité(){
       axios.get('http://127.0.0.1:8000/api/publicites',)
    .then(response => {
@@ -1440,7 +1466,18 @@ export default {
         console.error('Erreur lors de la récupération des données depuis l\'API', error);
       });
     },
-   
+    getmatiere(){
+      axios.get('http://127.0.0.1:8000/api/matieres',)
+   .then(response => {
+     this.matiere = response.data.data;
+     console.log( this.matiere);
+     
+   })
+   .catch(error => {
+        console.error('Erreur lors de la récupération des données depuis l\'API', error);
+      });
+    },
+    
     startCarousel() {
       setInterval(() => {
         this.currentIndex = (this.currentIndex + 1) % this.items.length;
@@ -1458,18 +1495,7 @@ export default {
       }
     },
 
-    // Exemple d'une fonction pour récupérer davantage de cartes (à adapter à votre cas)
-    getMoreCards() {
-      // Mettez en œuvre ici la logique pour récupérer plus de cartes (par exemple, à partir de votre source de données locale)
-      // Assurez-vous de retourner un tableau de nouvelles cartes
-      // Exemple fictif :
-      const additionalCards = [
-        { imageSrc: '...', imageAlt: '...', title: 'Card 5', description: 'Description 5', VoirPlus: 'Voir plus 5' },
-        { imageSrc: '...', imageAlt: '...', title: 'Card 6', description: 'Description 6', VoirPlus: 'Voir plus 6' },
-        // ... (d'autres données)
-      ];
-      return additionalCards;
-    },
+   
     goToPage(page) {
       // if (page >= 1 && page <= this.pages) {
       //   this.currentPage = page;
@@ -1479,9 +1505,20 @@ export default {
     },
     async getrepetiteur() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/repetiteurs ");
+        const response = await axios.get("http://127.0.0.1:8000/api/repetiteurs");
         if (response.data) {
           this.repetiteur= response.data.data;
+          console.log(this.repetiteur);
+        }
+      } catch (error) {
+        console.log(error.data);
+      }
+    },
+    async getrepetiteurMatiere() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/repetiteurmcs ");
+        if (response.data) {
+          this.repetiteurmatiereClasse= response.data.data;
           console.log(this.repetiteur);
         }
       } catch (error) {
@@ -1499,7 +1536,7 @@ export default {
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.status ==='Terminer'&& (
+                 result.traitementDossiers ==='Terminer'&& (
                   result.adresse.includes(this.searchQuery)||
                   result.ecole.includes(this.searchQuery)||
                   result.niveauEtude.includes(this.searchQuery)||
@@ -1533,8 +1570,37 @@ export default {
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.status ==='Terminer'&& (
-                  result.adresse.includes(this.searchQueryVille)
+                 result.traitementDossiers ==='Terminer'&& (
+                //  result.adresse.includes(this.searchQueryVille)
+                  (result.commune && result.commune.name.includes(this.searchQueryVille))
+                )
+                 );
+                console.log(this.searchResults)
+                
+            });
+        // Filtrez les résultats en fonction de votre logique
+       // this.searchResults = res.data.data.filter(result => result.fname === includes(this.searchQuery));
+        console.log(res.data);
+        console.log(this.searchResults);
+      } catch (error) {
+        console.error('Erreur lors de la recherche:', error);
+        // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+      }
+    },
+    searchVill() {
+    //console.log(text);
+      // Remplacez l'URL de l'API par celle que vous souhaitez utiliser
+      console.log('Recherche effectuée avec :', this.searchQueryVill);
+      try {
+       
+
+        // Utilisez Axios pour effectuer la requête à l'API
+        axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+             
+                 this.searchResults = res.data.data.filter(result =>
+                 result.traitementDossiers ==='Terminer'&& (
+                 // result.adresse.includes(this.searchQueryVill)
+                 (result.commune && result.commune.name.includes(this.searchQueryVill))
                 )
                  );
                 console.log(this.searchResults)
@@ -1560,7 +1626,7 @@ export default {
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.status ==='Terminer'&& (
+                 result.traitementDossiers ==='Terminer'&& (
                   result.cycle.includes(this.searchQueryCyle)
                 )
                  );
@@ -1575,6 +1641,96 @@ export default {
         console.error('Erreur lors de la recherche:', error);
         // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
       }
+    },
+    searchetats() {
+    //console.log(text);
+      // Remplacez l'URL de l'API par celle que vous souhaitez utiliser
+      console.log('Recherche effectuée avec :', this.searchQuery);
+      try {
+       
+
+        // Utilisez Axios pour effectuer la requête à l'API
+        axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+             
+                 this.searchResults = res.data.data.filter(result =>
+                 result.traitementDossiers ==='Terminer'&& (
+                  result.etats.includes(this.searchQueryDispo)
+                )
+                 );
+                console.log(this.searchResults)
+                
+            });
+        // Filtrez les résultats en fonction de votre logique
+       // this.searchResults = res.data.data.filter(result => result.fname === includes(this.searchQuery));
+        console.log(res.data);
+        console.log(this.searchResults);
+      } catch (error) {
+        console.error('Erreur lors de la recherche:', error);
+        // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+      }
+    },
+    searchMatiere() {
+   
+      console.log('Recherche effectuée avec :', this.searchQueryMatiere);
+      try {
+       
+
+       // Utilisez Axios pour effectuer la requête à l'API
+       axios.get('http://127.0.0.1:8000/api/repetiteurmcs').then(response=>{
+        console.log('Réponse de l\'API:', response.data.data);
+              //   this.searchResults = response.data.data.filter(result =>
+              //   result.status ==='Terminer'&& (
+              //     result.matiere && result.matiere.name.includes(this.searchQueryMatiere)
+              //  )
+              //  );
+              this.rep = response.data.data.filter(resulte => 
+  resulte.repetiteur.traitementDossiers === 'Terminer' && 
+  resulte.matiere && 
+  resulte.matiere.name.toLowerCase().includes(this.searchQueryMatiere.toLowerCase())
+);
+
+
+console.log('Résultats filtrés:', this.rep);
+               console.log(this.rep)
+               console.log('le tabeau repetiteur',this.repete)
+               if (this.rep && this.repete) {
+  
+  this.repet = this.rep.map(item => item.repetiteur.id);
+  this.repetFiltered = this.repete.filter(repeteItem => {
+  // Utilisation de some pour vérifier si l'ID de repetiteur existe dans this.rep
+  return this.rep.some(repItem => repItem.repetiteur.id === repeteItem.id);
+  
+});
+this.searchResults=this.repetFiltered 
+
+  console.log(this.repet);
+  console.log(this.repetFiltered);
+ } else {
+   console.error('La propriété rep est undefined.');
+ }
+// Assurez-vous que rep et repete sont définis avant de continuer
+// if (this.rep && this.repete) {
+//   console.log(this.repete);
+//   console.log(this.rep);
+//   this.repetFiltered = this.repete.filter(id => this.rep.some(item => item.repetiteur.id === id));
+
+//   console.log(this.repetFiltered);
+ 
+
+// } else {
+//   console.error('Les propriétés rep ou repete sont undefined.');
+// }
+
+           });
+       // Filtrez les résultats en fonction de votre logique
+      // this.searchResults = res.data.data.filter(result => result.fname === includes(this.searchQuery));
+
+       console.log(this.searchResults);
+     } catch (error) {
+       console.error('Erreur lors de la recherche:', error);
+       // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+     }
+    
     },
     pauseScrollAnimation() {
       this.$refs.cardWrapper.style.animationPlayState = "paused";
@@ -1723,7 +1879,7 @@ export default {
   transform: translateX(0);
 }
 .h-370 {
-  height: 739px;
+  height: 658px;
 }
 /* Animation de fondu (fade) */
 .fade-enter-active, .fade-leave-active {
@@ -1793,12 +1949,13 @@ export default {
   width: 100%;
   overflow: hidden;
 
-  bottom: 0;
+  
 }
 .card-wrapper {
   display: flex;
   animation: swiperScroll 60s linear infinite;
   white-space: nowrap;
+
 }
 .card-slide {
   flex: 0 0 auto;
@@ -1830,10 +1987,10 @@ export default {
   margin-left: 20px;
 }
 .custom-height {
-  height: 2000px; /* Ajustez la valeur de la hauteur selon vos besoins */
+  height: 1840px; /* Ajustez la valeur de la hauteur selon vos besoins */
 }
 .custo-height {
-  height: 1720px; /* Ajustez la valeur de la hauteur selon vos besoins */
+  height: 1560px; /* Ajustez la valeur de la hauteur selon vos besoins */
 }
 .pagination-container {
   position: fixed;
@@ -1870,5 +2027,7 @@ export default {
     opacity: 1;
   }
 }
-
+.separator {
+  border: 2px solid black; /* Ajustez la marge selon vos besoins */
+}
 </style>

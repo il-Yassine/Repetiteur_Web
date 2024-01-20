@@ -3,12 +3,12 @@
     <h1>Page a propos</h1>
   </main> -->
   <template>
-    <body style="overflow: hidden" class="bg-neutral-60">
+    <body style="overflow: hidden" class="bg-neutral-30">
         <br>
         <br>
         <br>
         <br>
-        <h2 class="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4 text-center pt-5"> LES ECOLES PARTENAIRES</h2>
+        <h2 class="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4 text-center pt-5"> LES LIBRAIRIES PARTENAIRES</h2>
           <div class="2xl:container 2xl:mx-auto lg:py-1 lg:px-20 md:py-12 md:px-6 py-1 px-4">
   
               <div class="flex lg:flex-row flex-col justify-between gap-8 pt-2">
@@ -32,12 +32,11 @@
                           </div>
 
                     </div> -->
-                    <CardComponent  v-for="(card, index) in ecole" :key="index"
-                    :imageSrc="card.ecoleUrl"
+                    <CardComponent  v-for="(card, index) in librairie" :key="index"
+                    :imageSrc="card.librairieUrl"
                     :name="card.name"
-                    :description="card.description"
-                    :test="'Nos Résultats'"
-                    :resultat="card.resultat"
+                    
+                    :resultat="card.description"
                     
                     
                     />
@@ -88,22 +87,22 @@
   },
   data(){
         return{
-            ecole: [],
+            librairie: [],
            
         }
     },
   
   mounted(){
     
-      this.getEcole();
+      this.getLibrairie();
       },
 
   methods:{
-    getEcole(){
-      axios.get('http://127.0.0.1:8000/api/ecoles',)
+    getLibrairie(){
+      axios.get('http://127.0.0.1:8000/api/librairies',)
    .then(response => {
-     this.ecole = response.data.data;
-     console.log( this.ecole);
+     this.librairie = response.data.data;
+     console.log( this.librairie);
      
    })
    .catch(error => {

@@ -46,10 +46,11 @@
         'hidden': !showMenu
       }"
       class="
+      
       font-serif
       justify-end
       font-bold
-      text-2xl
+      text-xl
         flex-col
         mt-8
         space-y-4
@@ -58,13 +59,13 @@
       "
       >
         <li class="px-3 text-dark  hover:text-green-500"><RouterLink  class="focus:text-green-500 active:text-green-500" to="/">Accueil</RouterLink></li>
-        <li class="px-3 text-dark hover:text-green-500"><a  class="focus:text-green-500 active:text-green-500" @click="toggleBlink" href="/#repetiteur">Rechercher un répétiteur
+        <li class="px-3 text-dark hover:text-green-500 focus:text-green active:text-black"><a  class="focus:text-black active:text-black" href="/#repetiteur">Rechercher un répétiteur
           
         </a></li> 
-        <li class="px-3 text-dark hover:text-green-500"><RouterLink  class="focus:text-green-500 active:text-green-500" to="/login">Faire une demande</RouterLink></li> 
+        <li class="px-3 text-dark hover:text-green-500 focus:text-green-500 active:text-green-500"><a  class="focus:text-green-500 active:text-green-500" href="/login">Faire une demande</a></li> 
         
-        <li class=" px-3 text-dark hover:text-green-500">
-          <button @click="toggleDropdown('menu1')" class="flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-500 md:p-0 md:w-auto text-dark dark:hover:text-white focus:text-green hover:bg-green-600 active:text-green-500">
+        <li class=" px-3 text-dark hover:text-green-500 focus:text-green-500 active:text-green-500 ">
+          <button @click="toggleDropdown('menu1')" class="flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-black md:p-0 md:w-auto text-dark dark:hover:text-white focus:text-black hover:bg-black active:text-black">
             Ressources
             <svg  class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -73,7 +74,7 @@
            <div v-if="isDropdownOpen.menu1" id="dropdownNavbar" class="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
             <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white"><RouterLink  class="font-bold" to="/login">Epreuves</RouterLink></a>
+              <a href="/login" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Epreuves</a>
             </li>
             <li>
               <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Examen blanc</a>
@@ -84,9 +85,9 @@
           </ul>
          
         </div></li> 
-        <li class="px-3 text-dark hover:text-green-500"><RouterLink   class="focus:text-green-500 active:text-green-500" to="/about">A propos</RouterLink></li>
-        <li class=" px-3 text-dark hover:text-green-500">
-          <button @click="toggleDropdown('menu2')" class="flex items-center justify-between w-full py-2 px-3 text-dark rounded hover:bg-green-100 md:hover:bg-transparent md:border-0 md:hover:text-green-500 md:p-0 md:w-auto text-dark dark:hover:text-green-500 focus:text-green-500 hover:bg-green-600 active:text-green-500">
+        <li class="px-3 text-dark hover:text-black"><RouterLink   class="focus:text-black active:text-black" to="/about">A propos</RouterLink></li>
+        <li class=" px-3 text-dark hover:text-black">
+          <button @click="toggleDropdown('menu2')" class="flex items-center justify-between w-full py-2 px-3 text-dark rounded hover:bg-black md:hover:bg-transparent md:border-0 md:hover:text-black md:p-0 md:w-auto text-dark dark:hover:text-black focus:text-black hover:bg-black active:text-black">
             Partenaires
             <svg  class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -95,10 +96,10 @@
            <div v-if="isDropdownOpen.menu2" id="dropdownNavbar" class="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
             <li>
-              <a href="/partenaires" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl  dark:hover:text-white font-bold">Ecole</a>
+              <a href="/partenaires" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl  dark:hover:text-white font-bold">Ecoles</a>
             </li>
             <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl  dark:hover:text-white font-bold">Librairie</a>
+              <a href="/librairie" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl  dark:hover:text-white font-bold">Librairies</a>
             </li>
             <li>
               <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl  dark:hover:text-white font-bold">Autres</a>
@@ -107,7 +108,7 @@
           
         </div></li> 
 
-        <li class=" px-3 "><button class="bg-green-500 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105"><RouterLink  class="focus:text-white active:text-white"  to="/login">Se connecter</RouterLink></button></li>
+        <li class=" px-3 "><button class="bg-green-500 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105"><a  class="focus:text-white active:text-white"  href="/login">Se connecter</a></button></li>
         <!-- <li>
           <button @click="toggleDropdown" class="flex items-center justify-between w-full py-2 px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
             Dropdown 

@@ -4,7 +4,16 @@
             <div class="container mx-auto mt-12 px-5 ">
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif">Listes de vos demandes</h3><br>
+   <div class="flex items-center ">
+    <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif px-2">Mes demandes</h3>
+     <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8" title="Notification de paiement">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    </button> 
+   </div>
+    
+    <br>
      <div class="flex items-center justify-between pb-4">
         
         <div>
@@ -116,15 +125,15 @@
     
 
     <div v-if="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-8 rounded-md w-[500px]">
+        <div class="bg-white p-8 rounded-lg w-[1250px]  h-[725px]">
          
-          <div class="relative p-4 w-full max-w-md max-h-full">
+          <div class="relative p-1 w-full">
             <!-- Modal content -->
             
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
-                    Apprécier un répétiteur
+                        Veuillez nous laisser votre message
                     </h3>
                    
                     <button @click="closeModal"  type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
@@ -136,16 +145,62 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
-                    <form @submit.prevent="savePostes" class="space-y-4" action="#">
-                        <div>
-                            <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"></label>
-                            <input type="text" name="email" v-model="content" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre appréciation" required>
+                    <form @submit.prevent="savePostes" class="space-y-2" action="#">
+                       <div class="flex space-x-2">
+                        <div class="flex-1">
+                            <label for="email" class="block mb-1 text-xl font-medium text-gray-900 dark:text-white">Objet</label>
+                            <input type="text" name="email" v-model="objet" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                         </div>
-                       <br>
+                       </div>
+                        <div>
+                            <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Votre Observation</label>
+
+                                <textarea id="message" v-model="content" rows="2" class="block p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Message" required></textarea>
+                            
+                        </div>
                        
-                        <button type="submit" class="w-full text-white bg-green-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                       <div class="flex justify-end">
+                        <button type="submit" class=" end-2.5 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                       </div>
+                        
                        
                     </form>
+
+                    <div class="table-responsive py-2">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <!-- En-tête du tableau -->
+                            <thead class="text-lg text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                              <tr >
+                                <th  class="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">N°</th>
+                                <th class="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">Objet</th>
+                                <th class="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">Message(Observation)</th>
+
+                                <th class="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">Réponse Admin</th>
+                                <!-- ... Ajoutez d'autres colonnes si nécessaire -->
+                              </tr>
+                            </thead>
+                            <!-- Corps du tableau -->
+                            <tbody v-if="this.poste.length > 0">
+                              <tr  class="bg-white border-b text-lg dark:bg-gray-900 dark:border-gray-700"  v-for="(enfan,index) in this.poste" :key="index">
+                                <td class="px-6 py-4 whitespace-nowrap">{{ index +1 }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ formatDate(enfan.created_at) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ enfan.objet }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ enfan.appreciation_parents }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ enfan.reponse_admin }}</td>
+                                <!-- ... Ajoutez d'autres cellules si nécessaire -->
+                              </tr>
+                              
+                              <!-- ... Ajoutez d'autres lignes si nécessaire -->
+                            </tbody>
+                            <tbody v-else>
+                                <tr>
+                                <td colspan="5">
+                                Loading...
+                                </td></tr>  
+                              </tbody>
+                          </table>
+                    </div>
                 </div>
             
         </div>
@@ -153,11 +208,11 @@
       </div>
 
       <div v-if="isModalSecondOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-8 rounded-md w-[500px]">
+        <div class="bg-white p-8 rounded-md w-[1000px]">
           <button @click="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
             &times;
           </button>
-          <div class="relative p-4 w-full max-w-md max-h-full">
+          <div class="relative p-4 w-full">
             <!-- Modal content -->
             
                 <!-- Modal header -->
@@ -176,25 +231,39 @@
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
                     <form @submit.prevent="saveEnfants" class="space-y-4" action="#">
-                        <div>
-                            <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Nom de l'enfant</label>
+                       <div class="flex space-x-4">
+                        <div class="flex-1">
+                            <label for="email" class="block mb-1 text-xl font-medium text-gray-900 dark:text-white">Nom de l'enfant</label>
                             <input type="text" name="email" v-model="fname" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Nom" required>
                         </div>
-                        <div>
-                            <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Prénoms de l'enfant</label>
+                        <div class="flex-1">
+                            <label for="email" class="block mb-1 text-xl font-medium text-gray-900 dark:text-white">Prénoms de l'enfant</label>
                             <input type="text" name="email" v-model="lname" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Prénoms" required>
                         </div>
+                       </div>
                         <div>
-                            <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"> Votre Téléphone</label>
+                            <label for="email" class="block mb-1 text-xl font-medium text-gray-900 dark:text-white">Sexe</label>
+                            <select id="countries" v-model="sexe" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option value="">Sélectionner le sexe de votre enfant</option>
+                               <option value="Homme" required>Homme</option>
+                               <option value="Femme">Femme</option>
+                               </select>
+                        </div>
+                       <div class="flex space-x-4">
+                        <div class="flex-1">
+                            <label for="email" class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"> Votre Téléphone</label>
                             <input type="number" name="email" v-model="phone" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Téléphone" required>
                         </div>
-                        <div>
-                            <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"> Votre adresse</label>
+                        <div class="flex-1">
+                            <label for="email" class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"> Votre adresse</label>
                             <input type="text" name="email" v-model="adresse" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="adresse" required>
                         </div>
+                       </div>
             
-                       
-                        <button type="submit" class="w-full text-white bg-green-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                       <br>
+                       <div class="flex justify-end">
+                        <button type="submit" class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                       </div>
                        
                     </form>
                 </div>
@@ -205,15 +274,21 @@
 </div>
             </div>
             
-            <footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
-                <div class="container mx-auto text-center">
-                  <p class="text-gray-600">&copy; 2023 Digitalis. Tous droits réservés.
-                   
-                  </p>
-                </div>
-              </footer>
         </div>
+        <br>
+            <br>
+            <br>
+            <br>
+            
+           
     </div>
+    <!-- <footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+        <div class="container mx-auto text-center">
+          <p class="text-gray-600">&copy; 2023 Digitalis. Tous droits réservés.
+           
+          </p>
+        </div>
+      </footer> -->
 </template>
 <script>
   import axios from 'axios'
@@ -227,12 +302,16 @@
             parents:[],
             enfants:[],
             demande:[],
+            poste:[],
             demande_id:'',
             selectedEnfant: '',
             parentss_id:'',
             content:'',
+            datee:'',
+            objet:'',
             fname:'',
             lname:'',
+            sexe:'',
             phone:'',
             adresse:'',
         }
@@ -263,6 +342,9 @@
     closeModal() {
       this.isModalOpen = false;
       this.selectedEnfant = '';
+      this.content = '';
+      this.datee = '';
+      this.objet = '';
     },
     openSecondModal() {
       this.isModalSecondOpen = true;
@@ -273,8 +355,14 @@
       this.fname = '';
       this.lname = '';
       this.phone = '';
+      this.sexe = '';
       this.adresse = '';
            
+    },
+    formatDate(dateTimeString) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const date = new Date(dateTimeString);
+        return date.toLocaleDateString('en-US', options);
     },
     async  getparents(){
 
@@ -327,9 +415,29 @@ this.getDemande();
             axios.get('http://127.0.0.1:8000/api/demandes').then(res=>{
                 this.demande=res.data.data.filter(demand => demand.enfants.parents.id === this.parentss_id)
                 console.log(this.demande)
-                
+
 
             });
+
+            // axios.get('http://127.0.0.1:8000/api/postes').then(res=>{
+            //     this.poste=res.data.data.filter(deman => deman.parents.id === this.parentss_id)
+            //     console.log(this.poste)
+
+
+            // });
+            axios.get('http://127.0.0.1:8000/api/postes')
+  .then(res => {
+    if (res.data && res.data.data) {
+      this.poste = res.data.data.filter(deman => deman.parents && deman.parents.id === this.parentss_id);
+      console.log(this.poste);
+    } else {
+      console.error("Données non valides dans la réponse.");
+    }
+  })
+  .catch(error => {
+    console.error("Erreur lors de la requête Axios :", error);
+  });
+
           
         },
         saveEnfants(){
@@ -340,6 +448,7 @@ this.getDemande();
   fname:this.fname,
   lname:this.lname,
    phone:this.phone,
+   sexe:this.sexe,
    adresse:this.adresse,
   parents_id: this.parentss_id,
 };
@@ -380,7 +489,9 @@ console.log(dataToSend);
             var mythis= this;
             const dataToSend = {
 
-content:this.content,
+objet:this.objet,
+datee:this.datee,
+appreciation_parents:this.content,
 demande_id:this.selectedEnfant,
 parents_id: this.parentss_id,
 };
@@ -403,7 +514,7 @@ console.log(dataToSend);
                     mythis.errorList="Appréciation enregister avec succès"
                     alert('Appréciation enregister avec succès')
                    // this.$router.push('/admin/demande')
-                   this.closeModal();
+                  // this.closeModal();
                 }
                 else{
                     alert('Une erreur s\'est produite')

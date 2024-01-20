@@ -72,13 +72,14 @@ export default {
       <h6 class="card-subtitle text-lg">{{ Soustitre }}</h6>
       <p class="card-supertitle">{{ Surtitre }}</p>
       <p class="card-description">{{ description }}</p>
+      <p class="card-descriptio">{{ descriptio }}</p>
 
       <!-- Intégration des étoiles -->
-      <!-- <div class="star-rating">
-        <span v-for="i in 5" :key="i" class="star" @click="setRating(i)">
+       <!-- <div class="star-rating">
+        <span v-for="i in maxRating" :key="i" class="star" @click="setRating(i)">
           <i :class="['fas', { 'text-yellow-500': userRating >= i, 'text-gray-300': userRating < i }, 'fa-star']"></i>
         </span>
-      </div> -->
+      </div>  -->
 
       <router-link :to="'/details/' + productId">
         <button class="card-button">Voir Plus</button>
@@ -114,6 +115,10 @@ export default {
       type: String,
       required: true,
     },
+    descriptio: {
+      type: String,
+      required: true,
+    },
     productId: {
       type: String,
       required: true,
@@ -122,6 +127,7 @@ export default {
   data() {
     return {
       userRating: 0,
+      maxRating: 5,
     };
   },
   methods: {
@@ -138,7 +144,7 @@ export default {
 .card {
   flex: 0 0 auto;
   width: 260px;
-  height:330px ;
+  height:300px ;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
@@ -156,12 +162,12 @@ export default {
 */
 .card-image {
   width: 100%;
-  height: 42%;
+  height: 58%;
 }
 
 .card-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+ 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -173,22 +179,29 @@ export default {
 }
 
 .card-subtitle {
-  font-size: 1.025rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .card-supertitle {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+ 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .card-description {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+ 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-descriptio {
+  font-size: 0.75rem;
+ 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -209,7 +222,7 @@ export default {
   background-color: #2779bd;
 }
 .star-rating {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .star {

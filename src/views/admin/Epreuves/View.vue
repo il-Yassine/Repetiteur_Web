@@ -1,6 +1,6 @@
 <template>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white mt-12 p-4">
-        <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif">Listes des épreuves</h3><br>
+        <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif">Bibliothèque</h3>
         <div class="flex items-center justify-between pb-4">
             <div class="relative">
             </div>
@@ -128,11 +128,15 @@
             isModalSecondOpen: false,
             name:'',
             matiere_id:'',
+            role_id:'',
+            user_id:'',
+            repetiteurs_id:'',
             classe_id:'',
            
-            matiere:[],
-            classe:[],
+            repetiteurs:[],
+            enfants:[],
             epreuve:[],
+            epreuves:[],
            
         };
       },
@@ -141,9 +145,13 @@
       // },
       mounted(){
       
-      this.getMatiere();
-      this.getClasse();
+     
       this.getEpreuve();
+      this.getrepetiteur();
+      this.$nextTick(() => {
+    this.getEnfants();
+   this.getEpreuve();
+  });
      
     },
       methods: {
@@ -159,27 +167,73 @@
            this.classe_id='';
            this.name=''; 
     },
+    async  getrepetiteur(){
+
+const token = localStorage.getItem('token');
+    const config = {
+headers: {
+'Authorization': 'Bearer ' + token,
+},
+};
+
+console.log(config);
+
+// Requête pour récupérer le profil
+const profileResponse  = await axios.get('http://127.0.0.1:8000/api/profile', config);
+console.log(profileResponse);
+// Stocker les données du profil dans le composant ou Vuex
+this.role_id = profileResponse.data.role_id;
+this.user_id = profileResponse.data.id;
+console.log(this.role_id);
+console.log(this.user_id);
+
+axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+    this.repetiteurs = res.data.data.filter(repetiteur => repetiteur.user.id === this.user_id)
+      
+    console.log(this.repetiteurs)
+    this.repetiteurs_id= this.repetiteurs[0].id
     
-    getMatiere(){
-           
-            axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
-                this.matiere=res.data.data
-                console.log(this.matiere)
-                console.log(res)
-            });
-        },
-        getClasse(){
-            axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
-                this.classe=res.data.data
-                console.log(this.classe)
-                console.log(res)
-            });
-        },
+    console.log(this.repetiteurs_id);
+    
+
+});
+this.getEnfants();
+},
+async getEnfants(studentId){
+const repetiteur_id = localStorage.getItem('repetiteur_id');
+console.log(repetiteur_id);
+console.log(studentId)
+console.log(this.repetiteurs_id);
+await axios.get('http://127.0.0.1:8000/api/demandes').then(res=>{
+    this.enfants=res.data.data.filter(enfant => enfant.repetiteur.id === this.repetiteurs_id);
+    console.log(this.enfants)
+   
+});
+// console.log(enfants);
+this.getEpreuve();
+},
+    
+   
         getEpreuve(){
             axios.get('http://127.0.0.1:8000/api/epreuves').then(res=>{
-                this.epreuve=res.data.data
-                console.log(this.epreuve)
+                this.epreuves=res.data.data
+                console.log(this.epreuves)
                 console.log(res)
+                if (this.enfants && this.epreuves) {
+  
+  //this.classe=this.demande.map(item => item.tarification.classe.id)
+    this.repetFiltered = this.epreuves.filter(repeteItem => {
+    // Utilisation de some pour vérifier si l'ID de repetiteur existe dans this.rep
+    return this.enfants.some(repItem => repItem.tarification.classe.id === repeteItem.classe.id);
+    
+  });
+  this.epreuve=this.repetFiltered 
+  
+    console.log(this.epreuve);
+    console.log(this.repetFiltered);
+   } else {
+     console.error('La propriété rep est undefined.');
+   }
             });
         },
         saveEpreuves(){

@@ -2,6 +2,7 @@
 <template>
     
 <div class="container w-full mx-auto my-auto" enctype="multipart/form-data">
+  <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif">Formulaire d'inscription pour un Répétiteur</h3>
     <div class="w-full max px-4 bg-white border border-gray-200 rounded-lg shadow sm:p-12 md:p-12 dark:bg-gray-800 dark:border-gray-700">
         <form class="space-y-6" action="Post"  @submit.prevent="saveRepetiteur" enctype="multipart/form-data">
             <ul class="bg-blue-100 border-t border-border-blue-500 text-blue-700 px-4 py-3" role="alert" v-if="Object.keys(this.errorList).length > 0">
@@ -10,7 +11,7 @@
 
                 </li>
             </ul>
-            <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif">Formulaire d'inscription pour un Répétiteur</h3>
+            
 
            <div class="flex space-x-4">
 
@@ -20,16 +21,24 @@
           </div> -->
           <div class="flex-1">
             <label for="phone" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Téléphone</label>
-            <input type="number"  v-model="model.phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre numéro de téléphone" required>
+            <input type="number"  v-model="model.phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre numéro" required>
         </div>
         <div class="flex-1">
-          <label for="adresse" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Adresse</label>
-          <input type="text" name="adresse"  v-model="model.adresse" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre adresse" required>
+          <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Commune</label>
+          <select id="countries" v-model="model.commune" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+           <option value="" >Selectionner votre Commune</option>
+           <option v-for="fruit in commune" :key="fruit.id" :value="fruit.id">{{ fruit.name }}</option>
+          </select>
+  
+         </div > 
+        <div class="flex-1">
+          <label for="adresse" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Détails Adresse</label>
+          <input type="text" name="adresse"  v-model="model.adresse" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
       </div>
       <div class="flex-1">
         <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Cycle</label>
         <select id="countries" v-model="model.cycle" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-         <option selected >Choisir votre cycle</option>
+         <option value="" >Selectionner votre cycle</option>
         <option value="Primaires" required>Primaires</option>
         <option value="Secondaires">Secondaires</option>
         <option value="Universitaires">Universitaires</option>
@@ -139,7 +148,7 @@
             <div class="flex-1">
               <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Sexe</label>
               <select id="countries" v-model="model.sexe" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-               <option selected >Choisir votre sexe</option>
+               <option value="" >Selectionner votre sexe</option>
               <option value="Homme" required>Homme</option>
               <option value="Femme">Femme</option>
               </select>
@@ -153,7 +162,7 @@
           
            
             <div class="flex justify-end">
-                <button type="submit"  class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                <button type="submit"  class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
             </div>
            
             
@@ -172,10 +181,14 @@ export default {
     data(){
         return{
             matiere:[],
+            commune:[],
             errorList:'',
+            matricule:'',
+            longueur:0,
             selectedFile: null,
             diplome_imageUrl:'',
             profil_imageUrl:'',
+            repetiteur_id:'',
             identite:'',
             casierJudicaire:'',
             attestationResidence:'',
@@ -186,6 +199,7 @@ export default {
                     phone:'',
                     adresse:'',
                     classe:'',
+                    commune:'',
                     description:'',
                     dateLieuNaissance:'',
                     situationMatrimoniale:'',
@@ -205,10 +219,57 @@ export default {
     mounted(){
       //  console.log('I am here')
       this.getMatiere();
+      this.getCommune();
       this.getUsers();
     // this.onFileChange();
     },
     methods:{
+      getCommune(){
+        axios.get('http://127.0.0.1:8000/api/communes').then(res=>{
+                this.commune=res.data.data
+                console.log(this.commune)
+               
+            });
+
+      },
+      getMatiere(){
+            axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+                this.matiere=res.data.data
+                this.longueur=res.data.data.length + 1
+                console.log(this.matiere)
+                console.log(this.longueur)
+                this.matricule='M0000'+this.longueur;
+                console.log(res)
+                console.log(this.matricule)
+            });
+        },
+        getUsers (){
+            const token = localStorage.getItem('token');
+           
+            console.log(token);
+            const config={
+                headers: {
+        'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
+      }
+            };
+            console.log(config);
+     axios.get('http://127.0.0.1:8000/api/profile',config)
+    .then(response => {
+      this.user_id = response.data.id;
+      localStorage.setItem('user_id',response.data.id)
+      //userIds=this.userId;
+      console.log(response.data.id);
+    })
+    .catch(error => {
+      if (error.response === 401) {
+        this.error = "Erreur d'authentification : Votre session a expiré. Veuillez vous reconnecter.";
+        // Vous pouvez également rediriger l'utilisateur vers la page de connexion ici
+      } else {
+        this.error = "Une erreur s'est produite. Veuillez réessayer plus tard.";
+      }
+    });
+  
+        },
         onFileChange(e){
              const file = e.target.files[0];
        this.image = file;
@@ -374,49 +435,21 @@ export default {
           console.error(error);
         });
     },
-        getMatiere(){
-            axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
-                this.matiere=res.data.data
-                console.log(this.matiere)
-                console.log(res)
-            });
-        },
-        getUsers (){
-            const token = localStorage.getItem('token');
-           
-            console.log(token);
-            const config={
-                headers: {
-        'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
-      }
-            };
-            console.log(config);
-     axios.get('http://127.0.0.1:8000/api/profile',config)
-    .then(response => {
-      this.user_id = response.data.id;
-      localStorage.setItem('user_id',response.data.id)
-      //userIds=this.userId;
-      console.log(response.data.id);
-    })
-    .catch(error => {
-      if (error.response === 401) {
-        this.error = "Erreur d'authentification : Votre session a expiré. Veuillez vous reconnecter.";
-        // Vous pouvez également rediriger l'utilisateur vers la page de connexion ici
-      } else {
-        this.error = "Une erreur s'est produite. Veuillez réessayer plus tard.";
-      }
-    });
   
-        },
 
-        saveRepetiteur(){
+        saveRepetiteur()
+        {
+          
             var mythis= this;
             const token = localStorage.getItem('token');
             const user_id= this.user_id
             console.log(user_id);
+            console.log(this.matricule);
             const dataToSend = {
 
+                matricule:this.matricule,
                 phone:this.model.phone,
+                commune_id:this.model.commune,
                 adresse:this.model.adresse,
                 // classe:this.model.classe,
                 diplome_imageUrl:this.diplome_imageUrl,
@@ -449,13 +482,28 @@ console.log(dataToSend);
   console.log(response)
   console.log(response.data)
   localStorage.setItem('repetiteur_id',response.data.data.id)
+                this.repetiteur_id=response.data.data.id
+                console.log( this.repetiteur_id);
                 console.log( this.model.parentsCreate)
                 mythis.errorList=response.data.message
              //   alert(response.data.message);
                 if (response.status==201) {
                     mythis.errorList="Compte répétiteurs créer avec succès"
                     alert('Formulaire du répétiteurs remplir avec succès')
+                    const userData = { repetiteur_id: this.repetiteur_id };
+                    try {
+          const Response = axios.post('http://127.0.0.1:8000/api/evaluations', userData, );
+          console.log('Parents Response:', Response.data);
+          if (Response.status === 201) {
+            alert('Votre Compte répétiteur est mi en evaluation');
+          }
+        } catch (Error) {
+          console.error('Erreur lors de la mise en évaluationde votre compte :', Error);
+
+        }
                     this.$router.push('/admin/dashboard');
+                }else{
+                  alert("une erreur s'est produite veuiller réessayer plus tard")
                 }
                 this.model={
                    
@@ -473,7 +521,7 @@ console.log(dataToSend);
 .catch(error => {
   if (error.response) {
             console.log(error.response.data.message); 
-            this.errorList = "une erreur s'est produite veuiller réessayer ";
+            this.errorList = "une erreur s'est produite veuiller réessayer plus tard ";
 
         } else if (error.request) {
             console.log(error.request);

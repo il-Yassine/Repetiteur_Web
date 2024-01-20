@@ -1,5 +1,5 @@
 <template>
-    <div class="py-2 px-12">
+    <div class="py-1 px-2">
       <div class="max-w-md p-6 bg-white rounded-lg shadow-md">
         <img :src="imageSrc" alt="Publicité" class="w-full h-auto rounded-lg">
         <div class="mt-4">
