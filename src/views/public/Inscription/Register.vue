@@ -1,14 +1,12 @@
 
 <template>
   
- <div class="bg-gray-300">
+ <div class="custom-background h-screen">
   <br>
-  <br>
-  <br>  
-  <br>  
- 
-  <div class="box">
-    <div class="card sm-5 " >
+  <br> 
+  <div class="flex flex-col items-center justify-center px-6 py-7 mx-auto md:h-screen lg:py-0">
+  <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8" >
      <div class="card-header">
          <h1 class="text-4xl font-bold text-center text-black-500 mt-4 mb-6">Inscription</h1>
      </div>
@@ -54,16 +52,20 @@
    
      
 
-     <div class="mb-6">
-       <label for="name" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Nom Complet</label>
+     <div class="mb-2">
+       <label for="name" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Nom Complet</label>
        <input type="text"  v-model="model.name"  id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="votre nom Complet" required>
      </div>
-       <div class="mb-6">
-         <label for="email" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Email</label>
+       <div class="mb-2">
+         <label for="email" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Email</label>
          <input type="email"  v-model="model.email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="votre email" required>
        </div>
-       <div class="mb-6">
-         <label for="password" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Mot de passe</label>
+       <div class="mb-2">
+        <label for="email" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Téléphone</label>
+        <input type="number"  v-model="model.phone" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="votre Téléphone" required>
+      </div>
+       <div class="mb-2">
+         <label for="password" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Mot de passe</label>
          <input type="password" v-model="model.password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
        </div>
        <!-- <div class="flex items-start mb-6">
@@ -85,6 +87,7 @@
  </div>
  <br>
  
+ </div>
  </div>
    
     
@@ -151,6 +154,7 @@ export default {
             model:{
                     name:'',
                     email:'',
+                    phone:'',
                     password:'',
 
             }
@@ -168,9 +172,9 @@ export default {
      this.role = response.data.data;
      this.options = [response.data.data[0], response.data.data[response.data.data.length - 1]];
      this.parents= response.data.data[response.data.data.length - 1]
-     console.log( this.role)
-     console.log( this.options)
-     console.log( this.parents)
+     //console.log( this.role)
+    // console.log( this.options)
+    // console.log( this.parents)
    })
    .catch(error => {
         console.error('Erreur lors de la récupération des données depuis l\'API', error);
@@ -181,33 +185,35 @@ export default {
      
       async saveStudent() {
     try {
-        const { name, email, password } = this.model;
+        const { name, email,phone, password } = this.model;
         const dataToSend = {
             name,
             email,
+            phone,
             password,
             role_id: this.selectedOption,
         };
 
-        console.log(dataToSend);
+       // console.log(dataToSend);
 
         const apiUrl = 'http://127.0.0.1:8000/api/auth/register';
         const response = await axios.post(apiUrl, dataToSend);
+        console.log(response);
 
         if (response.data.success) {
             alert(response.data.message);
             this.errorList = response.data.message;
             this.$router.push('/login');
         } else {
-          if(response.data.data.email){
-            alert("ce email existe déjà");
+          if(response.data.data){
+            alert("ce email ou ce numéro de téléphone existe déjà");
           }else{
             alert(response.data.message);
           }
             
             this.errorList = response.data.message;
             console.log(response);
-            console.log(response.data);
+            //console.log(response.data);
             console.log(response.data.data.email);
         }
     } catch (error) {
@@ -243,6 +249,16 @@ export default {
       margin-top: 50% important!;
       margin: auto;
       padding: auto;
+    }
+    .custom-background {
+      background-image: url('../../../assets/images/images4.jpg');
+      /* Remplacez 'votre-image.jpg' par le nom de votre image */
+      background-size: cover;
+      /* Ajustez la taille de l'image */
+      background-repeat: no-repeat;
+      background-position: center center;
+      /* Centrez l'image */
+      /* Ajoutez d'autres styles Tailwind CSS ou CSS personnalisés au besoin */
     }
     
 </style>

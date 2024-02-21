@@ -9,6 +9,8 @@ import { createRouter, createWebHistory } from 'vue-router'
  import ForgotPassword from '@/views/public/Auth/ForgotPassword.vue';
  import Partenaire from '@/views/public/ecole/partenaire.vue';
  import Librairie from '@/views/public/librairie/Librairie.vue';
+ import Examens from '@/views/public/examen/Examen.vue';
+ import Tutoriel from '@/views/public/tutoriel/Tutoriel.vue';
  import DetailsRepetiteur from '@/views/public/repetiteur/DétailsRepetiteur.vue';
 //import { HomeView, Register,Login, AboutView ,PublicLayout } from '../views/public';
 import  AdminLayout from '@/views/admin/AdminLayout.vue';
@@ -24,6 +26,7 @@ import Epreuve from '@/views/admin/Epreuves/View.vue';
 import Demande from '@/views/admin/Dashboard/View.vue';
 import Appreciation from '@/views/admin/Dashboard/Appreciation.vue';
 import EnfantsCreate from '@/views/admin/Dashboard/Create.vue';
+import DemandeEnfants from '@/views/admin/Dashboard/Demande.vue';
 import DashLayout from '@/layouts/DashLayout.vue';
 import CommandeDash from '@/views/CommandeDash.vue';
 
@@ -56,6 +59,10 @@ const router = createRouter({
         {path: '/partenaires', name: 'partenaire',component: Partenaire
         },
         {path: '/librairie', name: 'librairie',component: Librairie
+        },
+        {path: '/examens', name: 'examens',component: Examens
+        },
+        {path: '/tutoriel', name: 'tutoriel',component: Tutoriel
         },
         {path: '/details/:id', name: 'details',component: DetailsRepetiteur
       },
@@ -94,6 +101,8 @@ const router = createRouter({
     },
       { path: 'demande/create',name: 'enfantsCreate',component: EnfantsCreate 
     },
+    { path: 'demande/createe/:repetiteurId',name: 'demandecreate',component: DemandeEnfants,props: true 
+  },
     { path:'/:pathMatch(.*)*', redirect:'/'
 
     },

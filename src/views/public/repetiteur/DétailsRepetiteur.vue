@@ -69,7 +69,7 @@
         </div>
                       <br>
                      
-                     <a href="/login" class="text-white bg-green-600 hover:bg-green-400 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-orange-500 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button">  Faire la demande de répétiteur</a>
+                     <a href="#" @click="redirect" class="text-white bg-green-600 hover:bg-green-400 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-orange-500 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button">  Faire la demande de répétiteur</a>
                   </div>
 
               </div>
@@ -166,29 +166,34 @@ export default {
   data() {
     return {
       proId:'',
-      product:[], // Le produit sera récupéré de la source de données ou de l'API
-      products:[], // Le produit sera récupéré de la source de données ou de l'API
+      parentss_id:'',
+      role_id:'',
+      user_id:'',
+      product:[],
+      products:[],
+      parents:[],
+      evaluations:[],
       userRating: 0,
       maxRating: 5,
+      tokene:''
       
     };
   },
  async created() {
-    // Vous devrez charger les détails du produit à partir de votre source de données, par exemple :
-    // Ici, nous supposons qu'une méthode getProductDetails() est utilisée pour obtenir les détails du produit.
-
-    // Exemple : 
+   
     this.getProductDetails(this.$route.params.id);
-    console.log(this.$route.params.id);
-   // productId=this.$route.params.id
+    this.getparents();
+    
+   
   },
+
   methods: {
     getProductDetails(productId) {
         console.log(productId)
         this.proId=productId
             axios.get('http://127.0.0.1:8000/api/repetiteurs/'+productId)
             .then(res=>{
-                console.log(res.data);
+                //console.log(res.data);
                 this.product= res.data;
             }).catch(function (error){
                 if (error.response) {
@@ -199,9 +204,9 @@ export default {
             });
             axios.get('http://127.0.0.1:8000/api/repetiteurmcs')
             .then(res=>{
-                console.log(res.data);
+               // console.log(res.data);
                 this.products= res.data.data.filter(repetiteur => repetiteur.repetiteur.id === productId);
-                console.log( this.products);
+                //console.log( this.products);
             }).catch(function (error){
                 if (error.response) {
                     if (error.response.status==404) {
@@ -213,9 +218,109 @@ export default {
     },
     setRating(rating) {
       this.userRating = rating;
-      console.log( this.userRating);
-      console.log( this.proId);
+      // console.log( this.userRating);
+      // console.log( this.proId);
+      this.saveEval();
     },
+    async getparents() {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+
+      //console.log(config);
+
+      const profileResponse = await axios.get(
+        "http://127.0.0.1:8000/api/profile",
+        config
+      );
+     // console.log(profileResponse);
+
+      this.role_id = profileResponse.data.role_id;
+      this.user_id = profileResponse.data.id;
+      // console.log(this.role_id);
+      // console.log(this.user_id);
+
+      axios.get("http://127.0.0.1:8000/api/parents").then((res) => {
+        this.parents = res.data.data.filter(
+          (parent) => parent.user.id === this.user_id
+        );
+
+       // console.log(this.parents)
+        this.parentss_id = this.parents[0].id;
+        // console.log(this.parentss_id);
+      });
+
+      axios.get("http://127.0.0.1:8000/api/evaluations").then((res) => {
+        this.evaluations = res.data.data.filter(parent =>parent.user.id == this.user_id
+        );
+
+       // console.log(this.evaluations)
+
+      });
+
+
+      // axios
+      //   .get("http://127.0.0.1:8000/api/notifications?user_id=" + this.user_id)
+      //   .then((response) => {
+      //     this.notifications = response.data.data.filter(
+      //       (notificat) => notificat.status == "Non lu"
+      //     );
+      //     this.Numbere = this.notifications.length;
+      //     this.notif_id=this.notifications.map(notification => notification.id)
+      //     console.log(this.notifications);
+      //     console.log(this.Numbere);
+      //     console.log(this.notif_id);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Erreur lors de la requête API :", error);
+      //   });
+     
+    },
+   async saveEval(){
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      // console.log(config);
+      // console.log(this.proId);
+      // console.log(this.userRating);
+      // console.log(this.evaluations.length);
+      // console.log(this.parentss_id);
+      if (this.parentss_id !=='') {
+       // console.log('object');
+        const userData = { 
+                      repetiteur_id: this.proId,
+                      niveauEvaluation: this.userRating,
+                      user_id: this.user_id,
+                    };
+                    try {
+          const Response = await axios.post('http://127.0.0.1:8000/api/evaluations', userData, config);
+         // console.log('evaluation Response:', Response);
+          if (Response.status === 201) {
+            alert('Le compte de ce  répétiteur à été bien évaluation');
+          }
+        } catch (Error) {
+          console.error('Erreur lors de la mise en évaluationde votre compte :', Error);
+          alert('Ce répétiteur à été déja évaluer');
+        }
+        
+      }
+    },
+    redirect(){
+      this.tokene = localStorage.getItem("token");
+      console.log(this.proId);
+      if (this.tokene && this.parentss_id) {
+        this.$router.push({ name: 'demandecreate', params: { repetiteurId: this.proId } });
+        //this.$router.push('/admin/demande/create');
+      }else {
+        this.$router.push('/login');
+      }
+    }
   }
 };
 

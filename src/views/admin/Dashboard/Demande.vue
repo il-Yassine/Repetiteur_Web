@@ -65,14 +65,14 @@
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="flex-1">
                             <label for="phone"  class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Matricule du répétiteur</label>
-                           <input type="text" @input="getRepetiteur"  v-model="matricule" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
+                           <input type="text"  v-model="matricule" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                             <div  v-if="matricule.length > 0 && repetiteurs.length > 0"> 
                             <h2></h2>
                            
-                            <ul class="py-4" v-for="(result, index) in repetiteurs" >
+                            <ul class="py-4"  >
                 
-                             <li  :key="index" class="px-4 py-2 text-lg"><span>{{ result.repetiteur.user.name }},</span> </li>
-                             <li  class="px-4 py-2 text-lg"><span>{{ result.repetiteur.adresse }}</span> </li>
+                             <li  class="px-4 py-2 text-lg"><span>{{ repetiteurs[0].repetiteur.user.name }},</span> </li>
+                             <li  class="px-4 py-2 text-lg"><span>{{ repetiteurs[0].repetiteur.adresse }}</span> </li>
                             
                              
                 
@@ -118,7 +118,7 @@
 <script>
  import axios from 'axios'
 export default {
-    name:'enfantsCreate',
+    name:'demandecreate',
     data(){
         return{
             repetiteurs:[],
@@ -159,9 +159,17 @@ export default {
             }
         }
     },
+    created() {
+    // Accéder à l'ID du répétiteur passé en paramètre de la route
+    const repetiteurId = this.$route.params.repetiteurId;
+    console.log("ID du répétiteur:", repetiteurId);
+    this.getRepetiteur(this.$route.params.repetiteurId);
+    
+    // Utilisez l'ID du répétiteur comme nécessaire dans ce composant
+  },
     mounted(){
         this.getUsers();
-        this.getRepetiteur();
+        //this.getRepetiteur();
         // this.getAdmin();
         // this.getMatiere();
         
@@ -314,11 +322,11 @@ export default {
         if (this.matiere_id && this.classe_id && this.prixe.length > 0) {
             this.prix = this.prixe[0].prix +' ' + 'FCFA';
             this.tarification_id = this.prixe[0].id ;
-            this.getRepetiteur();
+            //this.getRepetiteur();
         } else {
             this.prix = '0 FCFA';
             this.tarification_id = null; // Réinitialiser l'id de tarification si la condition n'est pas remplie
-            this.getRepetiteur();
+           // this.getRepetiteur();
         }
 
         // console.log(this.prixe);
@@ -326,7 +334,7 @@ export default {
         // console.log(res);
     });
 
-    this.getRepetiteur();
+   // this.getRepetiteur();
 },
 
 getRepetiteurs(){
@@ -378,27 +386,30 @@ getAdmin(){
         //     });
         //     this.getRepetiteur();
         // },
-        getRepetiteur(){
+        getRepetiteur(productId){
             // console.log(this.matiere_id);
             // console.log(this.classe_id);
             // console.log(this.matricule);
             
             axios.get('http://127.0.0.1:8000/api/repetiteurmcs').then(res=>{
                // console.log(res.data.data);
-                this.repetiteurs = res.data.data.filter(result =>
-                result.matiere.id === this.matiere_id &&
-                   result.classe.id === this.classe_id &&
-                   result.repetiteur && result.repetiteur.traitementDossiers === 'Validé' &&
-                   result.repetiteur && result.repetiteur.matricule == this.matricule
+                // this.repetiteurs = res.data.data.filter(result =>
+                // result.matiere.id === this.matiere_id &&
+                //    result.classe.id === this.classe_id &&
+                //    result.repetiteur && result.repetiteur.traitementDossiers === 'Validé' &&
+                //    result.repetiteur && result.repetiteur.matricule == this.matricule
                     
-                    );
+                //     );
+                    this.repetiteurs= res.data.data.filter(repetiteur => repetiteur.repetiteur.id === productId)
                    // console.log(this.repetiteurs);
                     //console.log(res.data.data);
                     if (this.repetiteurs.length >0) {
                         this.repetiteur_id= this.repetiteurs[0].repetiteur.id
-                        
+                        this.matricule=this.repetiteurs[0].repetiteur.matricule
+                        this.matiere_id=this.repetiteurs[0].matiere.id
+                        this.classe_id=this.repetiteurs[0].classe.id
                     }
-                    //console.log( this.repetiteur_id);
+                    console.log( this.repetiteur_id);
                     
                    // console.log(res.data.data);
                    // console.log(res.data.data);

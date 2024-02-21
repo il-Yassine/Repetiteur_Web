@@ -3,18 +3,19 @@
     <h1>Page a propos</h1>
   </main> -->
   <template>
-    <body style="overflow: hidden" class="bg-neutral-30">
+    <div class="">
+      <div style="overflow: hidden" class="bg-neutral-30" >
         <br>
         <br>
         <br>
         <br>
         <h2 class="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4 text-center pt-5"> LES LIBRAIRIES PARTENAIRES</h2>
-          <div class="2xl:container 2xl:mx-auto lg:py-1 lg:px-20 md:py-12 md:px-6 py-1 px-4">
+          <div class="2xl:container 2xl:mx-auto lg:py-1 lg:px-20 md:py-12 md:px-6 py-1 px-4 ">
   
-              <div class="flex lg:flex-row flex-col justify-between gap-8 pt-2">
+              <div class="flex lg:flex-row flex-col justify-between gap-4 pt-2 bg-white">
                 
                 
-                <div class="w-full lg:w-12/12 lg:pt-4">
+                <div class="w-full lg:w-12/12 lg:pt-4 bg-gray-200">
                     <!-- <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
                         
                             <div class="p-4 pb-6 flex justify-center flex-col items-center">
@@ -75,7 +76,9 @@
                 </div>
             </div> -->
           </div>
-      </body>
+        </div>
+    </div>
+    
   </template>
   
   <script>
@@ -102,7 +105,7 @@
       axios.get('http://127.0.0.1:8000/api/librairies',)
    .then(response => {
      this.librairie = response.data.data;
-     console.log( this.librairie);
+     //console.log( this.librairie);
      
    })
    .catch(error => {
@@ -115,6 +118,16 @@
   </script>
   
   <style>
+  .custo-background {
+    background-image: url('../../../assets/images/images4.jpg');
+    /* Remplacez 'votre-image.jpg' par le nom de votre image */
+    background-size: cover;
+    /* Ajustez la taille de l'image */
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* Centrez l'image */
+    /* Ajoutez d'autres styles Tailwind CSS ou CSS personnalisés au besoin */
+  }
   
   </style>
 

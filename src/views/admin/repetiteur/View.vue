@@ -113,8 +113,8 @@
         getRepetiteur(){
             axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
                 this.repetiteurs=res.data.data
-                console.log(this.repetiteurs)
-                console.log(res)
+               // console.log(this.repetiteurs)
+                //console.log(res)
             });
         }
     }

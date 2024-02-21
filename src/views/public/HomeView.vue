@@ -10,7 +10,7 @@
 
       class="slide" 
     >
-    <img :src="image.src" :alt="image.alt"  class="h-370 object-cover w-full" >
+    <img :src="image.src"   class="h-370 object-cover w-full" >
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <p class="text-gray-700 text-center">{{ image.description }}</p>
     </div>
@@ -23,8 +23,8 @@
   @mouseover="pauseScrollAnimation"
   @mouseout="resumeScrollAnimation"
   >
-    <div class=" bg-white   absolute top-3/4 transform translate-y-1/4">
-      <div class="">
+     <div class=" bg-white  sm:relative md:absolute lg:absolute top-3/4 transform translate-y-1/4">
+      <div class=" sm:w-full md:w-full lg:w-full">
         <div class="card-container ">
            <div class="card-wrapper flex items-center justify-center " ref="cardWrapper">
            
@@ -32,7 +32,8 @@
              :imageSrc="card.profil_imageUrl"
              :title="card.user.name"
              :description="card.commune.name"
-             class="card-slider text-center "
+             
+             class="card-slider text-center sm:card-xs md:card-md lg:card-lg"
               />
            
           </div> 
@@ -97,12 +98,12 @@
   
     </div>
   </section>
-  <section id="repetiteur" class="flex">
+  <section id="repetiteur" class="flex flex-col md:flex-row">
     
     <!-- Deux tiers à gauche -->
-    <div class="w-3/4 p-2  ">
+    <div class="w-full md:w-3/4 lg:w-3/4 sm:w-full p-2">
       <!-- Votre contenu pour la partie gauche ici -->
-      <div class="bg-gray-50 mb-4 custom-height">
+      <div class="bg-gray-50 mb-4 ">
         <div class="flex  py-2">
           <div class="block w-full  items-center">
             
@@ -211,7 +212,7 @@
             
           </div>
         </div>
-        <div class="custo-height">
+        <div class="">
           <div v-if="paginatedCards.length > 0">
             <div class="cards-container px-3 ">
               <div class="flex flex-wrap w- justify-center ">
@@ -219,7 +220,7 @@
                 v-for="(card, index) in paginatedCards"
                 :key="index"
                 :imageSrc="card.profil_imageUrl"
-                :imageAlt="card.imageAlt"
+                
                 :title=" card.matricule +'/'+ card.user.name" 
                 :Surtitre="card.commune.name"
                 :description="card.cycle +'/'+ card.status"
@@ -280,12 +281,13 @@
     </div>
 
     <!-- Un tiers à droite -->
-    <div class="w-1/4 p-2">
+    <div class="w-full md:w-1/4 lg:w-1/4 sm:w-full p-2">
       <!-- Votre contenu pour la partie droite ici -->
-      <div class="bg-blue-200 mb-4 custom-height">
+      <div class="bg-blue-200 mb-4">
         <RepetiteurCard v-for="(card, index) in publicite.slice(-6)" :key="index"
         :image-src="card.publiciteUrl"
         :card-title="card.titre"
+
         
       />
 
@@ -891,7 +893,7 @@
       L'entreprise elle-même est une entreprise très prospère. lâche sage
     </p>
   </div>
-  <div class="grid gap-2 lg:grid-cols-3 ml-12 ">
+  <div class="grid gap-2 lg:grid-cols-3 ml-7">
     <div class="max-w-md p-4 bg-white rounded-lg shadow-lg">
       <div class="flex justify-center -mt-16 md:justify-end">
         <img
@@ -1338,32 +1340,32 @@ export default {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/repetiteurs'); // Remplacez par votre URL d'API
       this.apiData = response.data; // Assurez-vous que la structure de votre réponse correspond à ce que vous attendez
-      console.log( this.apiData.data);
+     // console.log( this.apiData.data);
       this.apeResults = response.data.data.filter(results =>
                   results.evaluation ==='Evaluer' &&
-                  results.traitementDossiers ==='Terminer' 
+                  results.traitementDossiers ==='Validé' 
 
                  );
                  this.repete = response.data.data.filter(results =>
                   
-                  results.traitementDossiers ==='Terminer' 
+                  results.traitementDossiers ==='Validé' 
 
                  );
-                 console.log(this.repete);
-                 console.log( this.apeResults);
+                 //console.log(this.repete);
+                // console.log( this.apeResults);
                  this.aceResults = response.data.data.filter(resultes =>
                  resultes.grade ==='ACE' &&
-                 resultes.traitementDossiers ==='Terminer' 
+                 resultes.traitementDossiers ==='Validé' 
                 //  result.matiere_id.matiere.name.includes(this.searchQuery)
                  );
-                 console.log( this.aceResults);
+                // console.log( this.aceResults);
                  this.autresResults = response.data.data.filter(resultees =>
                  resultees.grade ==='Autres' &&
-                 resultees.traitementDossiers ==='Terminer' 
+                 resultees.traitementDossiers ==='Validé' 
                  
                 //  result.matiere_id.matiere.name.includes(this.searchQuery)
                  );
-                 console.log( this.autresResults);
+                 //console.log( this.autresResults);
     } catch (error) {
       console.error('Erreur lors de la récupération des données :', error);
     } finally {
@@ -1371,52 +1373,23 @@ export default {
     }
   },
    computed: {
-    filteredRepa() {
-  const searchTerm = this.searchQuery.toLowerCase();
-  const filteredData = this.repass.filter((result) => {
-    return (
-      result.status === 'Terminer' &&
-      (
-        result.adresse.includes(searchTerm) ||
-        result.ecole.includes(searchTerm) ||
-        result.niveauEtude.includes(searchTerm) ||
-        result.cycle.includes(searchTerm) ||
-        result.grade.includes(searchTerm) ||
-        // (result.matiere && result.matiere.name.includes(searchTerm)) ||
-        (result.user && result.user.name.includes(searchTerm))
-      )
-    );
-  });
-
-  return filteredData;
- 
-},
-
-    // Calcule les cartes à afficher en fonction de la page actuelle
-    // paginatedCards() {
-    //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    //   const endIndex = startIndex + this.itemsPerPage;
-    //   return this.cards.slice(startIndex, endIndex);
-    // },
+  
     paginatedCards() {
   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
   const endIndex = startIndex + this.itemsPerPage;
 
-  // Vérifier si la page actuelle est valide
+  
   if (startIndex >= this.searchResults.length || endIndex <= 0) {
-    return []; // Retourner un tableau vide si la page est invalide
+    return []; 
   }
 
   return this.searchResults.slice(startIndex, endIndex);
 },
-    // Vérifie si le bouton "Charger plus" doit être affiché
+    
     showLoadMoreButton() {
       return this.currentPage * this.itemsPerPage < this.cards.length;
     },
-    // pages() {
-      
-    //   return Array.from({ length: this.totalPages }, (_, index) => index + 1);
-    // },
+    
     pages() {
   const totalCards = this.cards.length;
   const totalPages = Math.ceil(totalCards / this.itemsPerPage);
@@ -1427,7 +1400,7 @@ export default {
   },
 
   mounted(){
-      //  console.log('I am here')
+      
       this.search();
       this.getmatiere();
       this.getCommune();
@@ -1437,20 +1410,19 @@ export default {
       this.getPublicité();
       this.getrepetiteur();
       this.getrepetiteurMatiere();
-     // this.startCarousel();
-   // this.scrollAnimation();
-    console.log(this.currentPage, this.totalPages);
+     
+   // console.log(this.currentPage, this.totalPages);
     
       },
     
   methods: {
     toggleBlink() {
-      this.isBlinking = !this.isBlinking; // Inverse la valeur de isBlinking
+      this.isBlinking = !this.isBlinking; 
     },
     getCommune(){
         axios.get('http://127.0.0.1:8000/api/communes').then(res=>{
                 this.commune=res.data.data
-                console.log(this.commune)
+               // console.log(this.commune)
                
             });
           
@@ -1459,7 +1431,7 @@ export default {
       axios.get('http://127.0.0.1:8000/api/publicites',)
    .then(response => {
      this.publicite = response.data.data;
-     console.log( this.publicite);
+     //console.log( this.publicite);
      
    })
    .catch(error => {
@@ -1470,7 +1442,7 @@ export default {
       axios.get('http://127.0.0.1:8000/api/matieres',)
    .then(response => {
      this.matiere = response.data.data;
-     console.log( this.matiere);
+    // console.log( this.matiere);
      
    })
    .catch(error => {
@@ -1508,7 +1480,7 @@ export default {
         const response = await axios.get("http://127.0.0.1:8000/api/repetiteurs");
         if (response.data) {
           this.repetiteur= response.data.data;
-          console.log(this.repetiteur);
+          //console.log(this.repetiteur);
         }
       } catch (error) {
         console.log(error.data);
@@ -1519,16 +1491,15 @@ export default {
         const response = await axios.get("http://127.0.0.1:8000/api/repetiteurmcs ");
         if (response.data) {
           this.repetiteurmatiereClasse= response.data.data;
-          console.log(this.repetiteur);
+         // console.log(this.repetiteur);
         }
       } catch (error) {
         console.log(error.data);
       }
     },
     search() {
-    //console.log(text);
-      // Remplacez l'URL de l'API par celle que vous souhaitez utiliser
-      console.log('Recherche effectuée avec :', this.searchQuery);
+   
+      //console.log('Recherche effectuée avec :', this.searchQuery);
       try {
        
 
@@ -1536,7 +1507,7 @@ export default {
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.traitementDossiers ==='Terminer'&& (
+                 result.traitementDossiers ==='Validé'&& (
                   result.adresse.includes(this.searchQuery)||
                   result.ecole.includes(this.searchQuery)||
                   result.niveauEtude.includes(this.searchQuery)||
@@ -1547,113 +1518,103 @@ export default {
                   (result.user && result.user.name.includes(this.searchQuery))
                 )
                  );
-                console.log(this.searchResults)
+               // console.log(this.searchResults)
                 
             });
         // Filtrez les résultats en fonction de votre logique
        // this.searchResults = res.data.data.filter(result => result.fname === includes(this.searchQuery));
-        console.log(res.data);
-        console.log(this.searchResults);
+       // console.log(res.data);
+       // console.log(this.searchResults);
       } catch (error) {
         console.error('Erreur lors de la recherche:', error);
         // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
       }
     },
     searchVille() {
-    //console.log(text);
-      // Remplacez l'URL de l'API par celle que vous souhaitez utiliser
-      console.log('Recherche effectuée avec :', this.searchQueryVille);
+    
+      //console.log('Recherche effectuée avec :', this.searchQueryVille);
       try {
        
 
-        // Utilisez Axios pour effectuer la requête à l'API
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.traitementDossiers ==='Terminer'&& (
+                 result.traitementDossiers ==='Validé'&& (
                 //  result.adresse.includes(this.searchQueryVille)
                   (result.commune && result.commune.name.includes(this.searchQueryVille))
                 )
                  );
-                console.log(this.searchResults)
+                //console.log(this.searchResults)
                 
             });
-        // Filtrez les résultats en fonction de votre logique
+        
        // this.searchResults = res.data.data.filter(result => result.fname === includes(this.searchQuery));
-        console.log(res.data);
-        console.log(this.searchResults);
+       // console.log(res.data);
+       // console.log(this.searchResults);
       } catch (error) {
         console.error('Erreur lors de la recherche:', error);
-        // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+        
       }
     },
     searchVill() {
-    //console.log(text);
-      // Remplacez l'URL de l'API par celle que vous souhaitez utiliser
-      console.log('Recherche effectuée avec :', this.searchQueryVill);
+    
+      //console.log('Recherche effectuée avec :', this.searchQueryVill);
       try {
        
 
-        // Utilisez Axios pour effectuer la requête à l'API
+        
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.traitementDossiers ==='Terminer'&& (
+                 result.traitementDossiers ==='Validé'&& (
                  // result.adresse.includes(this.searchQueryVill)
                  (result.commune && result.commune.name.includes(this.searchQueryVill))
                 )
                  );
-                console.log(this.searchResults)
+                //console.log(this.searchResults)
                 
             });
-        // Filtrez les résultats en fonction de votre logique
-       // this.searchResults = res.data.data.filter(result => result.fname === includes(this.searchQuery));
-        console.log(res.data);
-        console.log(this.searchResults);
+ 
+        //console.log(res.data);
+        //console.log(this.searchResults);
       } catch (error) {
         console.error('Erreur lors de la recherche:', error);
-        // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+        
       }
     },
     searchCycle() {
-    //console.log(text);
-      // Remplacez l'URL de l'API par celle que vous souhaitez utiliser
-      console.log('Recherche effectuée avec :', this.searchQuery);
+    
+     // console.log('Recherche effectuée avec :', this.searchQuery);
       try {
        
 
-        // Utilisez Axios pour effectuer la requête à l'API
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.traitementDossiers ==='Terminer'&& (
+                 result.traitementDossiers ==='Validé'&& (
                   result.cycle.includes(this.searchQueryCyle)
                 )
                  );
-                console.log(this.searchResults)
+                //console.log(this.searchResults)
                 
             });
-        // Filtrez les résultats en fonction de votre logique
+        
        // this.searchResults = res.data.data.filter(result => result.fname === includes(this.searchQuery));
-        console.log(res.data);
-        console.log(this.searchResults);
+       // console.log(res.data);
+       // console.log(this.searchResults);
       } catch (error) {
         console.error('Erreur lors de la recherche:', error);
-        // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+        
       }
     },
     searchetats() {
-    //console.log(text);
-      // Remplacez l'URL de l'API par celle que vous souhaitez utiliser
-      console.log('Recherche effectuée avec :', this.searchQuery);
+    
+     // console.log('Recherche effectuée avec :', this.searchQuery);
       try {
-       
-
-        // Utilisez Axios pour effectuer la requête à l'API
         axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
-                 result.traitementDossiers ==='Terminer'&& (
+                 result.traitementDossiers ==='Validé'&& (
                   result.etats.includes(this.searchQueryDispo)
                 )
                  );
@@ -1671,7 +1632,7 @@ export default {
     },
     searchMatiere() {
    
-      console.log('Recherche effectuée avec :', this.searchQueryMatiere);
+      //console.log('Recherche effectuée avec :', this.searchQueryMatiere);
       try {
        
 
@@ -1684,7 +1645,7 @@ export default {
               //  )
               //  );
               this.rep = response.data.data.filter(resulte => 
-  resulte.repetiteur.traitementDossiers === 'Terminer' && 
+  resulte.repetiteur.traitementDossiers === 'Validé' && 
   resulte.matiere && 
   resulte.matiere.name.toLowerCase().includes(this.searchQueryMatiere.toLowerCase())
 );
@@ -1738,22 +1699,8 @@ this.searchResults=this.repetFiltered
     resumeScrollAnimation() {
       this.$refs.cardWrapper.style.animationPlayState = "running";
     },
-    clignoterInput() {
-      // Activer l'effet de clignotement
-      this.clignote = true;
-
-      // Désactiver l'effet après une seconde (1000 ms)
-      setTimeout(() => {
-        this.clignote = false;
-      }, 1000);
-    },
-    scrollAnimation() {
-      // Ajouter votre animation de défilement ici
-      // Utilisez l'ID de la trame d'animation pour chaque carte
-      //this.cards.forEach((card) => {
-      //  card.animationFrameId = requestAnimationFrame(card.scrollAnimation);
-    //  });
-    },
+    
+   
     nextSlide() {
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
     },

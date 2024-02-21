@@ -127,7 +127,7 @@
                             </div>
                             <br>
                           <div class="flex justify-end">
-                            <button type="submit" class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enregister</button>
+                            <button type="submit" class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
                           </div>
 
                         </form>
@@ -177,7 +177,7 @@
                        </div>
                        <br>
                             <div class="flex justify-end">
-                                <button type="submit" class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enregister</button>
+                                <button type="submit" class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
                             </div>
 
                         </form>
@@ -236,7 +236,7 @@
         openModal(enfantId) {
       this.isModalOpen = true;
       this.selectedEnfant = enfantId;
-      console.log(this.selectedEnfant);
+      //console.log(this.selectedEnfant);
     },
     closeModal() {
       this.isModalOpen = false;
@@ -254,7 +254,7 @@
     //   this.content = '';
     //   this.poste = '';
     this.matiere_id='';
-           this.classe_id='';
+    this.classe_id='';
     },
       async  getrepetiteur(){
 
@@ -265,37 +265,37 @@
         },
       };
 
-      console.log(config);
+      //console.log(config);
 
       // Requête pour récupérer le profil
       const profileResponse  = await axios.get('http://127.0.0.1:8000/api/profile', config);
-        console.log(profileResponse);
+        //console.log(profileResponse);
       // Stocker les données du profil dans le composant ou Vuex
       this.role_id = profileResponse.data.role_id;
       this.user_id = profileResponse.data.id;
-      console.log(this.role_id);
-      console.log(this.user_id);
+      //console.log(this.role_id);
+      //console.log(this.user_id);
 
     axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
                 this.repetiteurs = res.data.data.filter(repetiteur => repetiteur.user.id === this.user_id)
                   
-                console.log(this.repetiteurs)
+                //console.log(this.repetiteurs)
                 this.repetiteurs_id= this.repetiteurs[0].id
                 this.etat=this.repetiteurs[0].etats
-                console.log(this.repetiteurs_id);
-                console.log(this.etat);
+                //console.log(this.repetiteurs_id);
+                //console.log(this.etat);
 
             });
             this.getEnfants();
   },
        async getEnfants(studentId){
             const repetiteur_id = localStorage.getItem('repetiteur_id');
-            console.log(repetiteur_id);
-            console.log(studentId)
-            console.log(this.repetiteurs_id);
+           // console.log(repetiteur_id);
+           // console.log(studentId)
+           // console.log(this.repetiteurs_id);
            await axios.get('http://127.0.0.1:8000/api/demandes').then(res=>{
                 this.enfants=res.data.data.filter(enfant => enfant.repetiteur.id === this.repetiteurs_id);
-                console.log(this.enfants)
+                //console.log(this.enfants)
                
             });
            // console.log(enfants);
@@ -304,15 +304,15 @@
            
             axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
                 this.matiere=res.data.data
-                console.log(this.matiere)
-                console.log(res)
+                //console.log(this.matiere)
+                //console.log(res)
             });
         },
         getClasse(){
             axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
                 this.classe=res.data.data
-                console.log(this.classe)
-                console.log(res)
+                //console.log(this.classe)
+                //console.log(res)
             });
         },
         saveMatiereClasse(){
@@ -328,17 +328,17 @@ repetiteur_id: this.repetiteurs_id,
 };
 const token = localStorage.getItem('token');
            
-           console.log(token);
+           //console.log(token);
            const config={
                headers: {
        'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
      }
            };
-           console.log(config);
-console.log(dataToSend);
+           //console.log(config);
+//console.log(dataToSend);
             axios.post( 'http://127.0.0.1:8000/api/repetiteurmcs',dataToSend,config ).then(res =>{
 
-                console.log(res.data)
+                //console.log(res.data)
                // alert(res.data.message);
                this.closeSecondModal();
                if (res.status==201) {
@@ -374,26 +374,28 @@ console.log(dataToSend);
         },
         test(){
             this.isDisponible = this.isDisponible === 'Disponible' ? 'Non Disponible' : 'Disponible';
-            const dataToSend = {
-            etats:this.isDisponible,}
-            console.log(this.isDisponible);
-            console.log(dataToSend);
+            const dataToSend = 
+            {
+            etats:this.isDisponible,
+            }
+            //console.log(this.isDisponible);
+            //console.log(dataToSend);
             const token = localStorage.getItem('token');
            
-           console.log(token);
+           //console.log(token);
            const config={
                headers: {
        'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
      }
            };
-           console.log(config);
-console.log(dataToSend);
-console.log(this.repetiteurs_id);
+           //console.log(config);
+//console.log(dataToSend);
+//console.log(this.repetiteurs_id);
 
       axios.put('http://127.0.0.1:8000/api/repetiteurs/'+this.repetiteurs_id,dataToSend,config)
 .then(response => {
   // La mise à jour a réussi, vous pouvez traiter la réponse ici
-  console.log(response.data);
+  //console.log(response.data);
 
   this.$router.push('/admin/dashboard')
 })
@@ -407,7 +409,7 @@ console.log(this.repetiteurs_id);
         savePostes(){
             var mythis= this;
           const  parents_id=localStorage.getItem('parents_id')
-          console.log(parents_id);
+        //  console.log(parents_id);
            
             const dataToSend = {
 
@@ -419,17 +421,17 @@ repetiteur_id: this.repetiteurs_id,
 };
 const token = localStorage.getItem('token');
            
-           console.log(token);
+          // console.log(token);
            const config={
                headers: {
        'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
      }
            };
-           console.log(config);
-console.log(dataToSend);
+           //console.log(config);
+//console.log(dataToSend);
             axios.post( 'http://127.0.0.1:8000/api/postes',dataToSend,config ).then(res =>{
 
-                console.log(res.data)
+                //console.log(res.data)
                // alert(res.data.message);
                this.closeModal();
                if (res.status==201) {

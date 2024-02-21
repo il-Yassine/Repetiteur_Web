@@ -15,7 +15,7 @@
                         </li>
                     </ul>
                   
-                    <div class="flex space-x-4">
+                    <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="flex-1">
                             <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Votre nom Complet<span class="text-red-500">*</span></label>
                                 <input type="text"  v-model="name" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
@@ -27,7 +27,7 @@
                                 </div>
     
                     </div>
-                    <div class="flex space-x-4">
+                    <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="flex-1">
                             <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Objet</label>
                                 <input type="text"  v-model="objet" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" >
@@ -55,7 +55,7 @@
                    
 
                     <div class="flex justify-end">
-                        <button type="submit" class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                        <button type="submit" class=" my-3 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
                     </div>
 
 
@@ -73,16 +73,12 @@ export default {
     name:'message',
     data(){
         return{
-            repetiteurs:[],
-            tarification:[],
-            enfants:[],
-            parents:[],
+            admin:[],
+            admin_id:'',
+           
             errorList:'',
             user_id:'',
-            parents_id:'',
-           
-            
-          
+
             matiere:[],
             prixe:[],
             matiere_id:'',
@@ -92,39 +88,33 @@ export default {
             email:'',
             objet:'',
             message:'',
-            model:{
-
-                 fname:'',
-                    lname:'',
-                    classe:'',
-                    phone:'',
-                    adresse:'',
-                    matiere_id:'',
-                    repetiteur_id:'',
-                    parents_id:'',
-
-            }
+            message_id:'',
+          
         }
     },
     mounted(){
         this.getUsers();
+        this.getAdmin();
     },
     methods:{
         getUsers (){
             const token = localStorage.getItem('token');
            
-            console.log(token);
+            //console.log(token);
             const config={
                 headers: {
         'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
       }
             };
-            console.log(config);
+           // console.log(config);
      axios.get('http://127.0.0.1:8000/api/profile',config)
     .then(response => {
       this.user_id = response.data.id;
-      console.log(response.data.id);
-      console.log( this.user_id);
+      this.name=response.data.name
+      this.phone=response.data.phone
+      this.email=response.data.email
+     // console.log(response.data.id);
+      //console.log( this.user_id);
     })
     .catch(error => {
       if (error.response === 401) {
@@ -137,14 +127,26 @@ export default {
    
   
         },
+        getAdmin(){
+    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+                this.admin = res.data.data.filter(result =>
+                   result.name === 'Supper Admin'
+
+                    );
+                    this.admin_id=this.admin[0].id
+                    //console.log(res.data.data);
+                   // console.log(this.model.matiere_id);
+                // console.log(this.admin)
+                // console.log(this.admin_id)
+                // console.log(res)
+            });
+},
     
         saveDemande(){
             var mythis= this;
 
 
             const dataToSend = {
-
-
  name:this.name,
 phone:this.phone,
 email:this.email,
@@ -155,20 +157,38 @@ user_id: this.user_id,
 };
 const token = localStorage.getItem('token');
            
-           console.log(token);
+           //console.log(token);
            const config={
                headers: {
        'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
      }
            };
-           console.log(config);
-console.log(dataToSend);
+           //console.log(config);
+//console.log(dataToSend);
             axios.post( 'http://127.0.0.1:8000/api/messages',dataToSend,config ).then(res =>{
 
-                console.log(res.data)
+                //console.log(res.data)
                // alert(res.data.message);
                if (res.status==201) {
                 localStorage.setItem('demande_id',res.data.data.id)
+               this.message_id=res.data.data.id
+                const userData = { 
+                      message_id: this.message_id,
+                      type: "message",
+                      user_id: this.admin_id,
+                      message: "Nouveau message",
+                    };
+                   // console.log(userData);
+                    try {
+          const Response = axios.post('http://127.0.0.1:8000/api/notifications', userData, config);
+          console.log('notification Response:', Response.data);
+          if (Response.status === 201) {
+           // alert('Votre Compte répétiteur est mi en evaluation');
+          }
+        } catch (Error) {
+          console.error('Erreur lors de la mise en évaluationde votre compte :', Error);
+
+        }
                     mythis.errorList="Message envoyer avec succès"
                     alert('Message envoyer avec succès')
                     this.$router.push('/admin/dashboard')

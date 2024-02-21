@@ -13,7 +13,7 @@
             </ul>
             
 
-           <div class="flex space-x-4">
+           <div class="grid gap-6 mb-6 md:grid-cols-4">
 
           <!-- <div class="flex-1">
               <label for="classe" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Classe</label>
@@ -72,7 +72,7 @@
               
             
           <!-- </div> -->
-          <div class="flex space-x-4">
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div class="flex-1">
               <label class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Photo de profil</label>
               <input ref="profil_imageUrl" @change="onFileChange"  class="block w-full text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
@@ -87,7 +87,7 @@
               
             
           </div>
-          <div class="flex space-x-4">
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div class="flex-1">
               <label class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Importer votre casier judiciaire en format pdf</label>
               <input type="file"  @change="casierJudicaires" accept=".pdf"  class="block w-full  text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" >
@@ -99,7 +99,7 @@
 
           </div>
           </div>
-          <div class="flex space-x-4">
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
            
             <div class="flex-1">
               <label class="block mb-2  text-2xl font-medium text-gray-900 dark:text-white" for="large_size">Importer votre pièces d'identité en format pdf</label>
@@ -112,7 +112,7 @@
           </div>
           </div>
           
-          <div class="flex space-x-4">
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
            
          
             <div class="flex-1">
@@ -124,7 +124,7 @@
               <input type="text" name="heureDisponibilite"  v-model="model.heureDisponibilite" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder=" EX: Mercredi 14h à 18 et Samedi 14h à 18h" required>
           </div>
              </div>
-             <div class="flex space-x-4">
+             <div class="grid gap-6 mb-6 md:grid-cols-3">
               <div class="flex-1">
                 <label for="grade" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Grade</label>
                 <input type="text" name="grade"  v-model="model.grade" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre grade" required>
@@ -139,7 +139,7 @@
           <input type="text" name="situationMatrimoniale"  v-model="model.situationMatrimoniale" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre situation matrimoniale" required>
       </div>
              </div>
-              <div class="flex space-x-4">
+              <div class="grid gap-6 mb-6 md:grid-cols-3">
                 <div class="flex-1">
                   <label for="ecole" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Niveau d'etude</label>
                   <input type="text" name="ecole"  v-model="model.niveauEtude" id="ecole" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Entrer votre niveau d'etude" required>
@@ -162,7 +162,7 @@
           
            
             <div class="flex justify-end">
-                <button type="submit"  class=" text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                <button type="submit"  class=" my-3 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
             </div>
            
             
@@ -182,6 +182,8 @@ export default {
         return{
             matiere:[],
             commune:[],
+            admin:[],
+            admin_id:'',
             errorList:'',
             matricule:'',
             longueur:0,
@@ -219,6 +221,7 @@ export default {
     mounted(){
       //  console.log('I am here')
       this.getMatiere();
+      this.getAdmin();
       this.getCommune();
       this.getUsers();
     // this.onFileChange();
@@ -232,33 +235,47 @@ export default {
             });
 
       },
+      getAdmin(){
+    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+                this.admin = res.data.data.filter(result =>
+                   result.name === 'Supper Admin'
+
+                    );
+                    this.admin_id=this.admin[0].id
+                    console.log(res.data.data);
+                   // console.log(this.model.matiere_id);
+                console.log(this.admin)
+                console.log(this.admin_id)
+                console.log(res)
+            });
+},
       getMatiere(){
             axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
                 this.matiere=res.data.data
                 this.longueur=res.data.data.length + 1
-                console.log(this.matiere)
-                console.log(this.longueur)
+               // console.log(this.matiere)
+               // console.log(this.longueur)
                 this.matricule='M0000'+this.longueur;
-                console.log(res)
-                console.log(this.matricule)
+                //console.log(res)
+                //console.log(this.matricule)
             });
         },
         getUsers (){
             const token = localStorage.getItem('token');
            
-            console.log(token);
+           // console.log(token);
             const config={
                 headers: {
         'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
       }
             };
-            console.log(config);
+           // console.log(config);
      axios.get('http://127.0.0.1:8000/api/profile',config)
     .then(response => {
       this.user_id = response.data.id;
       localStorage.setItem('user_id',response.data.id)
       //userIds=this.userId;
-      console.log(response.data.id);
+      //console.log(response.data.id);
     })
     .catch(error => {
       if (error.response === 401) {
@@ -318,9 +335,9 @@ export default {
         .then((response) => {
             console.log(response);
           if (response.status == 201) {
-            console.log(response);
+           // console.log(response);
             this.profil_imageUrl = response.data.data.media_url;
-            console.log(this.profil_imageUrl);
+           // console.log(this.profil_imageUrl);
            // this.sendpdf();
             
           }
@@ -345,9 +362,9 @@ export default {
         .then((response) => {
             console.log(response);
           if (response.status == 201) {
-            console.log(response);
+            //console.log(response);
             this.diplome_imageUrl = response.data.data.media_url;
-            console.log(this.profil_imageUrl);
+           // console.log(this.profil_imageUrl);
            // this.sendpdfIdentite();
             
           }
@@ -361,7 +378,7 @@ export default {
       const formData = new FormData();
 
       formData.append("file", this.pdfidentite);
-      console.log(this.pdfidentite);
+      //console.log(this.pdfidentite);
 
       axios
         .post("http://127.0.0.1:8000/api/medias", formData, {
@@ -370,11 +387,11 @@ export default {
           },
         })
         .then((response) => {
-            console.log(response);
+           // console.log(response);
           if (response.status == 201) {
-            console.log(response);
+            //console.log(response);
             this.identite = response.data.data.media_url;
-            console.log(this.identite);
+            //console.log(this.identite);
            // this.sendpdfcasierJudicaires();
             
           }
@@ -387,7 +404,7 @@ export default {
       const formData = new FormData();
 
       formData.append("file", this.pdfcasierJudicaires);
-      console.log(this.pdfcasierJudicaires);
+      //console.log(this.pdfcasierJudicaires);
 
       axios
         .post("http://127.0.0.1:8000/api/medias", formData, {
@@ -396,11 +413,11 @@ export default {
           },
         })
         .then((response) => {
-            console.log(response);
+            //console.log(response);
           if (response.status == 201) {
-            console.log(response);
+            //console.log(response);
             this.casierJudicaire = response.data.data.media_url;
-            console.log(this.casierJudicaire);
+           // console.log(this.casierJudicaire);
            // this.sendpdfattestationResidence();
             
           }
@@ -413,7 +430,7 @@ export default {
       const formData = new FormData();
 
       formData.append("file", this.pdfattestationResidence);
-      console.log(this.pdfattestationResidence);
+      //console.log(this.pdfattestationResidence);
 
       axios
         .post("http://127.0.0.1:8000/api/medias", formData, {
@@ -422,11 +439,11 @@ export default {
           },
         })
         .then((response) => {
-            console.log(response);
+            //console.log(response);
           if (response.status == 201) {
-            console.log(response);
+           // console.log(response);
             this.attestationResidence = response.data.data.media_url;
-            console.log(this.attestationResidence);
+            //console.log(this.attestationResidence);
            // this.saveStudent();
             
           }
@@ -443,8 +460,8 @@ export default {
             var mythis= this;
             const token = localStorage.getItem('token');
             const user_id= this.user_id
-            console.log(user_id);
-            console.log(this.matricule);
+           // console.log(user_id);
+            //console.log(this.matricule);
             const dataToSend = {
 
                 matricule:this.matricule,
@@ -475,27 +492,32 @@ const config={
         'Authorization': 'Bearer ' + token // Bearer 14|LhMjIdjCKZjxzEeSHNOOE0eQUUCM28lHQ6JbW1pOb16e3fa8 // Remplacez par le token d'authentification réel
       }
             };
-console.log(dataToSend);
+//console.log(dataToSend);
             axios.post('http://127.0.0.1:8000/api/repetiteurs', dataToSend,config )
 .then(response => {
-  // Gérer la réponse de la requête POST
-  console.log(response)
-  console.log(response.data)
+  
+  //console.log(response)
+  //console.log(response.data)
   localStorage.setItem('repetiteur_id',response.data.data.id)
                 this.repetiteur_id=response.data.data.id
-                console.log( this.repetiteur_id);
-                console.log( this.model.parentsCreate)
+                //console.log( this.repetiteur_id);
+                //console.log( this.model.parentsCreate)
                 mythis.errorList=response.data.message
              //   alert(response.data.message);
                 if (response.status==201) {
                     mythis.errorList="Compte répétiteurs créer avec succès"
                     alert('Formulaire du répétiteurs remplir avec succès')
-                    const userData = { repetiteur_id: this.repetiteur_id };
+                    const userData = { 
+                      repetiteur_id: this.repetiteur_id,
+                      type: "repetiteur",
+                      user_id: this.admin_id,
+                      message: "Nouveau répétiteur",
+                    };
                     try {
-          const Response = axios.post('http://127.0.0.1:8000/api/evaluations', userData, );
-          console.log('Parents Response:', Response.data);
+          const Response = axios.post('http://127.0.0.1:8000/api/notifications', userData, config);
+          //console.log('notification Response:', Response.data);
           if (Response.status === 201) {
-            alert('Votre Compte répétiteur est mi en evaluation');
+           // alert('Votre Compte répétiteur est mi en evaluation');
           }
         } catch (Error) {
           console.error('Erreur lors de la mise en évaluationde votre compte :', Error);
@@ -530,8 +552,7 @@ console.log(dataToSend);
         }
 });
 
-         
-            
+
         },
         async sendRepas() {
       try {

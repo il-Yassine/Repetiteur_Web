@@ -14,8 +14,11 @@
                     <tr>
                         
                         <th scope="col" class="px-6 py-3">
-                            Classe
+                            Image
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                          Classe
+                      </th>
                         <th scope="col" class="px-6 py-3">
                             Matiere
                         </th>
@@ -30,18 +33,22 @@
                 </thead>
                 <tbody v-if="this.epreuve.length > 0">
                     <tr class="bg-white text-lg border-b dark:bg-gray-900 dark:border-gray-700" v-for="(apprenant,index) in this.epreuve" :key="index">
-                        <td class="px-6 py-4">
+                       <td class="px-6 py-4">
+                        <img src="../../../assets/pdf.jpg" type="" width="60" height="60">
+                       </td>
+                      
+                      <td class="px-6 py-4">
                             {{ apprenant.classe.name }}
                         </td>
                         <td class="px-6 py-4">
                             {{ apprenant.matiere.name }}
                         </td>
                         <td class="px-6 py-4">
-                          <a class="font-medium text-blue-600 dark:text-red-500 hover:underline" :href="apprenant.epreuve" target="_blank">Voir</a>
-                            
+                          <a class="font-medium text-blue-600 dark:text-red-500 hover:underline" :href="apprenant.epreuve" target="_blank">Télécharger</a>
+                           
                         </td>
                         <td class="px-6 py-4">
-                          <a class="font-medium text-blue-600 dark:text-red-500 hover:underline" :href="apprenant.corrige" target="_blank">Voir</a>
+                          <a class="font-medium text-blue-600 dark:text-red-500 hover:underline" :href="apprenant.corrige" target="_blank">Télécharger</a>
                            
                         </td>
                     </tr>
@@ -104,23 +111,23 @@ headers: {
 },
 };
 
-console.log(config);
+//console.log(config);
 
 // Requête pour récupérer le profil
 const profileResponse  =await axios.get('http://127.0.0.1:8000/api/profile', config);
-console.log(profileResponse);
+//console.log(profileResponse);
 // Stocker les données du profil dans le composant ou Vuex
 this.role_id = profileResponse.data.role_id;
 this.user_id = profileResponse.data.id;
-console.log(this.role_id);
-console.log(this.user_id);
+//console.log(this.role_id);
+//console.log(this.user_id);
 
 axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
     this.parents = res.data.data.filter(parent => parent.user.id === this.user_id)
       
-    console.log(this.parents)
+    //console.log(this.parents)
     this.parentss_id= this.parents[0].id
-    console.log(this.parentss_id);
+    //console.log(this.parentss_id);
    
 });
 this.getDemande();
@@ -128,10 +135,10 @@ this.getDemande();
 getDemande(){
             axios.get('http://127.0.0.1:8000/api/demandes').then(res=>{
                 this.demande=res.data.data.filter(payemet => payemet.enfants.parents.id === this.parentss_id)
-                console.log(this.demande)
+                //console.log(this.demande)
                 this.classe=this.demande.map(item => item.tarification.classe.id)
-                console.log( this.classe)
-                console.log(res)
+                //console.log( this.classe)
+                //console.log(res)
             });
             this.getEpreuve();    
         },
@@ -139,9 +146,9 @@ getDemande(){
       getEpreuve(){
           axios.get('http://127.0.0.1:8000/api/epreuves').then(res=>{
               this.epreuves=res.data.data
-              console.log(this.epreuves)
-              console.log(this.classe)
-              console.log(res)
+              //console.log(this.epreuves)
+              //console.log(this.classe)
+              //console.log(res)
               if (this.classe && this.epreuves) {
   
 this.classe=this.demande.map(item => item.tarification.classe.id)
@@ -152,8 +159,8 @@ this.classe=this.demande.map(item => item.tarification.classe.id)
 });
 this.epreuve=this.repetFiltered 
 
-  console.log(this.epreuve);
-  console.log(this.repetFiltered);
+  //console.log(this.epreuve);
+ // console.log(this.repetFiltered);
  } else {
    console.error('La propriété rep est undefined.');
  }

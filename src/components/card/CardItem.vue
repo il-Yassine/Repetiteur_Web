@@ -1,5 +1,5 @@
 <template>
-    <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
+    <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-lg">
                         
         <div class="p-4 pb-6 flex justify-center flex-col items-center">
          <img class="md:block hidden" :src="imageSrc" alt=" image" /> 

@@ -62,7 +62,7 @@
         <li class="px-3 text-dark hover:text-green-500 focus:text-green active:text-black"><a  class="focus:text-black active:text-black" href="/#repetiteur">Rechercher un répétiteur
           
         </a></li> 
-        <li class="px-3 text-dark hover:text-green-500 focus:text-green-500 active:text-green-500"><a  class="focus:text-green-500 active:text-green-500" href="/login">Faire une demande</a></li> 
+        <li class="px-3 text-dark hover:text-green-500 focus:text-green-500 active:text-green-500"><a  class="focus:text-green-500 active:text-green-500" @click.prevent="redirect" href="">Faire une demande</a></li> 
         
         <li class=" px-3 text-dark hover:text-green-500 focus:text-green-500 active:text-green-500 ">
           <button @click="toggleDropdown('menu1')" class="flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-black md:p-0 md:w-auto text-dark dark:hover:text-white focus:text-black hover:bg-black active:text-black">
@@ -74,13 +74,13 @@
            <div v-if="isDropdownOpen.menu1" id="dropdownNavbar" class="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
             <li>
-              <a href="/login" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Epreuves</a>
+              <a href="" @click.prevent="redirecte" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Epreuves</a>
             </li>
             <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Examen blanc</a>
+              <a href="/examens" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Examens blancs</a>
             </li>
             <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Tutoriel</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-xl dark:hover:text-white font-bold">Tutoriels</a>
             </li>
           </ul>
          
@@ -108,7 +108,7 @@
           
         </div></li> 
 
-        <li class=" px-3 "><button class="bg-green-500 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105"><a  class="focus:text-white active:text-white"  href="/login">Se connecter</a></button></li>
+        
         <!-- <li>
           <button @click="toggleDropdown" class="flex items-center justify-between w-full py-2 px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
             Dropdown 
@@ -135,7 +135,66 @@
             </div>
           </div>
         </li> -->
+       
+    <li v-if="this.tokene">
+      <div class="relative" @click="toggleDropdowne">
+        <div>
+          <button
+            type="button"
+            class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            id="user-menu-button"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">Open user menu</span>
+            <img
+              class="h-12 w-12 rounded-full"
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt=""
+            />
+          </button>
+        </div>
+
+        <!-- Dropdown menu -->
+        <div
+          v-show="isDropdown"
+          class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="user-menu-button"
+          tabindex="-1"
+        >
+          <!-- Active: "bg-gray-100", Not Active: "" -->
+          <a
+            href="#"
+            class="block px-4 py-2 text-sm text-gray-700 font-bold"
+            role="menuitem"
+            tabindex="-1"
+            id="user-menu-item-0"
+            ></a
+          >
+          <a
+            href="/admin/demande"
+            class="block px-4 py-2 text-sm text-gray-700 font-bold"
+            role="menuitem"
+            tabindex="-1"
+            id="user-menu-item-1"
+            >DashBoard</a
+          >
+          <button
+            @click="logout()"
+            class="block px-4 py-2 text-sm text-gray-700 font-bold"
+            role="menuitem"
+            tabindex="-1"
+            id="user-menu-item-2"
+            >Déconnexion</button
+          >
+        </div>
+      </div>
+    </li>
       
+    <li v-else class=" px-3 "><button class="bg-green-500 px-6 py-3 text-white poppins rounded-full ring-red-300 focus:outline-none focus:ring-4 transform transition duration-700 hover:scale-105"><a  class="focus:text-white active:text-white"  href="/login">Se connecter</a></button></li>
       </ul>
       
      
@@ -145,6 +204,7 @@
 </template>
 
 <script>
+ import axios from 'axios'
 export default {
     name: 'PublicNav',
     data() {
@@ -153,10 +213,25 @@ export default {
       isDropdownOpen: {
         menu1: false,
         menu2: false
-      }
+      },
+      tokene:'',
+      isDropdown: false,
     };
+    
   },
+  mounted(){
+    this.getToken()
+  },
+
   methods: {
+    getToken(){
+      this.tokene=localStorage.getItem("token");
+     // console.log(this.tokene);
+    },
+    toggleDropdowne() {
+      this.isDropdown = !this.isDropdown;
+    },
+
     toggleNav() {
       this.showMenu = !this.showMenu;
     },
@@ -168,6 +243,61 @@ export default {
       }
       // Ouvrir/fermer le menu actuel
       this.isDropdownOpen[menu] = !this.isDropdownOpen[menu];
+    },
+    async logout() {
+      this.tokene = ''; 
+      const token = localStorage.getItem('token');
+    const config = {
+headers: {
+'Authorization': 'Bearer ' + token,
+},
+};
+
+//console.log(config);
+      if (token) {
+        try {
+        const response = await axios.get("http://127.0.0.1:8000/api/logout",config);
+        //console.log(response);
+        if (response.status === 204) {
+          this.tokene = ''; 
+         // TokenService.removeToken();
+          localStorage.removeItem('token')
+          this.$router.push("/login");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      }
+    },
+    async profile() {
+      try {
+        const response = await axios.get("/api/profile");
+        if (response.data) {
+          this.name = response.data.name;
+          this.user = response.data.id;
+          //console.log(this.user);
+        }
+      } catch (error) {
+        console.log(error.data);
+      }
+    },
+    redirect(){
+      this.tokene = localStorage.getItem("token");
+      if (this.tokene) {
+        
+        this.$router.push('/admin/demande/create');
+      }else {
+        this.$router.push('/login');
+      }
+    },
+    redirecte(){
+      this.tokene = localStorage.getItem("token");
+      if (this.tokene) {
+        
+        this.$router.push('/admin/epreuves');
+      }else {
+        this.$router.push('/login');
+      }
     },
     
 }

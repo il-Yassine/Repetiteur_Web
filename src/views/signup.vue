@@ -1,10 +1,6 @@
 <template>
-  
+
   <signup></signup>
-
-  
-
-
 
 </template>
 

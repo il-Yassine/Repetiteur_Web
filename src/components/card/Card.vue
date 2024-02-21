@@ -66,10 +66,10 @@ export default {
 </script> -->
 <template>
   <div class="card">
-    <img :src="imageSrc" :alt="imageAlt" class="card-image">
+    <img :src="imageSrc"  class="card-image">
     <div class="card-content">
       <h2 class="card-title">{{ title }}</h2>
-      <h6 class="card-subtitle text-lg">{{ Soustitre }}</h6>
+      
       <p class="card-supertitle">{{ Surtitre }}</p>
       <p class="card-description">{{ description }}</p>
       <p class="card-descriptio">{{ descriptio }}</p>
@@ -95,10 +95,7 @@ export default {
       type: String,
       required: true,
     },
-    imageAlt: {
-      type: String,
-      required: true,
-    },
+   
     title: {
       type: String,
       required: true,
@@ -107,10 +104,7 @@ export default {
       type: String,
       required: true,
     },
-    Soustitre: {
-      type: String,
-      required: true,
-    },
+   
     description: {
       type: String,
       required: true,

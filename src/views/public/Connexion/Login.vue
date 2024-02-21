@@ -3,14 +3,13 @@
     
     <div >
       
-     <div class="bg-gray-300">
-      <br> <br> <br>
-      <br>
-      <br>
-
+     <div class="custom-background h-screen">
+      <br> <br>
       
-      <div class="box">
-        <div class="card " >
+
+      <div class="flex flex-col items-center justify-center px-6 py-9 mx-auto md:h-screen lg:py-0">
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8 " >
          <div class="card-header">
              <h4 class="text-4xl text-center font-bold text-black-500 mt-4 mb-6">Authentification</h4>
          </div>
@@ -25,11 +24,18 @@
              </li>
          </ul>
          <form @submit.prevent="ajout">
-             <div class="mb-6">
+             <div class="mb-1">
                <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Email</label>
-               <input type="email"   v-model="model.login.email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="" required>
+               <input type="email"   v-model="model.login.email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
              </div>
-             <div class="mb-6">
+
+             <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Où</label>
+
+             <div class="mb-2">
+              <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Téléphone</label>
+              <input type="number"   v-model="model.login.phone" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
+            </div>
+             <div class="mb-1">
                <label for="password" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Mot de passe</label>
                <input type="password" v-model="model.login.password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
              </div>
@@ -76,6 +82,7 @@
         
  
      </div>
+    </div>
      <br>
      <br>
      <br>
@@ -136,13 +143,9 @@
 </template>
 <script>
  import axios from 'axios'
- import { mapState, mapGetters } from 'vuex';
+ 
 export default {
     name:'login',
-    computed: {
-    ...mapState('auth', ['isAuthenticated']),
-    ...mapGetters('getUserToken', ['isAuthenticated']),
-},
     data(){
         return{
             userId: null,
@@ -159,6 +162,7 @@ export default {
                 login:{
                     email:'',
                     password:'',
+                    phone:''
                     
                 },
             }
@@ -178,9 +182,9 @@ axios.get('http://127.0.0.1:8000/api/roles',)
  this.repetiteur = response.data.data[0].id;
  this.parents = response.data.data[2].id;
  //this.options = [response.data.data[0], response.data.data[response.data.data.length - 1]];
- console.log( this.role)
- console.log( this.repetiteur)
- console.log( this.parents)
+//  console.log( this.role)
+//  console.log( this.repetiteur)
+//  console.log( this.parents)
 // console.log( this.options)
 })
 .catch(error => {
@@ -193,23 +197,30 @@ axios.get('http://127.0.0.1:8000/api/roles',)
     axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
                 this.repetiteurs = res.data.data
                   
-                console.log(this.repetiteurs)
+               // console.log(this.repetiteurs)
             });
   },
   getparents(){
     axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
                 this.parentes = res.data.data
                   
-                console.log(this.parentes)
+               // console.log(this.parentes)
             });
   },
  
   async saveStudent() {
   try {
+    let loginData = {};
+    if (this.model.login.email) {
+      loginData = { email: this.model.login.email, password: this.model.login.password };
+    } else if (this.model.login.phone) {
+      loginData = { phone: this.model.login.phone, password: this.model.login.password };
+    }
+    console.log(loginData);
     // Requête de connexion
-    const loginResponse = await axios.post('http://127.0.0.1:8000/api/auth/login', this.model.login);
+    const loginResponse = await axios.post('http://127.0.0.1:8000/api/auth/login',loginData);
 
-    console.log(loginResponse.data);
+    console.log(loginResponse);
 
     this.model.login = { email: '', password: '' };
 
@@ -224,7 +235,7 @@ axios.get('http://127.0.0.1:8000/api/roles',)
         },
       };
 
-      console.log(config);
+      //console.log(config);
 
       // Requête pour récupérer le profil
       const profileResponse = await axios.get('http://127.0.0.1:8000/api/profile', config);
@@ -232,42 +243,42 @@ axios.get('http://127.0.0.1:8000/api/roles',)
       // Stocker les données du profil dans le composant ou Vuex
       this.role_id = profileResponse.data.role_id;
       this.user_id = profileResponse.data.id;
-      console.log(this.role_id);
-      console.log(this.user_id);
+      // console.log(this.role_id);
+      // console.log(this.user_id);
 
       const userData = { user_id: this.user_id };
-      console.log(userData);
+      //console.log(userData);
 
       // Redirection en fonction du rôle
-      console.log('Role ID:', this.role_id);
-      console.log('Parents:', this.parents);
-      console.log('id de utilisateur:', this.user_id);
+      // console.log('Role ID:', this.role_id);
+      // console.log('Parents:', this.parents);
+      // console.log('id de utilisateur:', this.user_id);
 
     
-console.log(this.repetiteurs);
+//console.log(this.repetiteurs);
 // Filtrage des répétiteurs en fonction de l'utilisateur actuel
 this.apeResults = Array.isArray(this.repetiteurs)
   ? this.repetiteurs.filter(repetiteur => repetiteur.user.id === this.user_id)
   : [];
-  console.log(this.apeResults);
+ // console.log(this.apeResults);
 
   this.paentResults = Array.isArray(this.parentes)
   ? this.parentes.filter(parente => parente.user.id === this.user_id)
   : [];
-  console.log(this.paentResults);
+  //console.log(this.paentResults);
  
 
 
       if (this.role_id === this.parents && this.paentResults.length === 0) {
-        console.log('test');
+        //console.log('test');
         try {
           const parentsResponse = await axios.post('http://127.0.0.1:8000/api/parents', userData, config);
-          console.log('Parents Response:', parentsResponse.data);
+          //console.log('Parents Response:', parentsResponse.data);
 
           // Stockage de l'ID des parents dans le stockage local et Vuex
-          console.log(parentsResponse.data.data);
-          localStorage.setItem('parents_id', parentsResponse.data.data.id);
-          this.$store.commit('setUserParentsId', parentsResponse.data.data.id);
+          //console.log(parentsResponse.data.data);
+          
+          
 
           // Gestion de la réponse de la requête POST
          // alert(parentsResponse.status);
@@ -275,8 +286,7 @@ this.apeResults = Array.isArray(this.repetiteurs)
             alert('Compte parents validé avec succès');
           }
 
-          // Marquer le compte "parents" comme créé
-          localStorage.setItem('parents_created', 'true');
+       
         } catch (parentsError) {
           console.error('Erreur lors de la création du compte parents :', parentsError);
           
@@ -287,9 +297,7 @@ if (this.role_id === this.repetiteur && this.apeResults.length === 0) {
   this.$router.push('/admin/repetiteur/create');
 } else if(this.role_id === this.parents) {
   this.$router.push('/admin/demande');
-  // Redirection vers la demande ou le tableau de bord
-  // const redirectPath = this.role_id === this.parents ? '/admin/demande' : '/admin/dashboard';
-  // this.$router.push(redirectPath);
+ 
 } else{
   this.$router.push('/admin/dashboard');
 }
@@ -298,7 +306,8 @@ if (this.role_id === this.repetiteur && this.apeResults.length === 0) {
   } catch (error) {
     console.error('Une erreur s\'est produite lors de la connexion :', error);
     if (error.response) {
-            this.errorList = 'Vos identifiants son incorrectes';
+           // this.errorList = 'Vos identifiants sont incorrectes';
+            alert('Vos identifiant sont incorrecte')
             console.log(error.response.data.message);
             console.log(error.response);
         } else if (error.request) {
@@ -416,12 +425,93 @@ if (this.role_id === this.repetiteur && this.apeResults.length === 0) {
 
 </script>
 <style>
-.box{background-color:#fff;display:flex;
-    border-radius:1em;width:30vw;flex-direction:column;padding:2em;box-shadow:rgba(100,100,111,.2) 0px 7px 29px 0px;position:relative}
-    .box{
-      margin-top: 50% important!;
-      margin: auto;
-      padding: auto;
-    }
+
+    
+    
+.custom-background {
+  background-image: url('../../../assets/images/images4.jpg');
+  /* Remplacez 'votre-image.jpg' par le nom de votre image */
+  background-size: cover;
+  /* Ajustez la taille de l'image */
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* Centrez l'image */
+  /* Ajoutez d'autres styles Tailwind CSS ou CSS personnalisés au besoin */
+}
 
 </style> 
+
+
+
+<!-- const ROLE_PARENT = 'parent';
+const ROLE_REPETITEUR = 'repetiteur';
+
+async function saveStudent() {
+  try {
+    const loginResponse = await axios.post('http://127.0.0.1:8000/api/auth/login', this.model.login);
+
+    if (loginResponse.data && loginResponse.data.access_token) {
+      const token = loginResponse.data.access_token;
+      localStorage.setItem('token', token);
+      const profileResponse = await axios.get('http://127.0.0.1:8000/api/profile', { headers: { 'Authorization': 'Bearer ' + token } });
+
+      if (profileResponse.data && profileResponse.data.role_id) {
+        const roleId = profileResponse.data.role_id;
+        const userId = profileResponse.data.id;
+        const userData = { user_id: userId };
+        const repetiteurs = this.filterUsersByRole(this.repetiteurs, userId);
+        const parents = this.filterUsersByRole(this.parentes, userId);
+
+        if (roleId === ROLE_PARENT && parents.length === 0) {
+          await this.createParentAccount(userData);
+        }
+
+        this.redirectUser(roleId, repetiteurs);
+      }
+    }
+  } catch (error) {
+    this.handleErrorResponse(error);
+  }
+}
+
+function filterUsersByRole(users, userId) {
+  return Array.isArray(users) ? users.filter(user => user.user.id === userId) : [];
+}
+
+async function createParentAccount(userData) {
+  try {
+    const token = localStorage.getItem('token');
+    const config = { headers: { 'Authorization': 'Bearer ' + token } };
+    const parentsResponse = await axios.post('http://127.0.0.1:8000/api/parents', userData, config);
+
+    if (parentsResponse.status === 201) {
+      console.log('Compte parents validé avec succès');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la création du compte parents :', error);
+  }
+}
+
+function redirectUser(roleId, repetiteurs) {
+  if (roleId === ROLE_REPETITEUR && repetiteurs.length === 0) {
+    this.$router.push('/admin/repetiteur/create');
+  } else if (roleId === ROLE_PARENT) {
+    this.$router.push('/admin/demande');
+  } else {
+    this.$router.push('/admin/dashboard');
+  }
+}
+
+function handleErrorResponse(error) {
+  console.error('Une erreur s\'est produite lors de la connexion :', error);
+  if (error.response) {
+    alert('Vos identifiants sont incorrects');
+    console.log(error.response.data.message);
+    console.log(error.response);
+  } else if (error.request) {
+    console.log(error.request);
+  } else {
+    console.error('Une erreur inattendue s\'est produite:', error);
+    console.log(error);
+  }
+} -->
