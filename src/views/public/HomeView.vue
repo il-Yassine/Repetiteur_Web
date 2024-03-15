@@ -45,22 +45,22 @@
   </section>
   <hr class="separator">
   <section id="clients" class="bg-white py-4">
-    <div class="swiper-container mx-auto" data-aos="fade-up">
+    <div class="swiper-container mx-5" data-aos="fade-up">
   
-      <div class="clients-slider swiper" data-aos="fade-up" data-aos-delay="100">
-        <div class="swiper-wrapper flex items-center justify-center"> <!-- Utilisez justify-center pour aligner les logos au centre -->
+      <div class="w-full" data-aos="fade-up" data-aos-delay="100">
+        <div class=" flex items-center justify-center"> 
   
           <!-- Utilisez une classe pour les styles communs des logos -->
-          <div class="swiper-slide px-3">
+          <div class="swiper-slide px-5">
             <img src="../../assets/img/brands/amazon.svg" class="mx-auto h-12 w-12" alt="Amazon">
           </div>
   
           <!-- Répétez le même format pour les autres logos -->
-          <div class="swiper-slide px-3">
+          <div class="swiper-slide px-5">
             <img src="../../assets/img/brands/microsoft.svg" class="mx-auto h-12 w-12" alt="Microsoft">
           </div>
   
-          <div class="swiper-slide px-3">
+          <div class="swiper-slide px-5">
             <img src="../../assets/img/brands/netflix.svg" class="mx-auto h-12 w-12" alt="Netflix">
           </div>
   
@@ -76,19 +76,19 @@
           </div>
   
           <!-- Répétez le même format pour les autres logos -->
-          <div class="swiper-slide px-3">
+          <div class="swiper-slide px-5">
             <img src="../../assets/img/brands/microsoft.svg" class="mx-auto h-12 w-12" alt="Microsoft">
           </div>
   
-          <div class="swiper-slide px-3">
+          <div class="swiper-slide px-5">
             <img src="../../assets/img/brands/netflix.svg" class="mx-auto h-12 w-12" alt="Netflix">
           </div>
   
-          <div class="swiper-slide px-3">
+          <div class="swiper-slide px-5">
             <img src="../../assets/img/brands/sony.svg" class="mx-auto h-12 w-12" alt="Sony">
           </div>
   
-          <div class="swiper-slide px-3">
+          <div class="swiper-slide px-5">
             <img src="../../assets/img/brands/verizon.svg" class="mx-auto h-12 w-12" alt="Verizon">
           </div>
   
@@ -110,7 +110,7 @@
 
             <form >
 
-              <div class="flex items-center">
+              <div class="flex ">
 
                 <label for="default-search" class=" text-2xl px-3">Filtre par :</label>
 
@@ -145,12 +145,12 @@
                 <p class="text-lg font-semibold">Vous avez sélectionné : {{ selectedFruit }}</p>
               </div>
             </div> -->
-            <div  class="flex-1">
+            <div  class="flex-1 text-start">
               <form  @submit.prevent="search">
 
                 <div class="">
   
-                  <label for="default-search" class="text-2xl px-1"> Commune</label>
+                  <label  class="text-2xl px-1 text-start"> Commune</label>
                     <input type="search"   v-model="searchQueryVille" @input="searchVille" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required>
                     <select v-model="searchQueryVill" @input="searchVill" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                       <option value="">Sélectionnez une commune</option>
@@ -159,12 +159,12 @@
                 </div>
               </form>
             </div>
-           <div class="flex-1">
+           <div class="flex-1 text-start">
             <form  @submit.prevent="search">
 
               <div class="">
 
-                <label for="default-search" class=" text-2xl px-1"> Cycle</label>
+                <label for="default-search" class=" text-2xl px-1 text-start"> Cycle</label>
                   <!-- <input type="search"   v-model="searchQueryCyle" @input="searchCycle" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required> -->
                   <select v-model="searchQueryCyle" @input="searchCycle" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                   <option value="">Sélectionnez un cycle</option>
@@ -176,12 +176,12 @@
               </div>
             </form>
            </div>
-           <div class="flex-1">
+           <div class="flex-1 text-start">
             <form  @submit.prevent="search">
 
               <div class="">
 
-                <label for="default-search" class=" text-2xl px-1">Matière</label>
+                <label for="default-search " class=" text-2xl px-1 text-start">Matière</label>
                   <!-- <input type="search"   v-model="searchQueryMatiere" @input="searchMatiere" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required> -->
                   <select v-model="searchQueryMatiere" @input="searchMatiere" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                     <option value="" >Sélectionnez une matiere</option>
@@ -191,12 +191,12 @@
             </form>
            </div>
 
-           <div class="flex-1">
+           <div class="flex-1 text-start">
             <form  @submit.prevent="search">
 
               <div class="">
 
-                <label for="default-search" class=" text-2xl px-1">Disponibilité</label>
+                <label for="default-search" class=" text-2xl px-1 text-start ">Disponibilité</label>
                   <!-- <input type="search"   v-model="searchQueryCyle" @input="searchCycle" id="default-search" class="flex-grow p-4 mx-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""  required> -->
                   <select v-model="searchQueryDispo" @input="searchetats" id="fruits" name="fruits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                   <!-- <option value="" disabled></option> -->
@@ -1251,7 +1251,7 @@ export default {
       isHovered: false,
       images: [
         {
-          src: '/src/assets/images/images6.jpg',
+          src: '/src/assets/images/image.jpg',
           alt: 'Image 1',
           title: 'Bienvenu sur votre platforme pour accéder aux répétiteurs compétents pour vos enfants',
           description: ''
@@ -1338,7 +1338,7 @@ export default {
  
   async created() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/repetiteurs'); // Remplacez par votre URL d'API
+      const response = await axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs'); // Remplacez par votre URL d'API
       this.apiData = response.data; // Assurez-vous que la structure de votre réponse correspond à ce que vous attendez
      // console.log( this.apiData.data);
       this.apeResults = response.data.data.filter(results =>
@@ -1420,7 +1420,7 @@ export default {
       this.isBlinking = !this.isBlinking; 
     },
     getCommune(){
-        axios.get('http://127.0.0.1:8000/api/communes').then(res=>{
+        axios.get('https://apirepetiteur.sevenservicesplus.com/api/communes').then(res=>{
                 this.commune=res.data.data
                // console.log(this.commune)
                
@@ -1428,7 +1428,7 @@ export default {
           
           },
     getPublicité(){
-      axios.get('http://127.0.0.1:8000/api/publicites',)
+      axios.get('https://apirepetiteur.sevenservicesplus.com/api/publicites',)
    .then(response => {
      this.publicite = response.data.data;
      //console.log( this.publicite);
@@ -1439,7 +1439,7 @@ export default {
       });
     },
     getmatiere(){
-      axios.get('http://127.0.0.1:8000/api/matieres',)
+      axios.get('https://apirepetiteur.sevenservicesplus.com/api/matieres',)
    .then(response => {
      this.matiere = response.data.data;
     // console.log( this.matiere);
@@ -1477,7 +1477,7 @@ export default {
     },
     async getrepetiteur() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/repetiteurs");
+        const response = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/repetiteurs");
         if (response.data) {
           this.repetiteur= response.data.data;
           //console.log(this.repetiteur);
@@ -1488,7 +1488,7 @@ export default {
     },
     async getrepetiteurMatiere() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/repetiteurmcs ");
+        const response = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs ");
         if (response.data) {
           this.repetiteurmatiereClasse= response.data.data;
          // console.log(this.repetiteur);
@@ -1504,7 +1504,7 @@ export default {
        
 
         // Utilisez Axios pour effectuer la requête à l'API
-        axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+        axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
                  result.traitementDossiers ==='Validé'&& (
@@ -1536,7 +1536,7 @@ export default {
       try {
        
 
-        axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+        axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
                  result.traitementDossiers ==='Validé'&& (
@@ -1557,14 +1557,14 @@ export default {
       }
     },
     searchVill() {
-    
+
       //console.log('Recherche effectuée avec :', this.searchQueryVill);
       try {
-       
 
-        
-        axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
-             
+
+
+        axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
+
                  this.searchResults = res.data.data.filter(result =>
                  result.traitementDossiers ==='Validé'&& (
                  // result.adresse.includes(this.searchQueryVill)
@@ -1588,7 +1588,7 @@ export default {
       try {
        
 
-        axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+        axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
                  result.traitementDossiers ==='Validé'&& (
@@ -1611,7 +1611,7 @@ export default {
     
      // console.log('Recherche effectuée avec :', this.searchQuery);
       try {
-        axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+        axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
              
                  this.searchResults = res.data.data.filter(result =>
                  result.traitementDossiers ==='Validé'&& (
@@ -1637,7 +1637,7 @@ export default {
        
 
        // Utilisez Axios pour effectuer la requête à l'API
-       axios.get('http://127.0.0.1:8000/api/repetiteurmcs').then(response=>{
+       axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs').then(response=>{
         console.log('Réponse de l\'API:', response.data.data);
               //   this.searchResults = response.data.data.filter(result =>
               //   result.status ==='Terminer'&& (

@@ -154,7 +154,7 @@
       
      
       getEpreuve(){
-          axios.get('http://127.0.0.1:8000/api/epreuves').then(res=>{
+          axios.get('https://apirepetiteur.sevenservicesplus.com/api/epreuves').then(res=>{
               this.epreuv=res.data.data.filter(repItem => repItem.type === 'Examens')
              
               //console.log(this.classe)
@@ -164,7 +164,7 @@
           // console.log(this.epreuves)
           });
 
-          axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
+          axios.get('https://apirepetiteur.sevenservicesplus.com/api/matieres').then(res=>{
               this.matiere=res.data.data
               //console.log(this.matiere)
              
@@ -173,7 +173,7 @@
               
           });
 
-          axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
+          axios.get('https://apirepetiteur.sevenservicesplus.com/api/classes').then(res=>{
               this.classe=res.data.data
              
               //console.log(this.classe)

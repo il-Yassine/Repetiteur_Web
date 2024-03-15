@@ -71,8 +71,8 @@
                            
                             <ul class="py-4"  >
                 
-                             <li  class="px-4 py-2 text-lg"><span>{{ repetiteurs[0].repetiteur.user.name }},</span> </li>
-                             <li  class="px-4 py-2 text-lg"><span>{{ repetiteurs[0].repetiteur.adresse }}</span> </li>
+                             <li  class="px-4 py-2 text-xl"><span>{{ repetiteurs[0].repetiteur.user.name }}, {{ repetiteurs[0].repetiteur.adresse }}</span> </li>
+                             
                             
                              
                 
@@ -193,7 +193,7 @@ export default {
       }
             };
            // console.log(config);
-     axios.get('http://127.0.0.1:8000/api/profile',config)
+     axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile',config)
     .then(response => {
       this.user_id = response.data.id;
     //   console.log(response);
@@ -210,7 +210,7 @@ export default {
     });
     //this.getParents();
 
-    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/users').then(res=>{
                 this.admin = res.data.data.filter(result =>
                    result.name === 'Supper Admin'
 
@@ -226,24 +226,24 @@ export default {
 
             
 
-            axios.get('http://127.0.0.1:8000/api/tarifications').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/tarifications').then(res=>{
                 this.tarification=res.data.data
                 // console.log(this.tarification)
                 // console.log(res)
             });
 
-            axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/classes').then(res=>{
                 this.classes= res.data.data;
                 // console.log(this.classe)
                 // console.log(res)
             });
 
-            axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/matieres').then(res=>{
                 this.matiere= res.data.data
                 // console.log(this.matiere)
                 // console.log(res)
             });
-            axios.get('http://127.0.0.1:8000/api/enfants').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/enfants').then(res=>{
                 this.enfants=res.data.data.filter(result =>
                 // result.status ==='Terminer' &&
                     result.parents.id === this.parents_id
@@ -261,7 +261,7 @@ export default {
             // console.log('test');
             // console.log(this.user_id);
             
-            axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/parents').then(res=>{
                 this.parents=res.data.data.filter(parent => parent.user.id === this.user_id)
                 //console.log(this.parents)
                 this.parents_id= this.parents[0].id
@@ -273,7 +273,7 @@ export default {
        
         getEnfants(){
             //console.log(this.parents_id);
-            axios.get('http://127.0.0.1:8000/api/enfants').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/enfants').then(res=>{
                 this.enfants=res.data.data.filter(result =>
                 // result.status ==='Terminer' &&
                     result.parents.id === this.parents_id
@@ -285,7 +285,7 @@ export default {
         },
         getTarification(){
             const token = localStorage.getItem('token');
-            axios.get('http://127.0.0.1:8000/api/tarifications').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/tarifications').then(res=>{
                 this.tarification=res.data.data
                 // console.log(this.tarification)
                 // console.log(res)
@@ -293,7 +293,7 @@ export default {
         },
         getClasses(){
             const token = localStorage.getItem('token');
-            axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/classes').then(res=>{
                 this.classes= res.data.data;
                 // console.log(this.classe)
                 // console.log(res)
@@ -303,7 +303,7 @@ export default {
        
         getMatiere(){
             const token = localStorage.getItem('token');
-            axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/matieres').then(res=>{
                 this.matiere= res.data.data
                 // console.log(this.matiere)
                 // console.log(res)
@@ -312,7 +312,7 @@ export default {
         },
         getPrix() {
     const token = localStorage.getItem('token');
-    axios.get('http://127.0.0.1:8000/api/tarifications').then(res => {
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/tarifications').then(res => {
         this.prixe = res.data.data.filter(result =>
             result.matiere.id === this.matiere_id &&
             result.classe.id === this.classe_id
@@ -338,7 +338,7 @@ export default {
 },
 
 getRepetiteurs(){
-    axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
                 this.repetit = res.data.data.filter(result =>
                    result.traitementDossiers === 'Validé'
 
@@ -351,7 +351,7 @@ getRepetiteurs(){
 
 },
 getAdmin(){
-    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/users').then(res=>{
                 this.admin = res.data.data.filter(result =>
                    result.name === 'Supper Admin'
 
@@ -391,7 +391,7 @@ getAdmin(){
             // console.log(this.classe_id);
             // console.log(this.matricule);
             
-            axios.get('http://127.0.0.1:8000/api/repetiteurmcs').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs').then(res=>{
                // console.log(res.data.data);
                 // this.repetiteurs = res.data.data.filter(result =>
                 // result.matiere.id === this.matiere_id &&
@@ -453,7 +453,7 @@ const token = localStorage.getItem('token');
            };
            //console.log(config);
 //console.log(dataToSend);
-            axios.post( 'http://127.0.0.1:8000/api/demandes',dataToSend,config ).then(res =>{
+            axios.post( 'https://apirepetiteur.sevenservicesplus.com/api/demandes',dataToSend,config ).then(res =>{
 
                // console.log(res.data)
                // alert(res.data.message);
@@ -471,7 +471,7 @@ const token = localStorage.getItem('token');
 
 //console.log(dataToSen);
 
-axios.post('http://127.0.0.1:8000/api/notifications', dataToSen, config)
+axios.post('https://apirepetiteur.sevenservicesplus.com/api/notifications', dataToSen, config)
   .then(response => {
    // console.log(response.data);
     if (response.status === 201) {

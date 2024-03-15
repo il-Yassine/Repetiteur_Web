@@ -228,7 +228,7 @@ export default {
     },
     methods:{
       getCommune(){
-        axios.get('http://127.0.0.1:8000/api/communes').then(res=>{
+        axios.get('https://apirepetiteur.sevenservicesplus.com/api/communes').then(res=>{
                 this.commune=res.data.data
                 console.log(this.commune)
                
@@ -236,7 +236,7 @@ export default {
 
       },
       getAdmin(){
-    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/users').then(res=>{
                 this.admin = res.data.data.filter(result =>
                    result.name === 'Supper Admin'
 
@@ -250,14 +250,14 @@ export default {
             });
 },
       getMatiere(){
-            axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
                 this.matiere=res.data.data
                 this.longueur=res.data.data.length + 1
                // console.log(this.matiere)
-               // console.log(this.longueur)
+                console.log(this.longueur)
                 this.matricule='M0000'+this.longueur;
-                //console.log(res)
-                //console.log(this.matricule)
+                console.log(res)
+                console.log(this.matricule)
             });
         },
         getUsers (){
@@ -270,7 +270,7 @@ export default {
       }
             };
            // console.log(config);
-     axios.get('http://127.0.0.1:8000/api/profile',config)
+     axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile',config)
     .then(response => {
       this.user_id = response.data.id;
       localStorage.setItem('user_id',response.data.id)
@@ -327,7 +327,7 @@ export default {
       formData.append("file", this.image);
 
       axios
-        .post("http://127.0.0.1:8000/api/medias", formData, {
+        .post("https://apirepetiteur.sevenservicesplus.com/api/medias", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -354,7 +354,7 @@ export default {
       console.log(this.pdf);
 
       axios
-        .post("http://127.0.0.1:8000/api/medias", formData, {
+        .post("https://apirepetiteur.sevenservicesplus.com/api/medias", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -381,7 +381,7 @@ export default {
       //console.log(this.pdfidentite);
 
       axios
-        .post("http://127.0.0.1:8000/api/medias", formData, {
+        .post("https://apirepetiteur.sevenservicesplus.com/api/medias", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -407,7 +407,7 @@ export default {
       //console.log(this.pdfcasierJudicaires);
 
       axios
-        .post("http://127.0.0.1:8000/api/medias", formData, {
+        .post("https://apirepetiteur.sevenservicesplus.com/api/medias", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -433,7 +433,7 @@ export default {
       //console.log(this.pdfattestationResidence);
 
       axios
-        .post("http://127.0.0.1:8000/api/medias", formData, {
+        .post("https://apirepetiteur.sevenservicesplus.com/api/medias", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -493,7 +493,7 @@ const config={
       }
             };
 //console.log(dataToSend);
-            axios.post('http://127.0.0.1:8000/api/repetiteurs', dataToSend,config )
+            axios.post('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs', dataToSend,config )
 .then(response => {
   
   //console.log(response)
@@ -514,7 +514,7 @@ const config={
                       message: "Nouveau répétiteur",
                     };
                     try {
-          const Response = axios.post('http://127.0.0.1:8000/api/notifications', userData, config);
+          const Response = axios.post('https://apirepetiteur.sevenservicesplus.com/api/notifications', userData, config);
           //console.log('notification Response:', Response.data);
           if (Response.status === 201) {
            // alert('Votre Compte répétiteur est mi en evaluation');

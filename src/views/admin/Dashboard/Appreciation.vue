@@ -2,11 +2,15 @@
   <div>
     <div class="flex">
       <div class="container mx-auto mt-12 px-5">
+        <div v-if="loading" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+          <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
+          <p class="text-gray-600 ml-3">Chargement en cours...</p>
+        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <h3
-            class="text-3xl font-medium text-gray-900 dark:text-white font-serif"
+            class="text-3xl font-medium text-gray-900 dark:text-white font-serif text-start"
           >
-            Appréciations
+            Boites de receptions
           </h3>
           <br />
 
@@ -123,7 +127,7 @@
                 <td class="px-6 py-4">
                   {{ matier.demande.repetiteur.user.name }}
                 </td>
-                <td v-if="matier.reponse_parents === ''">
+                <td v-if="matier.reponse_parents === null ">
                   <a
                     href="#"
                     @click="
@@ -191,7 +195,7 @@
                     <div class="flex-1">
                       <label
                         for="phone"
-                        class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
+                        class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
                         >Réponse du Répétiteur</label
                       >
                       <input
@@ -208,7 +212,7 @@
                     <div>
                       <label
                         for="phone"
-                        class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
+                        class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
                         >Votre Réponse</label
                       >
                       <textarea
@@ -255,10 +259,13 @@ export default {
   name: "appreciation",
   data() {
     return {
+      loading: true,
       payement: [],
       poste: [],
       post: [],
       enfants: [],
+      repetite: [],
+      enfan: [],
       user_id: "",
       poste_id: "",
       searche: "",
@@ -322,7 +329,7 @@ export default {
 
       // Requête pour récupérer le profil
       const profileResponse = await axios.get(
-        "http://127.0.0.1:8000/api/profile",
+        "https://apirepetiteur.sevenservicesplus.com/api/profile",
         config
       );
       //console.log(profileResponse);
@@ -332,7 +339,7 @@ export default {
       //console.log(this.role_id);
       //console.log(this.user_id);
 
-      axios.get("http://127.0.0.1:8000/api/parents").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/parents").then((res) => {
         this.parents = res.data.data.filter(
           (parent) => parent.user.id === this.user_id
         );
@@ -344,7 +351,10 @@ export default {
       this.getPostes();
     },
     getPostes() {
-      axios.get("http://127.0.0.1:8000/api/postes").then((res) => {
+      setTimeout(() => {
+        this.loading = false; // Set loading to false when data is fetched
+      }, 4000);
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/postes").then((res) => {
         this.payement = res.data.data.filter(
           (payemet) => payemet.demande.enfants.parents.id === this.parentss_id
         );
@@ -354,6 +364,10 @@ export default {
           (result) => result.appreciation_repetiteur != null
         );
         this.poste = this.post;
+        this.enfan= this.post.filter((result)=>result.demande.enfants);
+        this.repetite= this.post.filter((result)=>result.repetiteur);
+        console.log(this.enfan);
+        console.log(this.repetite);
        // console.log(this.poste);
       });
      // console.log(this.repet);
@@ -361,7 +375,7 @@ export default {
     },
     getEnfants() {
       //console.log(this.parentss_id);
-      axios.get("http://127.0.0.1:8000/api/enfants").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/enfants").then((res) => {
         this.enfants = res.data.data.filter(
           (result) =>
             // result.status ==='Terminer' &&
@@ -404,10 +418,10 @@ export default {
       //console.log(this.poste);
     },
     searchEnAttente() {
-      this.poste = this.post.filter((result) => result.reponse_parents === "");
+      this.poste = this.post.filter((result) => result.reponse_parents === null);
     },
     searchRepondu() {
-      this.poste = this.post.filter((result) => result.reponse_parents != "");
+      this.poste = this.post.filter((result) => result.reponse_parents != null);
     },
     searchMessage() {
       this.poste = this.post;
@@ -432,7 +446,7 @@ export default {
 
       axios
         .put(
-          "http://127.0.0.1:8000/api/postes/" + this.selectedEnfant,
+          "https://apirepetiteur.sevenservicesplus.com/api/postes/" + this.selectedEnfant,
           dataToSend,
           config
         )

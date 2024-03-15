@@ -3,7 +3,7 @@
     <div class="">
         <br>
         <div class="container w-full mx-auto my-auto " >
-            <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif">Formulaire de demande de répétiteur pour un enfant</h3>
+            <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif text-start">Formulaire de demande de répétiteur pour un enfant</h3>
             <div class="w-full max px-4 bg-neutral border border-gray-200 rounded-lg shadow sm:p-12 md:p-12 dark:bg-gray-800 dark:border-gray-700">
                 
                 <form class="space-y-6" action="POST" @submit.prevent="saveDemande" enctype="multipart/form-data">
@@ -16,7 +16,7 @@
                   
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="">
-                            <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Information concernant l'enfant</label>
+                            <label for="countries" class="block text-start mb-2 text-2xl font-medium text-gray-900 dark:text-white">Information concernant l'enfant</label>
                         <select id="countries" v-model="enfants_id"  class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <!-- <option selected  >Selectionner votre enfants</option> -->
             
@@ -25,7 +25,7 @@
                         </select>
                         </div>
                         <div class="">
-                            <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Classe</label>
+                            <label for="countries" class="block mb-2 text-start text-2xl font-medium text-gray-900 dark:text-white">Classe</label>
                         <select id="countries" v-model="classe_id"   @change="getPrix" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <!-- <option selected  >Choisir votre classe</option> @change="getPrix"  -->
     
@@ -37,7 +37,7 @@
                     </div>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="">
-                            <label for="countries" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Matière</label>
+                            <label for="countries" class="block mb-2 text-start text-2xl font-medium text-gray-900 dark:text-white">Matière</label>
                         <select id="countries" v-model="matiere_id" @change="getPrix"  class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <!-- <option selected  >Choisir vos matières</option>  @change="getClasse"          -->
             
@@ -52,7 +52,7 @@
                              <span class="block w-1/3 text-3xl font-medium text-gray-900 dark:text-white" >FCFA</span>
                         </div> -->
                         <div class="">
-                            <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Rémumération</label>
+                            <label for="phone" class="block mb-2 text-start px-3 text-2xl font-medium text-gray-900 dark:text-white">Rémumération</label>
                             <div class="flex items-center space-x-2">
                                 <input type="text" readonly v-model="prix" @change="getRepetiteur" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white text-right" placeholder="">
                             <!-- <span class="text-2xl font-medium text-gray-900 dark:text-white">FCFA</span> -->
@@ -64,15 +64,15 @@
                     </div>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="flex-1">
-                            <label for="phone"  class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Matricule du répétiteur</label>
+                            <label for="phone"  class="block mb-2 text-start px-3 text-2xl font-medium text-gray-900 dark:text-white">Matricule du répétiteur</label>
                            <input type="text" @input="getRepetiteur"  v-model="matricule" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                             <div  v-if="matricule.length > 0 && repetiteurs.length > 0"> 
                             <h2></h2>
                            
                             <ul class="py-4" v-for="(result, index) in repetiteurs" >
                 
-                             <li  :key="index" class="px-4 py-2 text-lg"><span>{{ result.repetiteur.user.name }},</span> </li>
-                             <li  class="px-4 py-2 text-lg"><span>{{ result.repetiteur.adresse }}</span> </li>
+                             <li  :key="index" class="px-4 py-2 text-xl"><span>{{ result.repetiteur.user.name }},  {{ result.repetiteur.adresse }}</span> </li>
+              
                             
                              
                 
@@ -96,7 +96,7 @@
                             </select>
                         </div> -->
                         <div class="">
-                        <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Informations Complementaires</label>
+                        <label for="phone" class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Informations Complementaires</label>
                             <input type="text"  v-model="adresse" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                         </div>
 
@@ -185,7 +185,7 @@ export default {
       }
             };
            // console.log(config);
-     axios.get('http://127.0.0.1:8000/api/profile',config)
+     axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile',config)
     .then(response => {
       this.user_id = response.data.id;
     //   console.log(response);
@@ -202,7 +202,7 @@ export default {
     });
     //this.getParents();
 
-    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/users').then(res=>{
                 this.admin = res.data.data.filter(result =>
                    result.name === 'Supper Admin'
 
@@ -218,42 +218,42 @@ export default {
 
             
 
-            axios.get('http://127.0.0.1:8000/api/tarifications').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/tarifications').then(res=>{
                 this.tarification=res.data.data
                 // console.log(this.tarification)
                 // console.log(res)
             });
 
-            axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/classes').then(res=>{
                 this.classes= res.data.data;
                 // console.log(this.classe)
                 // console.log(res)
             });
 
-            axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/matieres').then(res=>{
                 this.matiere= res.data.data
                 // console.log(this.matiere)
                 // console.log(res)
             });
-            axios.get('http://127.0.0.1:8000/api/enfants').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/enfants').then(res=>{
                 this.enfants=res.data.data.filter(result =>
                 // result.status ==='Terminer' &&
                     result.parents.id === this.parents_id
-                       
+
                     );
                 // console.log(this.enfants)
                 // console.log(res)
             });
             this.getPrix();
             this.getParents();
-  
+
         },
         getParents(){
             const token = localStorage.getItem('token');
             // console.log('test');
             // console.log(this.user_id);
             
-            axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/parents').then(res=>{
                 this.parents=res.data.data.filter(parent => parent.user.id === this.user_id)
                 //console.log(this.parents)
                 this.parents_id= this.parents[0].id
@@ -265,7 +265,7 @@ export default {
        
         getEnfants(){
             //console.log(this.parents_id);
-            axios.get('http://127.0.0.1:8000/api/enfants').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/enfants').then(res=>{
                 this.enfants=res.data.data.filter(result =>
                 // result.status ==='Terminer' &&
                     result.parents.id === this.parents_id
@@ -277,7 +277,7 @@ export default {
         },
         getTarification(){
             const token = localStorage.getItem('token');
-            axios.get('http://127.0.0.1:8000/api/tarifications').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/tarifications').then(res=>{
                 this.tarification=res.data.data
                 // console.log(this.tarification)
                 // console.log(res)
@@ -285,7 +285,7 @@ export default {
         },
         getClasses(){
             const token = localStorage.getItem('token');
-            axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/classes').then(res=>{
                 this.classes= res.data.data;
                 // console.log(this.classe)
                 // console.log(res)
@@ -295,7 +295,7 @@ export default {
        
         getMatiere(){
             const token = localStorage.getItem('token');
-            axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/matieres').then(res=>{
                 this.matiere= res.data.data
                 // console.log(this.matiere)
                 // console.log(res)
@@ -304,7 +304,7 @@ export default {
         },
         getPrix() {
     const token = localStorage.getItem('token');
-    axios.get('http://127.0.0.1:8000/api/tarifications').then(res => {
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/tarifications').then(res => {
         this.prixe = res.data.data.filter(result =>
             result.matiere.id === this.matiere_id &&
             result.classe.id === this.classe_id
@@ -330,7 +330,7 @@ export default {
 },
 
 getRepetiteurs(){
-    axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
                 this.repetit = res.data.data.filter(result =>
                    result.traitementDossiers === 'Validé'
 
@@ -343,7 +343,7 @@ getRepetiteurs(){
 
 },
 getAdmin(){
-    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/users').then(res=>{
                 this.admin = res.data.data.filter(result =>
                    result.name === 'Supper Admin'
 
@@ -383,7 +383,7 @@ getAdmin(){
             // console.log(this.classe_id);
             // console.log(this.matricule);
             
-            axios.get('http://127.0.0.1:8000/api/repetiteurmcs').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs').then(res=>{
                // console.log(res.data.data);
                 this.repetiteurs = res.data.data.filter(result =>
                 result.matiere.id === this.matiere_id &&
@@ -442,7 +442,7 @@ const token = localStorage.getItem('token');
            };
            //console.log(config);
 //console.log(dataToSend);
-            axios.post( 'http://127.0.0.1:8000/api/demandes',dataToSend,config ).then(res =>{
+            axios.post( 'https://apirepetiteur.sevenservicesplus.com/api/demandes',dataToSend,config ).then(res =>{
 
                // console.log(res.data)
                // alert(res.data.message);
@@ -460,7 +460,7 @@ const token = localStorage.getItem('token');
 
 //console.log(dataToSen);
 
-axios.post('http://127.0.0.1:8000/api/notifications', dataToSen, config)
+axios.post('https://apirepetiteur.sevenservicesplus.com/api/notifications', dataToSen, config)
   .then(response => {
    // console.log(response.data);
     if (response.status === 201) {

@@ -102,7 +102,7 @@
 
   methods:{
     getLibrairie(){
-      axios.get('http://127.0.0.1:8000/api/librairies',)
+      axios.get('https://apirepetiteur.sevenservicesplus.com/api/librairies',)
    .then(response => {
      this.librairie = response.data.data;
      //console.log( this.librairie);

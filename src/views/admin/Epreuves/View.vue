@@ -1,6 +1,10 @@
 <template>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white mt-12 p-4">
-        <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif">Bibliothèque</h3>
+        <div v-if="loading" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+            <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            <p class="text-gray-900 ml-3">Chargement en cours...</p>
+          </div>
+        <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif text-start">Bibliothèque des épreuves et corrigés</h3>
         <div class="flex items-center justify-between pb-4">
             <div class="relative">
             </div>
@@ -130,6 +134,7 @@
       data() {
         return {
             
+            loading:true,
             isModalSecondOpen: false,
             name:'',
             matiere_id:'',
@@ -184,7 +189,7 @@ headers: {
 //console.log(config);
 
 // Requête pour récupérer le profil
-const profileResponse  = await axios.get('http://127.0.0.1:8000/api/profile', config);
+const profileResponse  = await axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile', config);
 //console.log(profileResponse);
 // Stocker les données du profil dans le composant ou Vuex
 this.role_id = profileResponse.data.role_id;
@@ -192,7 +197,7 @@ this.user_id = profileResponse.data.id;
 //console.log(this.role_id);
 //console.log(this.user_id);
 
-axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
     this.repetiteurs = res.data.data.filter(repetiteur => repetiteur.user.id === this.user_id)
       
     //console.log(this.repetiteurs)
@@ -209,7 +214,7 @@ const repetiteur_id = localStorage.getItem('repetiteur_id');
 // console.log(repetiteur_id);
 // console.log(studentId)
 // console.log(this.repetiteurs_id);
-await axios.get('http://127.0.0.1:8000/api/demandes').then(res=>{
+await axios.get('https://apirepetiteur.sevenservicesplus.com/api/demandes').then(res=>{
     this.enfants=res.data.data.filter(enfant => enfant.repetiteur.id === this.repetiteurs_id);
    // console.log(this.enfants)
    
@@ -220,7 +225,10 @@ this.getEpreuve();
     
    
         getEpreuve(){
-            axios.get('http://127.0.0.1:8000/api/epreuves').then(res=>{
+            setTimeout(() => {
+        this.loading = false; // Set loading to false when data is fetched
+      }, 3000);
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/epreuves').then(res=>{
                 this.epreuves=res.data.data
                 //console.log(this.epreuves)
                 //console.log(res)
@@ -259,7 +267,7 @@ this.getEpreuve();
            };
           // console.log(config);
   //console.log(dataToSend);
-            axios.post( 'http://127.0.0.1:8000/api/epreuves',dataToSend,config ).then(res =>{
+            axios.post( 'https://apirepetiteur.sevenservicesplus.com/api/epreuves',dataToSend,config ).then(res =>{
   
                 //console.log(res.data)
                // alert(res.data.message);
@@ -318,7 +326,7 @@ this.getEpreuve();
            };
            //console.log(config);
   //console.log(dataToSend);
-            axios.post( 'http://127.0.0.1:8000/api/postes',dataToSend,config ).then(res =>{
+            axios.post( 'https://apirepetiteur.sevenservicesplus.com/api/postes',dataToSend,config ).then(res =>{
   
                 //console.log(res.data)
                // alert(res.data.message);

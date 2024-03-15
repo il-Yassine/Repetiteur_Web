@@ -24,19 +24,43 @@
              </li>
          </ul>
          <form @submit.prevent="ajout">
-             <div class="mb-1">
-               <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Email</label>
+             <!-- <div class="mb-1">
+               <label for="email" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Email</label>
                <input type="email"   v-model="model.login.email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
              </div>
 
-             <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Où</label>
+             <label for="email" class="block  mb-2 text-xl font-medium text-gray-900 dark:text-white">Où</label>
 
              <div class="mb-2">
-              <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Téléphone</label>
+              <label for="email" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Téléphone</label>
               <input type="number"   v-model="model.login.phone" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
-            </div>
+            </div> -->
+           
+          <!-- <div class="mb-1" v-if="!phoneFilled || !model.login.phone" >
+            <label for="email" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Email</label>
+            <input type="email" v-model="model.login.email" id="email" @input="toggleFields" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
+        </div>
+        
+       
+        
+        <div class="mb-2" v-if="!emailFilled || !model.login.email">
+            <label for="phone" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Téléphone</label>
+            <input type="number" v-model="model.login.phone" id="phone" @input="toggleFields" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
+        </div> -->
+        <div class="mb-1" v-if="!phoneFilled || !model.login.phone">
+          <label for="email" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Email</label>
+          <input type="email" v-model="model.login.email" id="email" @input="toggleFields" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
+      </div>
+      
+      <div class="mb-2" v-if="!emailFilled || !model.login.email">
+          <label for="phone" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Téléphone</label>
+          <input type="number" v-model="model.login.phone" id="phone" @input="toggleFields" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="">
+      </div>
+      
+      
+        
              <div class="mb-1">
-               <label for="password" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Mot de passe</label>
+               <label for="password" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Mot de passe</label>
                <input type="password" v-model="model.login.password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
              </div>
              <div class="flex items-center justify-between">
@@ -76,6 +100,10 @@
                  Pas encore de compte ? <a href="/register" class="font-medium text-green-500 hover:underline dark:text-orange-400">S'inscrire</a>
              </span>
            </form>
+           <div v-if="loading" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+            <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            <p class="text-gray-900 ml-3">Chargement en cours...</p>
+          </div>
         
          </div>
         </div>
@@ -148,6 +176,7 @@ export default {
     name:'login',
     data(){
         return{
+          loading: false,
             userId: null,
             user_id:'',
             errorList:'',
@@ -158,6 +187,8 @@ export default {
             parentes:[],
             parents:'',
             repetiteur:'',
+            emailFilled: false,
+            phoneFilled: false,
             model:{
                 login:{
                     email:'',
@@ -174,9 +205,14 @@ export default {
         this.getparents();
       },
     methods:{
+      toggleFields() {
+        this.emailFilled = this.model.login.email !== '';
+        this.phoneFilled = this.model.login.phone !== '';
+    },
+   
       getrole(){
 
-axios.get('http://127.0.0.1:8000/api/roles',)
+axios.get('https://apirepetiteur.sevenservicesplus.com/api/roles',)
 .then(response => {
  this.role = response.data.data;
  this.repetiteur = response.data.data[0].id;
@@ -194,14 +230,14 @@ axios.get('http://127.0.0.1:8000/api/roles',)
 
   },
   getrepetiteur(){
-    axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
                 this.repetiteurs = res.data.data
                   
                // console.log(this.repetiteurs)
             });
   },
   getparents(){
-    axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/parents').then(res=>{
                 this.parentes = res.data.data
                   
                // console.log(this.parentes)
@@ -209,6 +245,10 @@ axios.get('http://127.0.0.1:8000/api/roles',)
   },
  
   async saveStudent() {
+
+    setTimeout(() => {
+        this.loading = true; // Set loading to false when data is fetched
+      }, 2000);
   try {
     let loginData = {};
     if (this.model.login.email) {
@@ -218,7 +258,7 @@ axios.get('http://127.0.0.1:8000/api/roles',)
     }
     console.log(loginData);
     // Requête de connexion
-    const loginResponse = await axios.post('http://127.0.0.1:8000/api/auth/login',loginData);
+    const loginResponse = await axios.post('https://apirepetiteur.sevenservicesplus.com/api/auth/login',loginData);
 
     console.log(loginResponse);
 
@@ -238,7 +278,7 @@ axios.get('http://127.0.0.1:8000/api/roles',)
       //console.log(config);
 
       // Requête pour récupérer le profil
-      const profileResponse = await axios.get('http://127.0.0.1:8000/api/profile', config);
+      const profileResponse = await axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile', config);
       
       // Stocker les données du profil dans le composant ou Vuex
       this.role_id = profileResponse.data.role_id;
@@ -272,7 +312,7 @@ this.apeResults = Array.isArray(this.repetiteurs)
       if (this.role_id === this.parents && this.paentResults.length === 0) {
         //console.log('test');
         try {
-          const parentsResponse = await axios.post('http://127.0.0.1:8000/api/parents', userData, config);
+          const parentsResponse = await axios.post('https://apirepetiteur.sevenservicesplus.com/api/parents', userData, config);
           //console.log('Parents Response:', parentsResponse.data);
 
           // Stockage de l'ID des parents dans le stockage local et Vuex
@@ -299,7 +339,7 @@ if (this.role_id === this.repetiteur && this.apeResults.length === 0) {
   this.$router.push('/admin/demande');
  
 } else{
-  this.$router.push('/admin/dashboard');
+  this.$router.push('/admin/profil');
 }
 
     }

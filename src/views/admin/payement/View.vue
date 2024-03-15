@@ -2,6 +2,10 @@
   <div>
     <div class="flex">
       <div class="container mx-auto mt-12 px-5">
+        <div v-if="loading" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+          <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+          <p class="text-gray-900 ml-3">Chargement en cours...</p>
+        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <div class="flex items-center">
             <h3
@@ -120,6 +124,7 @@ export default {
   name: "payements",
   data() {
     return {
+      loading: true,
       payement: [],
       admin: [],
       admin_id: '',
@@ -157,7 +162,7 @@ export default {
 
       // Requête pour récupérer le profil
       const profileResponse = await axios.get(
-        "http://127.0.0.1:8000/api/profile",
+        "https://apirepetiteur.sevenservicesplus.com/api/profile",
         config
       );
       //console.log(profileResponse);
@@ -167,7 +172,7 @@ export default {
       // console.log(this.role_id);
       // console.log(this.user_id);
 
-      axios.get("http://127.0.0.1:8000/api/parents").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/parents").then((res) => {
         this.parents = res.data.data.filter(
           (parent) => parent.user.id === this.user_id
         );
@@ -179,7 +184,10 @@ export default {
       this.getPayements();
     },
     getPayements() {
-      axios.get("http://127.0.0.1:8000/api/payements").then((res) => {
+      setTimeout(() => {
+        this.loading = false; // Set loading to false when data is fetched
+      }, 5000);
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/payements").then((res) => {
         this.payement = res.data.data.filter(
           (payemet) => payemet.demande.enfants.parents.id === this.parentss_id
         );
@@ -188,7 +196,7 @@ export default {
       });
     },
     getAdmin(){
-    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/users').then(res=>{
                 this.admin = res.data.data.filter(result =>
                    result.name === 'Supper Admin'
 
@@ -251,7 +259,7 @@ export default {
       // console.log(this.demandId);
       axios
         .put(
-          "http://127.0.0.1:8000/api/payements/" + this.demandId,
+          "https://apirepetiteur.sevenservicesplus.com/api/payements/" + this.demandId,
           dataToSend,
           config
         )
@@ -268,7 +276,7 @@ export default {
 
         //console.log(notificationData);
 
-        axios.post('http://127.0.0.1:8000/api/notifications', notificationData, config)
+        axios.post('https://apirepetiteur.sevenservicesplus.com/api/notifications', notificationData, config)
           .then(notificationResponse => {
             //console.log(notificationResponse.data);
 
@@ -305,12 +313,12 @@ export default {
           type: "payer",
           payement_id: this.demandId,
           user_id: this.admin_id,
-          message: "Paiement éffectuer",
+          message: "Paiement éffectue",
         };
 
         //console.log(notificationData);
 
-        axios.post('http://127.0.0.1:8000/api/notifications', notificationData, config)
+        axios.post('https://apirepetiteur.sevenservicesplus.com/api/notifications', notificationData, config)
           .then(notificationResponse => {
             //console.log(notificationResponse.data);
 

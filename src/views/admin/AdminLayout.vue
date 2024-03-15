@@ -8,7 +8,8 @@
         $route.name !== 'repetiteurCreate' &&
         $route.name !== 'epreuve' &&
         $route.name !== 'profile' &&
-        $route.name !== 'message' 
+        $route.name !== 'message' &&
+        $route.name !== 'reponse' 
       
       "
     >
@@ -54,10 +55,18 @@
             class="text-white hover:text-gray-300"
             active-class="text-green-600"
             to="/admin/messages"
-            >Nous écrire</router-link
+            >Boite d'envoi</router-link
           >
         </li>
         <li class="px-4 py-2 hover:bg-gray-600">
+          <router-link
+            class="text-white hover:text-gray-300"
+            active-class="text-green-600"
+            to="/admin/reponses"
+            >Réponse Admin</router-link
+          >
+        </li>
+        <li class="px-1 py-2 hover:bg-gray-600">
           <router-link
             class="text-white hover:text-gray-300"
             active-class="text-green-600"
@@ -70,7 +79,7 @@
             class="text-white hover:text-gray-300"
             active-class="text-green-600"
             to="/"
-            >Aller au site</router-link
+            >Aller sur le site</router-link
           >
         </li>
         <!-- <li class="px-4 py-2 hover:bg-gray-600"><router-link class="text-white-950 hover:text-gray-300" active-class="text-green-600" to="/livreurDash">Livreurs</router-link></li>
@@ -110,7 +119,7 @@
             class="text-white-950 hover:text-gray-300"
             active-class="text-green-600"
             to="/admin/dashboard"
-            >Dashboard</router-link
+            >Tableau de bord</router-link
           >
         </li>
         <li class="px-4 py-2 hover:bg-gray-600">
@@ -126,7 +135,15 @@
             class="text-white-950 hover:text-gray-300"
             active-class="text-green-600"
             to="/admin/message"
-            >Nous écrire</router-link
+            >Boite d'envoi</router-link
+          >
+        </li>
+        <li class="px-4 py-2 hover:bg-gray-600">
+          <router-link
+            class="text-white-950 hover:text-gray-300"
+            active-class="text-green-600"
+            to="/admin/reponse"
+            >Boites de réceptions</router-link
           >
         </li>
 
@@ -174,7 +191,7 @@ export default {
       };
       //console.log(config);
       axios
-        .get("http://127.0.0.1:8000/api/profile", config)
+        .get("https://apirepetiteur.sevenservicesplus.com/api/profile", config)
         .then((response) => {
           this.name = response.data.name;
           localStorage.setItem("name", response.data.name);
@@ -207,7 +224,7 @@ export default {
 
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/logout",
+          "https://apirepetiteur.sevenservicesplus.com/api/logout",
           config
         );
        // console.log(response);

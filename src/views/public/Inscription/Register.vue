@@ -53,19 +53,19 @@
      
 
      <div class="mb-2">
-       <label for="name" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Nom Complet</label>
+       <label for="name" class="block text-start mb-0 text-lg font-medium text-gray-900 dark:text-white">Nom Complet</label>
        <input type="text"  v-model="model.name"  id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="votre nom Complet" required>
      </div>
        <div class="mb-2">
-         <label for="email" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Email</label>
+         <label for="email" class="block text-start mb-0 text-lg font-medium text-gray-900 dark:text-white">Email</label>
          <input type="email"  v-model="model.email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="votre email" required>
        </div>
        <div class="mb-2">
-        <label for="email" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Téléphone</label>
+        <label for="email" class="block text-start mb-0 text-lg font-medium text-gray-900 dark:text-white">Téléphone</label>
         <input type="number"  v-model="model.phone" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="votre Téléphone" required>
       </div>
        <div class="mb-2">
-         <label for="password" class="block mb-0 text-lg font-medium text-gray-900 dark:text-white">Mot de passe</label>
+         <label for="password" class="block text-start mb-0 text-lg font-medium text-gray-900 dark:text-white">Mot de passe</label>
          <input type="password" v-model="model.password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
        </div>
        <!-- <div class="flex items-start mb-6">
@@ -167,7 +167,7 @@ export default {
 
       getrole(){
 
-    axios.get('http://127.0.0.1:8000/api/roles',)
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/roles',)
    .then(response => {
      this.role = response.data.data;
      this.options = [response.data.data[0], response.data.data[response.data.data.length - 1]];
@@ -194,15 +194,15 @@ export default {
             role_id: this.selectedOption,
         };
 
-       // console.log(dataToSend);
+        console.log(dataToSend);
 
-        const apiUrl = 'http://127.0.0.1:8000/api/auth/register';
+        const apiUrl = 'https://apirepetiteur.sevenservicesplus.com/api/auth/register';
         const response = await axios.post(apiUrl, dataToSend);
         console.log(response);
 
         if (response.data.success) {
             alert(response.data.message);
-            this.errorList = response.data.message;
+           // this.errorList = response.data.message;
             this.$router.push('/login');
         } else {
           if(response.data.data){
@@ -211,9 +211,9 @@ export default {
             alert(response.data.message);
           }
             
-            this.errorList = response.data.message;
+            //this.errorList = response.data.message;
             console.log(response);
-            //console.log(response.data);
+            console.log(response.data);
             console.log(response.data.data.email);
         }
     } catch (error) {
@@ -252,13 +252,12 @@ export default {
     }
     .custom-background {
       background-image: url('../../../assets/images/images4.jpg');
-      /* Remplacez 'votre-image.jpg' par le nom de votre image */
+      
       background-size: cover;
-      /* Ajustez la taille de l'image */
+      
       background-repeat: no-repeat;
       background-position: center center;
-      /* Centrez l'image */
-      /* Ajoutez d'autres styles Tailwind CSS ou CSS personnalisés au besoin */
+    
     }
     
 </style>

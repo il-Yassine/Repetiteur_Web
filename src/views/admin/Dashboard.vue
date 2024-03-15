@@ -1,11 +1,15 @@
 <template>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white mt-12 p-4">
-        <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif">Ma liste</h3><br>
+        <div v-if="loading" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+            <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            <p class="text-gray-900 ml-3">Chargement en cours...</p>
+          </div>
+        <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif text-start"></h3><br>
         <div class="flex items-center justify-between pb-4">
             <div class="relative">
                 <label class="relative inline-flex items-center me-5 cursor-pointer">
                     <input type="checkbox"  value="isDisponible" @change="test" class="sr-only peer" checked>
-                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                     <span class="ms-3 text-lg font-medium text-gray-900 dark:text-gray-300">{{ isDisponible }}</span>
                   </label>
             </div>
@@ -68,7 +72,7 @@
                         <!--  <a href="#" wire:click="edit({{ $commande }})" wire:loading.attr="disabled"
                               class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>-->
                           <a href="#" @click="openModal(apprenant.id)"  wire:loading.attr="disabled"
-                              class="font-medium text-blue-600 dark:text-red-500 hover:underline">Observation</a>
+                              class="font-medium text-blue-600 dark:text-red-500 hover:underline">Présence au poste</a>
                       </td>
                       <td v-else>
       
@@ -102,7 +106,7 @@
                     <!-- Modal header -->
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
-                        Observation
+                        Fiche de présence au poste
                         </h3>
                         <button @click="closeModal"  type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -115,11 +119,11 @@
                     <div class="p-4 md:p-5">
                         <form @submit.prevent="savePostes" class="space-y-4" action="#">
                             <div>
-                                <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Observation sur l'enfant</label>
+                                <label for="email" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Observation</label>
                                 <input type="text" name="email" v-model="content" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                             </div>
                             <div>
-                                <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"> Présence au postes</label>
+                                <label for="email" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white"> Présence au postes</label>
                                 <input type="date" name="email" v-model="poste" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                             </div>
                             <div>
@@ -147,7 +151,7 @@
                     <!-- Modal header -->
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
-                       Informations Complementaires
+                       Informations Concernant les classes et matières
                         </h3>
                         <button @click="closeSecondModal"  type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -161,7 +165,7 @@
                         <form @submit.prevent="saveMatiereClasse" class="space-y-4" action="#">
                            
                             <div class="col-span-2 sm:col-span-1">
-                                     <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Matiere</label>
+                                     <label for="email" class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Matiere</label>
                                 <select  id="category" v-model="matiere_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option selected="">votre matiere</option>
                                     <option v-for="(matier,index) in this.matiere" :key="index" :value="matier.id" >{{ matier.name }} </option>
@@ -169,7 +173,7 @@
                                 </select>
                             </div>
                             <div class="col-span-2 sm:col-span-1">
-                                <label for="email" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Classe</label>
+                                <label for="email" class="block text-start text-start mb-2 text-xl font-medium text-gray-900 dark:text-white">Classe</label>
                            <select v-model="classe_id"  id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                <option selected="">Votre classe</option>
                                <option v-for="(classes,index) in this.classe" :key="index" :value="classes.id" >{{ classes.name }} </option>
@@ -198,7 +202,7 @@
       name: "dashboard",
       data() {
         return {
-
+            loading: true,
             isModalOpen: false,
             isModalSecondOpen: false,
             role_id:'',
@@ -268,7 +272,7 @@
       //console.log(config);
 
       // Requête pour récupérer le profil
-      const profileResponse  = await axios.get('http://127.0.0.1:8000/api/profile', config);
+      const profileResponse  = await axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile', config);
         //console.log(profileResponse);
       // Stocker les données du profil dans le composant ou Vuex
       this.role_id = profileResponse.data.role_id;
@@ -276,7 +280,7 @@
       //console.log(this.role_id);
       //console.log(this.user_id);
 
-    axios.get('http://127.0.0.1:8000/api/repetiteurs').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs').then(res=>{
                 this.repetiteurs = res.data.data.filter(repetiteur => repetiteur.user.id === this.user_id)
                   
                 //console.log(this.repetiteurs)
@@ -289,11 +293,14 @@
             this.getEnfants();
   },
        async getEnfants(studentId){
+        setTimeout(() => {
+        this.loading = false; // Set loading to false when data is fetched
+      }, 7000);
             const repetiteur_id = localStorage.getItem('repetiteur_id');
            // console.log(repetiteur_id);
            // console.log(studentId)
            // console.log(this.repetiteurs_id);
-           await axios.get('http://127.0.0.1:8000/api/demandes').then(res=>{
+           await axios.get('https://apirepetiteur.sevenservicesplus.com/api/demandes').then(res=>{
                 this.enfants=res.data.data.filter(enfant => enfant.repetiteur.id === this.repetiteurs_id);
                 //console.log(this.enfants)
                
@@ -302,14 +309,14 @@
         },
         getMatiere(){
            
-            axios.get('http://127.0.0.1:8000/api/matieres').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/matieres').then(res=>{
                 this.matiere=res.data.data
                 //console.log(this.matiere)
                 //console.log(res)
             });
         },
         getClasse(){
-            axios.get('http://127.0.0.1:8000/api/classes').then(res=>{
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/classes').then(res=>{
                 this.classe=res.data.data
                 //console.log(this.classe)
                 //console.log(res)
@@ -336,7 +343,7 @@ const token = localStorage.getItem('token');
            };
            //console.log(config);
 //console.log(dataToSend);
-            axios.post( 'http://127.0.0.1:8000/api/repetiteurmcs',dataToSend,config ).then(res =>{
+            axios.post( 'https://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs',dataToSend,config ).then(res =>{
 
                 //console.log(res.data)
                // alert(res.data.message);
@@ -392,7 +399,7 @@ const token = localStorage.getItem('token');
 //console.log(dataToSend);
 //console.log(this.repetiteurs_id);
 
-      axios.put('http://127.0.0.1:8000/api/repetiteurs/'+this.repetiteurs_id,dataToSend,config)
+      axios.put('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs/'+this.repetiteurs_id,dataToSend,config)
 .then(response => {
   // La mise à jour a réussi, vous pouvez traiter la réponse ici
   //console.log(response.data);
@@ -429,7 +436,7 @@ const token = localStorage.getItem('token');
            };
            //console.log(config);
 //console.log(dataToSend);
-            axios.post( 'http://127.0.0.1:8000/api/postes',dataToSend,config ).then(res =>{
+            axios.post( 'https://apirepetiteur.sevenservicesplus.com/api/postes',dataToSend,config ).then(res =>{
 
                 //console.log(res.data)
                // alert(res.data.message);

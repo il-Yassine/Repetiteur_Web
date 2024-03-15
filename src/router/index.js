@@ -19,8 +19,10 @@ import Repetiteur from '@/views/admin/repetiteur/View.vue';
 import Profil from '@/views/admin/repetiteur/Profile.vue';
 import Payements from '@/views/admin/payement/View.vue';
 import Messages from '@/views/admin/message/Messages.vue';
-import Message from '@/views/admin/message/Message.vue';
 import RepetiteurCreate from '@/views/admin/repetiteur/Create.vue';
+import Message from '@/views/admin/message/Message.vue';
+import Reponses from '@/views/admin/Reponse/Reponses.vue';
+import Reponse from '@/views/admin/Reponse/Reponse.vue';
 import Epreuves from '@/views/admin/Epreuves/Create.vue';
 import Epreuve from '@/views/admin/Epreuves/View.vue';
 import Demande from '@/views/admin/Dashboard/View.vue';
@@ -94,6 +96,12 @@ const router = createRouter({
   { path: 'messages',name: 'messages',component: Messages 
 },
 { path: 'message',name: 'message',component: Message 
+},
+
+{ path: 'reponses',name: 'reponses',component: Reponses 
+},
+
+{ path: 'reponse',name: 'reponse',component: Reponse 
 },
         { path: 'demande',name: 'demande',component: Demande 
       },

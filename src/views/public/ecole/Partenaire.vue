@@ -54,7 +54,7 @@
 
   methods:{
     getEcole(){
-      axios.get('http://127.0.0.1:8000/api/ecoles',)
+      axios.get('https://apirepetiteur.sevenservicesplus.com/api/ecoles',)
    .then(response => {
      this.ecole = response.data.data;
     // console.log( this.ecole);

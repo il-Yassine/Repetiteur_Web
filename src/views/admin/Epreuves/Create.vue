@@ -1,7 +1,11 @@
 <template>
     <div class="container mx-auto mt-12 px-5 ">
+      <div v-if="loading" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+        <p class="text-gray-900 ml-3">Chargement en cours...</p>
+      </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
-            <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif">Bibliothèque</h3>
+            <h3 class="text-3xl font-medium text-gray-900 dark:text-white font-serif text-start">Bibliothèque des épreuves et corrigés</h3>
             <div class="flex items-center justify-between pb-4">
                 <div class="relative">
                 </div>
@@ -72,7 +76,7 @@
     name: "epreuve",
     data() {
       return {
-          
+          loading:true,
           name:'',
           parentss_id:'',
           role_id:'',
@@ -94,10 +98,16 @@
     mounted(){
     
     
-    this.getEpreuve();
+    
     this.getparents();
       this.$nextTick(() => {
-     this.getDemande()
+     this.getDemande();
+     this.getEpreuve();
+   });
+   this.getDemande();
+   this.$nextTick(() => {
+    
+     this.getEpreuve();
    });
    
   },
@@ -114,7 +124,7 @@ headers: {
 //console.log(config);
 
 // Requête pour récupérer le profil
-const profileResponse  =await axios.get('http://127.0.0.1:8000/api/profile', config);
+const profileResponse  =await axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile', config);
 //console.log(profileResponse);
 // Stocker les données du profil dans le composant ou Vuex
 this.role_id = profileResponse.data.role_id;
@@ -122,7 +132,7 @@ this.user_id = profileResponse.data.id;
 //console.log(this.role_id);
 //console.log(this.user_id);
 
-axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
+axios.get('https://apirepetiteur.sevenservicesplus.com/api/parents').then(res=>{
     this.parents = res.data.data.filter(parent => parent.user.id === this.user_id)
       
     //console.log(this.parents)
@@ -133,34 +143,41 @@ axios.get('http://127.0.0.1:8000/api/parents').then(res=>{
 this.getDemande();
 },
 getDemande(){
-            axios.get('http://127.0.0.1:8000/api/demandes').then(res=>{
+  setTimeout(() => {
+        this.loading = false; // Set loading to false when data is fetched
+      }, 5000);
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/demandes').then(res=>{
                 this.demande=res.data.data.filter(payemet => payemet.enfants.parents.id === this.parentss_id)
-                //console.log(this.demande)
+                console.log(this.demande)
                 this.classe=this.demande.map(item => item.tarification.classe.id)
-                //console.log( this.classe)
-                //console.log(res)
+                console.log( this.classe)
+                console.log(res)
             });
-            this.getEpreuve();    
+            this.getEpreuve();
         },
-     
+
       getEpreuve(){
-          axios.get('http://127.0.0.1:8000/api/epreuves').then(res=>{
+        setTimeout(() => {
+        this.loading = false; // Set loading to false when data is fetched
+      }, 3000);
+          axios.get('https://apirepetiteur.sevenservicesplus.com/api/epreuves').then(res=>{
               this.epreuves=res.data.data
               //console.log(this.epreuves)
               //console.log(this.classe)
               //console.log(res)
               if (this.classe && this.epreuves) {
-  
-this.classe=this.demande.map(item => item.tarification.classe.id)
+
+//this.classe=this.demande.map(item => item.tarification.classe.id)
   this.repetFiltered = this.epreuves.filter(repeteItem => {
-  // Utilisation de some pour vérifier si l'ID de repetiteur existe dans this.rep
-  return this.demande.some(repItem => repItem.tarification.classe.id === repeteItem.classe.id);
   
+  return this.demande.some(repItem => repItem.tarification.classe.id === repeteItem.classe.id);
+
 });
-this.epreuve=this.repetFiltered 
+this.epreuve=this.repetFiltered
+//this.epreuve=this.epreuves
 
   //console.log(this.epreuve);
- // console.log(this.repetFiltered);
+  //console.log(this.repetFiltered);
  } else {
    console.error('La propriété rep est undefined.');
  }

@@ -8,9 +8,12 @@
 <br>
 <br>
   <div class="bg-white max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6 border border-gray-300 ">
+
+    <div class="flex justify-center mb-3"> <img :src="product.data.profil_imageUrl" alt="" 
+      class="object-cover w-1/4 lg:h-full rounded "></div>
     <!-- Votre contenu actuel ici -->
     <!-- ... -->
-    <div class=" max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6 ">
+    <!-- <div class=" max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6 ">
       <div class="flex flex-wrap -mx-4">
           <div class="w-full px-4 md:w-1/4  ">
               <div class="sticky top-0 z-50 overflow-hidden ">
@@ -30,9 +33,9 @@
         
           <div class="w-full px-4 md:w-1/2 ">
               <div class="lg:pl-20">
-                  <div class="mb-8 ">
+                  <div class="mb-8 "> -->
                        <!-- <span class="text-lg font-medium text-black-500 dark:text-rose-200">Informations </span>  -->
-                     
+<!--                      
                       <p class=" text-3xl text-gray-700 dark:text-gray-400">
                           {{ product.data.user.name}} </p>
                         
@@ -42,14 +45,14 @@
                           <span> {{ product.data.adresse }}</span>
                          
                       </p>
-                      <p class="text-xl font-medium text-black-500 dark:text-rose-200"> Classe: </p>
+                      <p class="text-xl font-medium text-black-500 dark:text-rose-200"> Classe: </p> -->
 
                       
                         <!-- Afficher le nom de la classe pour chaque produit -->
-                        <p class="text-gray-600 dark:text-gray-300 text-xl"> {{ products.map(product => product.classe.name).join(', ') }}</p>
+                        <!-- <p class="text-gray-600 dark:text-gray-300 text-xl"> {{ products.map(product => product.classe.name).join(', ') }}</p> -->
                      
                        <!-- <p class="text-gray-600 dark:text-gray-300 text-xl ">{{ products[0].classe.name }}</p> -->
-                      <p class="text-xl font-medium text-black-500 dark:text-rose-200"> Heure de Disponibilité: </p>
+                      <!-- <p class="text-xl font-medium text-black-500 dark:text-rose-200"> Heure de Disponibilité: </p>
                       <p class="text-gray-600 dark:text-green-300 text-xl">{{ product.data.heureDisponibilite }}</p>
                      
                       <p class="text-xl font-medium text-black-500 dark:text-rose-200"> matières: </p>
@@ -61,24 +64,16 @@
                       <p class="text-gray-600 dark:text-green-300 text-xl">{{ product.data.status }}</p>
                      
                       <br>
-                        <!-- Intégration des étoiles -->
-        <div class="star-rating">
-          <span v-for="i in maxRating" :key="i" class="star" @click="setRating(i)">
-            <i :class="['fas', { 'text-yellow-500': userRating >= i, 'text-gray-300': userRating < i }, 'fa-star']" class="fa"></i>
-          </span>
-        </div>
-                      <br>
-                     
-                     <a href="#" @click="redirect" class="text-white bg-green-600 hover:bg-green-400 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-orange-500 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button">  Faire la demande de répétiteur</a>
+
                   </div>
 
               </div>
           </div>
           <div class="w-full px-4 md:w-1/4  ">
             <div class="sticky top-0 z-50 overflow-hidden ">
-                <div class="relative mb-6 lg:mb-10 lg:h-2/4  rounded-lg">
+                <div class="relative mb-6 lg:mb-10 lg:h-2/4  rounded-lg"> -->
                   <!-- <span class="text-lg font-medium text-black-500 dark:text-rose-200">Autres informations </span> -->
-                  <br>
+                  <!-- <br>
                   <p class="text-xl font-medium text-black-500 dark:text-rose-200"> Situation matrimoniale: </p>
                   <p class="text-gray-600 dark:text-green-300 text-xl">{{ product.data.situationMatrimoniale }}</p>
                   <p class="text-xl font-medium text-black-500 dark:text-rose-200"> Ecole de provenence: </p>
@@ -100,7 +95,216 @@
             </div>
         </div>
       </div>
-  </div>
+  </div> -->
+  <div class=" mx-10">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xl text-gray-700 uppercase bg-gray-100">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-center " colspan="2">
+                    Informations Personnels
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white text-lg border-b ">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Nom Complet
+                </th>
+                <td class="px-6 py-4">
+                  {{ product.data.user.name}}
+                </td>
+                
+            </tr>
+            <tr class="bg-white text-lg border-b ">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  Commune
+              </th>
+              <td class="px-6 py-4">
+                {{ product.data.commune.name}}
+              </td>
+              
+          </tr>
+          <tr class="bg-white text-lg border-b ">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Détail adresse
+            </th>
+            <td class="px-6 py-4">
+              {{ product.data.adresse}}
+            </td>
+            
+        </tr>
+        <tr class="bg-white text-lg border-b ">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              Situation Familiale
+          </th>
+          <td class="px-6 py-4">
+            {{ product.data.situationMatrimoniale }}
+          </td>
+
+        
+          
+      </tr>
+    </tbody>
+    </table>
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xl text-gray-700 uppercase bg-gray-100 ">
+          <tr>
+              <th scope="col" class="px-6 py-3 text-center " colspan="2">
+                  Informations Générals
+              </th>
+              
+          </tr>
+      </thead>
+      
+      <tr class="bg-white text-lg border-b ">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            Matricule
+        </th>
+        <td class="px-6 py-4">
+          {{ product.data.matricule }}
+        </td>
+        
+    </tr>
+    <tr class="bg-white text-lg border-b ">
+      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Classe
+      </th>
+      <td class="px-6 py-4">
+        {{ products.map(product => product.classe.name).join(', ') }}
+      </td>
+      
+  </tr>
+  <tr class="bg-white text-lg border-b ">
+    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        Matiere
+    </th>
+    <td class="px-6 py-4">
+      {{ products.map(product => product.matiere.name).join(', ') }}
+    </td>
+    
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      Heure de disponibilités
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.heureDisponibilite }}
+  </td>
+  
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      Statut
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.status }}
+  </td>
+  
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      Description
+  </th>
+  <td class="px-6 py-4">
+    {{  product.data.description }}
+  </td>
+  
+</tr>
+</table>
+<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+  <thead class="text-xl text-gray-700 uppercase bg-gray-100 ">
+    <tr>
+        <th scope="col" class="px-6 py-3 text-center" colspan="2" >
+            Autres informations
+        </th>
+        
+    </tr>
+</thead>
+
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    Ecole de provenence
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.ecole }}
+  </td>
+  
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    Cycle
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.cycle}}
+  </td>
+  
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    Grade
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.grade }}
+  </td>
+  
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    Niveau d'etude
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.niveauEtude }}
+  </td>
+  
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    Status de l'enseignent
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.etats }}
+  </td>
+  
+</tr><tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    Evaluer par digitalis
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.evaluation }}
+  </td>
+  
+</tr>
+<tr class="bg-white text-lg border-b ">
+  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    Expérience professionnel
+  </th>
+  <td class="px-6 py-4">
+    {{ product.data.experience }}
+  </td>
+  
+</tr>
+       
+    </table>
+
+    <div class="mt-5">
+                              <!-- Intégration des étoiles -->
+                              <div class="star-rating">
+                                <span v-for="i in maxRating" :key="i" class="star" @click="setRating(i)">
+                                  <i :class="['fas', { 'text-yellow-500': userRating >= i, 'text-gray-300': userRating < i }, 'fa-star']" class="fa"></i>
+                                </span>
+                              </div>
+                                            <br>
+                                           
+                                           <a href="#" @click="redirect" class="text-white bg-green-600 hover:bg-green-400 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-orange-500 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button">  Faire la demande de répétiteur</a>
+    </div>
+</div>
+</div>
+<div class="">
+
+
+  
+
 </div>
 <br>
 <br>
@@ -191,7 +395,7 @@ export default {
     getProductDetails(productId) {
         console.log(productId)
         this.proId=productId
-            axios.get('http://127.0.0.1:8000/api/repetiteurs/'+productId)
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurs/'+productId)
             .then(res=>{
                 //console.log(res.data);
                 this.product= res.data;
@@ -202,7 +406,7 @@ export default {
                     }
                 }
             });
-            axios.get('http://127.0.0.1:8000/api/repetiteurmcs')
+            axios.get('https://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs')
             .then(res=>{
                // console.log(res.data);
                 this.products= res.data.data.filter(repetiteur => repetiteur.repetiteur.id === productId);
@@ -233,7 +437,7 @@ export default {
       //console.log(config);
 
       const profileResponse = await axios.get(
-        "http://127.0.0.1:8000/api/profile",
+        "https://apirepetiteur.sevenservicesplus.com/api/profile",
         config
       );
      // console.log(profileResponse);
@@ -243,7 +447,7 @@ export default {
       // console.log(this.role_id);
       // console.log(this.user_id);
 
-      axios.get("http://127.0.0.1:8000/api/parents").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/parents").then((res) => {
         this.parents = res.data.data.filter(
           (parent) => parent.user.id === this.user_id
         );
@@ -253,7 +457,7 @@ export default {
         // console.log(this.parentss_id);
       });
 
-      axios.get("http://127.0.0.1:8000/api/evaluations").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/evaluations").then((res) => {
         this.evaluations = res.data.data.filter(parent =>parent.user.id == this.user_id
         );
 
@@ -299,7 +503,7 @@ export default {
                       user_id: this.user_id,
                     };
                     try {
-          const Response = await axios.post('http://127.0.0.1:8000/api/evaluations', userData, config);
+          const Response = await axios.post('https://apirepetiteur.sevenservicesplus.com/api/evaluations', userData, config);
          // console.log('evaluation Response:', Response);
           if (Response.status === 201) {
             alert('Le compte de ce  répétiteur à été bien évaluation');

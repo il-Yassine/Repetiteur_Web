@@ -3,8 +3,8 @@
     <div class="">
         <br>
         <div class="container w-full mx-auto my-auto " >
-            <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-4 mb-8 font-serif">Veuillez nous laisser un message</h3>
-            <div class="w-full max px-4 bg-neutral border border-gray-200 rounded-lg shadow sm:p-12 md:p-12 dark:bg-gray-800 dark:border-gray-700">
+            <h3 class="text-3xl font-medium text-gray-900 dark:text-white text-center mt-2 mb-4 font-serif text-start">Veuillez nous laisser un message</h3>
+            <div class="w-full max px-4 bg-neutral border border-gray-200 rounded-lg shadow sm:p-6 md:p-6 dark:bg-gray-800 dark:border-gray-700">
                 
                 <form class="space-y-6" action="POST" @submit.prevent="saveDemande" enctype="multipart/form-data">
                     <ul class="bg-green-300 border-t border-border-blue-500 text-blue-700 px-4 py-3" role="alert" v-if="Object.keys(this.errorList).length > 0">
@@ -17,34 +17,34 @@
                   
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="flex-1">
-                            <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Votre nom Complet<span class="text-red-500">*</span></label>
+                            <label for="phone" class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Votre nom Complet<span class="text-red-500">*</span></label>
                                 <input type="text"  v-model="name" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                             </div>
 
                             <div class="flex-1">
-                                <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Votre Téléphone<span class="text-red-500">*</span></label>
+                                <label for="phone" class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Votre Téléphone<span class="text-red-500">*</span></label>
                                     <input type="text"  v-model="phone" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                                 </div>
     
                     </div>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div class="flex-1">
-                            <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Objet</label>
+                            <label for="phone" class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Objet</label>
                                 <input type="text"  v-model="objet" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" >
                             </div>
 
                             <div class="flex-1">
-                                <label for="phone" class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Votre email<span class="text-red-500">*</span></label>
+                                <label for="phone" class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white">Votre email<span class="text-red-500">*</span></label>
                                     <input type="email"  v-model="email" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                                 </div>
     
                     </div>
                     <div class="flex space-x-4">
                         <div class="flex-1">
-                            <label for="message" class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">Message<span class="text-red-500">*</span></label>
+                            <label for="message" class="block text-start mb-1 text-2xl font-medium text-gray-900 dark:text-white">Message<span class="text-red-500">*</span></label>
 
                             
-                            <textarea id="message" v-model="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required></textarea>
+                            <textarea id="message" v-model="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 " placeholder="" required></textarea>
 
                         </div>
                        
@@ -55,14 +55,15 @@
                    
 
                     <div class="flex justify-end">
-                        <button type="submit" class=" my-3 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Envoyer</button>
+                        <button type="submit" class=" my-1 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center">Envoyer</button>
                     </div>
 
 
                 </form>
             </div>
         </div>
-        <br><br><br>
+        <br>
+       
     
     </div>
    
@@ -80,6 +81,7 @@ export default {
             user_id:'',
 
             matiere:[],
+            messagees:[],
             prixe:[],
             matiere_id:'',
             repetiteur_id:'',
@@ -95,6 +97,10 @@ export default {
     mounted(){
         this.getUsers();
         this.getAdmin();
+        
+        this.$nextTick(() => {
+            this.getMessage();
+    });
     },
     methods:{
         getUsers (){
@@ -107,7 +113,7 @@ export default {
       }
             };
            // console.log(config);
-     axios.get('http://127.0.0.1:8000/api/profile',config)
+     axios.get('https://apirepetiteur.sevenservicesplus.com/api/profile',config)
     .then(response => {
       this.user_id = response.data.id;
       this.name=response.data.name
@@ -125,10 +131,10 @@ export default {
       }
     });
    
-  
+    this.getMessage();
         },
         getAdmin(){
-    axios.get('http://127.0.0.1:8000/api/users').then(res=>{
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/users').then(res=>{
                 this.admin = res.data.data.filter(result =>
                    result.name === 'Supper Admin'
 
@@ -139,6 +145,16 @@ export default {
                 // console.log(this.admin)
                 // console.log(this.admin_id)
                 // console.log(res)
+            });
+},
+getMessage(){
+    axios.get('https://apirepetiteur.sevenservicesplus.com/api/messages').then(res=>{
+                this.messagees = res.data.data.filter(result =>
+                   result.user.id === this.user_id
+
+                    );
+                    console.log(this.user_id);
+                    console.log( this.messagees);
             });
 },
     
@@ -165,7 +181,7 @@ const token = localStorage.getItem('token');
            };
            //console.log(config);
 //console.log(dataToSend);
-            axios.post( 'http://127.0.0.1:8000/api/messages',dataToSend,config ).then(res =>{
+            axios.post( 'https://apirepetiteur.sevenservicesplus.com/api/messages',dataToSend,config ).then(res =>{
 
                 //console.log(res.data)
                // alert(res.data.message);
@@ -180,7 +196,7 @@ const token = localStorage.getItem('token');
                     };
                    // console.log(userData);
                     try {
-          const Response = axios.post('http://127.0.0.1:8000/api/notifications', userData, config);
+          const Response = axios.post('https://apirepetiteur.sevenservicesplus.com/api/notifications', userData, config);
           console.log('notification Response:', Response.data);
           if (Response.status === 201) {
            // alert('Votre Compte répétiteur est mi en evaluation');

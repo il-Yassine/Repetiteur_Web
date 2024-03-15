@@ -2,6 +2,10 @@
   <div>
     <div class="flex">
       <div class="container mx-auto mt-12 px-5">
+        <div v-if="loading" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+          <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
+          <p class="text-gray-900 ml-3">Chargement en cours...</p>
+        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <div class="flex justify-end items-center">
             <span class="text-lg">{{ Numbere }}</span>
@@ -12,7 +16,7 @@
               title="Nouvelle notification de paiement"
               @click="updateNotifications"
             >
-              <svg
+              <!-- <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -25,14 +29,15 @@
                   stroke-linejoin="round"
                   d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
-              </svg>
+              </svg> -->
+              Message
             </a>
           </div>
           <div class="flex items-center">
             <h3
               class="text-3xl font-medium text-gray-900 dark:text-white font-serif px-2"
             >
-              Mes demandes
+              Mes demandes de répétiteurs
             </h3>
           </div>
 
@@ -242,7 +247,7 @@
                       <div class="flex-1">
                         <label
                           for="email"
-                          class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-1 text-xl font-medium text-gray-900 dark:text-white"
                           >Objet</label
                         >
                         <input
@@ -259,7 +264,7 @@
                     <div>
                       <label
                         for="email"
-                        class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"
+                        class="block text-start mb-2 text-xl font-medium text-gray-900 dark:text-white"
                         >Votre Observation</label
                       >
 
@@ -332,13 +337,13 @@
                           <td class="px-6 py-4 whitespace-nowrap">
                             {{ formatDate(enfan.created_at) }}
                           </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
+                          <td class="px-6 py-4 whitespace-normal overflow-hidden overflow-ellispsis max-w-xs">
                             {{ enfan.objet }}
                           </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
+                          <td class="px-6 py-4 whitespace-normal overflow-hidden overflow-ellispsis max-w-xs">
                             {{ enfan.appreciation_parents }}
                           </td>
-                          <td class="px-6 py-4 whitespace-nowrap">
+                          <td class="px-6 py-4 whitespace-normal overflow-hidden overflow-ellispsis max-w-xs">
                             {{ enfan.reponse_admin }}
                           </td>
                           <!-- ... Ajoutez d'autres cellules si nécessaire -->
@@ -416,7 +421,7 @@
                       <div class="flex-1">
                         <label
                           for="email"
-                          class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-1 text-xl font-medium text-gray-900 dark:text-white"
                           >Nom de l'enfant</label
                         >
                         <input
@@ -432,7 +437,7 @@
                       <div class="flex-1">
                         <label
                           for="email"
-                          class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-1 text-xl font-medium text-gray-900 dark:text-white"
                           >Prénoms de l'enfant</label
                         >
                         <input
@@ -449,7 +454,7 @@
                     <div>
                       <label
                         for="email"
-                        class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"
+                        class="block text-start mb-1 text-xl font-medium text-gray-900 dark:text-white"
                         >Sexe</label
                       >
                       <select
@@ -469,7 +474,7 @@
                       <div class="flex-1">
                         <label
                           for="email"
-                          class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-1 text-xl font-medium text-gray-900 dark:text-white"
                         >
                           Votre Téléphone</label
                         >
@@ -486,7 +491,7 @@
                       <div class="flex-1">
                         <label
                           for="email"
-                          class="block mb-1 text-xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-1 text-xl font-medium text-gray-900 dark:text-white"
                         >
                           Votre adresse</label
                         >
@@ -577,7 +582,7 @@
                       <div class="flex-1">
                         <label
                           for="countries"
-                          class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-2 text-2xl font-medium text-gray-900 dark:text-white"
                           >Information concernant l'enfant</label
                         >
                         <select
@@ -598,7 +603,7 @@
                       <div class="flex-1">
                         <label
                           for="countries"
-                          class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-2 text-2xl font-medium text-gray-900 dark:text-white"
                           >Classe</label
                         >
                         <select
@@ -624,7 +629,7 @@
                       <div class="flex-1">
                         <label
                           for="countries"
-                          class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-2 text-2xl font-medium text-gray-900 dark:text-white"
                           >Matière</label
                         >
                         <select
@@ -647,7 +652,7 @@
                       <div class="flex-1">
                         <label
                           for="phone"
-                          class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
                           >Rémumération</label
                         >
                         <div class="flex items-center space-x-2">
@@ -668,7 +673,7 @@
                       <div class="flex-1">
                         <label
                           for="phone"
-                          class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
                           >Matricule du répétiteur</label
                         >
                         <input
@@ -707,7 +712,7 @@
                       <div class="flex-1">
                         <label
                           for="phone"
-                          class="block mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
+                          class="block text-start mb-2 px-3 text-2xl font-medium text-gray-900 dark:text-white"
                           >Informations Complementaires</label
                         >
                         <input
@@ -756,6 +761,7 @@ export default {
 
   data() {
     return {
+      loading: true ,
       isModalOpen: false,
       isModalSecondOpen: false,
       ThirdModal: false,
@@ -969,6 +975,9 @@ export default {
     //   this.getPrix();
     // },
     async getparents() {
+      setTimeout(() => {
+        this.loading = false; // Set loading to false when data is fetched
+      }, 9000);
   try {
     const token = localStorage.getItem("token");
     const config = {
@@ -977,34 +986,34 @@ export default {
       },
     };
 
-    const profileResponse = await axios.get("http://127.0.0.1:8000/api/profile", config);
+    const profileResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/profile", config);
     this.role_id = profileResponse.data.role_id;
     this.user_id = profileResponse.data.id;
 
-    const parentsResponse = await axios.get("http://127.0.0.1:8000/api/parents");
+    const parentsResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/parents");
     this.parents = parentsResponse.data.data.filter((parent) => parent.user.id === this.user_id);
     this.parentss_id = this.parents[0].id;
 
-    const notificationsResponse = await axios.get("http://127.0.0.1:8000/api/notifications?user_id=" + this.user_id);
+    const notificationsResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/notifications?user_id=" + this.user_id);
     this.notifications = notificationsResponse.data.data.filter((notificat) => notificat.status == "Non lu");
     this.Numbere = this.notifications.length;
     this.notif_id = this.notifications.map(notification => notification.id);
 
-    const enfantsResponse = await axios.get("http://127.0.0.1:8000/api/enfants");
+    const enfantsResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/enfants");
     this.enfantse = enfantsResponse.data.data.filter((result) => result.parents.id === this.parentss_id);
 
-    const posteResponse = await axios.get("http://127.0.0.1:8000/api/postes");
+    const posteResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/postes");
     this.poste = posteResponse.data.data.filter((deman) => deman.parents && deman.parents.id === this.parentss_id);
-    console.log(posteResponse);
-    console.log(this.parentss_id);
+   // console.log(posteResponse);
+   // console.log(this.parentss_id);
 
-    const classesResponse = await axios.get("http://127.0.0.1:8000/api/classes");
+    const classesResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/classes");
     this.classes = classesResponse.data.data;
 
-    const demandesResponse = await axios.get("http://127.0.0.1:8000/api/demandes");
+    const demandesResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/demandes");
     this.demande = demandesResponse.data.data.filter((demand) => demand.enfants.parents.id === this.parentss_id);
 
-    const matieresResponse = await axios.get("http://127.0.0.1:8000/api/matieres");
+    const matieresResponse = await axios.get("https://apirepetiteur.sevenservicesplus.com/api/matieres");
     this.matiere = matieresResponse.data.data;
 
     this.getPrix();
@@ -1015,7 +1024,7 @@ export default {
 
 
     getEnfants() {
-      axios.get("http://127.0.0.1:8000/api/enfants").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/enfants").then((res) => {
         this.enfantse = res.data.data.filter(
           (result) => result.parents.id === this.parentss_id
         );
@@ -1023,7 +1032,8 @@ export default {
       });
     },
     getDemande() {
-      axios.get("http://127.0.0.1:8000/api/demandes").then((res) => {
+      
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/demandes").then((res) => {
         this.demande = res.data.data.filter(
           (demand) => demand.enfants.parents.id === this.parentss_id
         );
@@ -1032,16 +1042,16 @@ export default {
      this.getpostes();
 
       axios
-        .get("http://127.0.0.1:8000/api/postes")
+        .get("https://apirepetiteur.sevenservicesplus.com/api/postes")
         .then((res) => {
         console.log(res);
           if (res.data && res.data.data) {
             this.poste = res.data.data.filter(
               (postee) => postee.parents && postee.parents.id === this.parentss_id
             );
-             console.log(res);
-             console.log(res.data);
-             console.log(this.poste);
+            // console.log(res);
+            // console.log(res.data);
+            // console.log(this.poste);
              
           } else {
             console.error("Données non valides dans la réponse.");
@@ -1055,17 +1065,17 @@ export default {
     },
     getpostes(){
       axios
-        .get("http://127.0.0.1:8000/api/postes")
+        .get("https://apirepetiteur.sevenservicesplus.com/api/postes")
         .then((res) => {
-        console.log(res);
+       // console.log(res);
           if (res.data && res.data.data) {
             this.poste = res.data.data.filter(
               (deman) => deman.parents && deman.parents.id === this.parentss_id
             );
-             console.log(this.poste);
-             console.log(this.parentss_id);
-             console.log(res);
-             console.log(res.data);
+            // console.log(this.poste);
+            // console.log(this.parentss_id);
+            // console.log(res);
+            // console.log(res.data);
           } else {
             console.error("Données non valides dans la réponse.");
           }
@@ -1092,7 +1102,7 @@ export default {
       };
       //console.log(dataToSend);
       axios
-        .post("http://127.0.0.1:8000/api/enfants", dataToSend, config)
+        .post("https://apirepetiteur.sevenservicesplus.com/api/enfants", dataToSend, config)
         .then((response) => {
           // Gérer la réponse de la requête POST
           // console.log(response)
@@ -1135,15 +1145,15 @@ export default {
       // console.log(config);
       //console.log(dataToSend);
       axios
-        .post("http://127.0.0.1:8000/api/postes", dataToSend, config)
+        .post("https://apirepetiteur.sevenservicesplus.com/api/postes", dataToSend, config)
         .then((res) => {
           // console.log(res.data)
           // alert(res.data.message);
           if (res.status == 201) {
             mythis.errorList = "Appréciation enregister avec succès";
             alert("Appréciation enregister avec succès");
-            // this.$router.push('/admin/demande')
-            // this.closeModal();
+             this.$router.push('/admin/demande')
+             this.closeModal();
           } else {
             alert("Une erreur s'est produite");
           }
@@ -1170,7 +1180,7 @@ export default {
     //     });
     // },
     getClasses() {
-      axios.get("http://127.0.0.1:8000/api/classes").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/classes").then((res) => {
         this.classes = res.data.data;
         // console.log(this.classe)
       });
@@ -1178,7 +1188,7 @@ export default {
     },
 
     getMatiere() {
-      axios.get("http://127.0.0.1:8000/api/matieres").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/matieres").then((res) => {
         this.matiere = res.data.data;
         // console.log(this.matiere)
       });
@@ -1186,7 +1196,7 @@ export default {
     },
     getPrix() {
       const token = localStorage.getItem("token");
-      axios.get("http://127.0.0.1:8000/api/tarifications").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/tarifications").then((res) => {
         this.prixe = res.data.data.filter(
           (result) =>
             result.matiere.id === this.matiere_id &&
@@ -1214,7 +1224,7 @@ export default {
       // console.log(this.classe_id);
       // console.log(this.matricule);
 
-      axios.get("http://127.0.0.1:8000/api/repetiteurmcs").then((res) => {
+      axios.get("https://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs").then((res) => {
         this.repetiteurs = res.data.data.filter(
           (result) =>
             result.matiere.id === this.matiere_id &&
@@ -1252,7 +1262,7 @@ export default {
       console.log(this.user_id);
       // Utilisez Axios pour effectuer la requête API
       axios
-        .get(`http://127.0.0.1:8000/api/notifications?user_id=${this.user_id}`)
+        .get(`https://apirepetiteur.sevenservicesplus.com/api/notifications?user_id=${this.user_id}`)
         .then((response) => {
           // Mettez à jour les données du composant avec la réponse de l'API
           this.notifications = response.data;
@@ -1273,7 +1283,7 @@ export default {
       // console.log(config);
      // console.log(this.notif_id);
       const newStatus = "Lu";  // Remplacez 'nouveauStatut' par le statut souhaité.
-const apiUrl = 'http://127.0.0.1:8000/api/notifications';  // Remplacez par l'URL correcte de votre API.
+const apiUrl = 'https://apirepetiteur.sevenservicesplus.com/api/notifications';  // Remplacez par l'URL correcte de votre API.
 
 // Utilisez une boucle pour envoyer une requête pour chaque ID.
 this.notif_id.forEach(id => {
@@ -1320,7 +1330,7 @@ this.notif_id.forEach(id => {
       //console.log(dataToSend);
       axios
         .put(
-          "http://127.0.0.1:8000/api/demandes/" + this.demande_id,
+          "https://apirepetiteur.sevenservicesplus.com/api/demandes/" + this.demande_id,
           dataToSend,
           config
         )
